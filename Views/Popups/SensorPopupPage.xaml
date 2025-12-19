@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:rg="http://rotorgames.com"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:loc="clr-namespace:GrayWolf.Localization"
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain" 
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    x:Class="GrayWolf.Views.Popups.SensorPopupPage"
+    x:DataType="vm:SensorPopupViewModel"
+    x:Name="this">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ItemStackStyle" TargetType="StackLayout">
+                <Setter Property="Padding" Value="12, 4"/>
+                <Setter Property="Spacing" Value="0"/>
+                <Setter Property="VerticalOptions" Value="Start"/>
+            </Style>
+
+            <Style x:Key="ItemHintLabelStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+
+            <Style x:Key="ItemValueLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium"/>
+            </Style>
+
+            <Style x:Key="CollectionItemStyle" TargetType="Label">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{OnPlatform Default=#ADD8e6, WinUI=Transparent}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="CheckBoxStackStyle" TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="Padding" Value="12, 4"/>
+            </Style>
+
+            <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+                <Setter Property="Margin" Value="0"/>
+            </Style>
+
+            <Style x:Key="CheckBoxLabelStyle" TargetType="Label">
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+
+            <ControlTemplate
+                x:Key="TipsOnlyTemplate">
+                <Grid
+                    BindingContext="{TemplateBinding BindingContext}"
+                    x:DataType="vm:SensorPopupViewModel">
+                    <Button
+                        Text="{x:Static loc:Localization.SensorPopup_Tips}"
+                        Command="{Binding TipsCommand}"
+                        WidthRequest="150"
+                        HorizontalOptions="Center"
+                        Opacity="{Binding IsNetworkAvailable, Converter={StaticResource IsEnabledToOpacityConverter}}"
+                        BackgroundColor="{StaticResource AppBlueColor}"
+                        Style="{StaticResource ButtonStyle}"/>
+                </Grid>
+            </ControlTemplate>
+
+            <ControlTemplate
+                x:Key="TipsAndVOCTemplate">
+                <Grid
+                    BindingContext="{TemplateBinding BindingContext}"
+                    x:DataType="vm:SensorPopupViewModel"
+                    ColumnDefinitions="*, *"
+                    Margin="12, 0">
+                    <Button
+                        Grid.Column="0"
+                        Text="{x:Static loc:Localization.SensorPopup_Tips}"
+                        Command="{Binding TipsCommand}"
+                        Opacity="{Binding IsNetworkAvailable, Converter={StaticResource IsEnabledToOpacityConverter}}"
+                        BackgroundColor="{StaticResource AppBlueColor}"
+                        Style="{StaticResource ButtonStyle}"/>
+
+                    <Button
+                        Grid.Column="1"
+                        Text="{x:Static loc:Localization.SensorPopup_VOC}"
+                        Command="{Binding VOCCommand}"
+                        Opacity="{Binding IsNetworkAvailable, Converter={StaticResource IsEnabledToOpacityConverter}}"
+                        BackgroundColor="{StaticResource AppGreenColor}"
+                        Style="{StaticResource ButtonStyle}"/>
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid
+            RowDefinitions="auto, auto, auto, *, auto, auto, auto"
+            BackgroundColor="{StaticResource AppLightGrayColor}"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand">
+            <controls:PopupHeader
+                Grid.Row="0"
+                Title="{x:Static loc:Localization.SensorPopup_Title}"
+                CloseCommand="{Binding BacksCommand}"/>
+
+            <StackLayout
+                Grid.Row="1"
+                Style="{StaticResource ItemStackStyle}">
+                <Label
+                    Text="{x:Static loc:Localization.SensorPopup_SerialNum}"
+                    Style="{StaticResource ItemHintLabelStyle}"/>
+                <Label
+                    Text="{Binding Reading.SensorIdentifier}"
+                    Style="{StaticResource ItemValueLabelStyle}"/>
+            </StackLayout>
+            <StackLayout
+                Grid.Row="2"
+                Style="{StaticResource ItemStackStyle}">
+                <Label
+                    Text="{x:Static loc:Localization.SensorPopup_Unit}"
+                    Style="{StaticResource ItemHintLabelStyle}"/>
+                <Label
+                    Text="{Binding Reading.Name}"
+                    Style="{StaticResource ItemValueLabelStyle}"/>
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="3"
+                Style="{StaticResource ItemStackStyle}">
+                <Label
+                    Text="{x:Static loc:Localization.SensorPopup_Units}"
+                    Style="{StaticResource ItemHintLabelStyle}"/>
+
+
+                <Frame
+                    Padding="5,5,5,10"
+                    BackgroundColor="White"
+                    BorderColor="Gray"
+                    CornerRadius="5"
+                    HasShadow="False"
+                    HorizontalOptions="FillAndExpand"
+                    IsEnabled="{Binding IsUnitActive}" 
+                    IsClippedToBounds="True">
+                    <CollectionView
+                        x:Name="UnitCollectionView"
+                        SelectionMode="Single"
+                         SelectedItem="{Binding SelectedUnit, Mode=TwoWay}"
+                        ItemsSource="{Binding Units}"
+                        VerticalOptions="FillAndExpand">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate
+                                x:DataType="domain:SensorUnit">
+                                <Label
+                                    Text="{Binding Name}"
+                                    Padding="12, 8"
+                                    Style="{StaticResource CollectionItemStyle}"                                    
+                                    >
+                                    <Label.BackgroundColor>
+                                        <MultiBinding Converter="{StaticResource IsEqualToResultMultiConverter}">
+                                            <Binding Path="."/>
+                                            <Binding Path="BindingContext.SelectedUnit" Source="{x:Reference this}"/>
+                                            <Binding Path="SelectedLabelColor" Source="{x:Reference this}"/>
+                                            <Binding Path="DefaultLabelColor" Source="{x:Reference this}"/>
+                                        </MultiBinding>
+                                    </Label.BackgroundColor>
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectUnitCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Frame>
+            </StackLayout>
+
+            <StackLayout
+                Grid.Row="4"
+                Style="{StaticResource CheckBoxStackStyle}">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding IsLoggedCommand}"/>
+                </StackLayout.GestureRecognizers>
+                <CheckBox
+                    IsChecked="{Binding Reading.IsLogged}"
+                    Style="{StaticResource CheckBoxStyle}"/>
+                <Label
+                    Text="{x:Static loc:Localization.SensorPopup_IsLogged}"
+                    Style="{StaticResource CheckBoxLabelStyle}"/>
+            </StackLayout>
+
+            <ContentView
+                Grid.Row="5"
+                ControlTemplate="{StaticResource TipsOnlyTemplate}">
+                <ContentView.Triggers>
+                    <DataTrigger
+                        TargetType="ContentView"
+                        Binding="{Binding IsVOCButtonVisible}"
+                        Value="True">
+                        <Setter Property="ControlTemplate" Value="{StaticResource TipsAndVOCTemplate}"/>
+                    </DataTrigger>
+                </ContentView.Triggers>
+            </ContentView>
+
+            <Button
+                Grid.Row="6"
+                VerticalOptions="Start"
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="150"
+                Text="{x:Static loc:Localization.Button_Confirm}"
+                Command="{Binding ConfirmCommand}"
+                BackgroundColor="{StaticResource DarkBlue}"
+                Margin="0, 8"
+                Style="{StaticResource ButtonStyle}"/>
+        </Grid>
+    </Grid>
+</controls:BasePopupPage>

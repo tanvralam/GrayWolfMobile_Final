@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="GrayWolf.App"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:converters="clr-namespace:GrayWolf.Converters"
+    xmlns:iOS="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    mc:Ignorable="d">
+    <Application.Resources>
+        <!--  Application resource dictionary  -->
+        <ResourceDictionary>
+            <!--#region Colors -->
+            <Color x:Key="AppBlueColor">#68A3E9</Color>
+            <Color x:Key="AppGrayColor">#BFBFBF</Color>
+            <Color x:Key="AppDarkGrayColor">#303030</Color>
+            <Color x:Key="AppLightGrayColor">#C0C0C0</Color>
+            <Color x:Key="AppWhiteColor">#FFFFFF</Color>
+            <Color x:Key="AppGreenColor">#087e10</Color>
+
+            <Color x:Key="BatteryColorOk">#000000</Color>
+            <Color x:Key="BatteryColorLow">#808080</Color>
+            <Color x:Key="BatteryColorCritical">#FF0000</Color>
+            <Color x:Key="BatteryColorDefault">#000000</Color>
+            <Color x:Key="FileSelectedColor">#ADD8e6</Color>
+            <Color x:Key="FileItemColor">#FFFFFF</Color>
+            
+            <Color x:Key="NavigationPrimary">#303030</Color>
+            <Color x:Key="Blue">#175DA4</Color>
+            <Color x:Key="DarkBlue">#114376</Color>
+            <Color x:Key="MediumBlue">#155493</Color>
+            <Color x:Key="MediumGray">#303030</Color>
+            <Color x:Key="LightGray">#DDDDDD</Color>
+            <!--#endregion-->
+
+            <!--#region converters -->
+            <toolkit:InvertedBoolConverter x:Key="InvertBooleanConverter"/>
+            <converters:CapitalizeStringConverter x:Key="CapitalizeStringConverter"/>
+            <converters:EqualsToConverter x:Key="EqualsToConverter"/>
+            <converters:ImageSourceConverter x:Key="ImageSourceConverter"/>
+            <converters:IsEnabledToOpacityConverter x:Key="IsEnabledToOpacityConverter"/>
+            <converters:ProbeStatusToTextColorConverter x:Key="ProbeStatusToTextColorConverter"/>
+            <converters:BatteryStatusToImageSourceConverter x:Key="BatteryStatusToImageSourceConverter"/>
+            <converters:GraphTimeOptionToTextConverter x:Key="GraphTimeOptionToTextConverter"/>
+            <converters:IsEqualToResultMultiConverter x:Key="IsEqualToResultMultiConverter"/>
+            <converters:ZipProtectionModeToStringConverter x:Key="ZipProtectionModeToStringConverter"/>
+            <!--#endregion-->
+
+            <!--#region Global styles -->
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+            <Style TargetType="Page">
+                <Setter Property="BackgroundColor" Value="{StaticResource NavigationPrimary}"/>
+            </Style>
+
+            <OnPlatform
+                x:Key="PopupPadding"
+                x:TypeArguments="Thickness">
+                <On
+                    Platform="Android"
+                    Value="20" />
+                <On
+                    Platform="iOS"
+                    Value="20" />
+                <On
+                    Platform="UWP"
+                    Value="100" />
+            </OnPlatform>
+
+            <OnPlatform
+                x:Key="SmallPopupPadding"
+                x:TypeArguments="Thickness">
+                <On
+                    Platform="Android"
+                    Value="10" />
+                <On
+                    Platform="iOS"
+                    Value="10" />
+                <On
+                    Platform="UWP"
+                    Value="50" />
+            </OnPlatform>
+
+            <Style x:Key="PopupTitleBackgroundStyle" TargetType="Grid">
+                
+            </Style>
+
+            <Style x:Key="PopupTitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            </Style>
+
+            <Style x:Key="PopupHeaderIconStyle" TargetType="Image">
+                <Setter Property="HeightRequest" Value="30"/>
+                <Setter Property="WidthRequest" Value="30"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+
+            <Style x:Key="PopupCloseIconStyle" TargetType="Image" BasedOn="{StaticResource PopupHeaderIconStyle}">
+                <Setter Property="Source" Value="ic_close_popup_white"/>
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Padding" Value="12"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource AppBlueColor}"/>
+            </Style>
+
+            <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+                <Setter Property="iOS:Page.UseSafeArea" Value="True"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource AppGrayColor}"/>
+            </Style>
+            <!--#endregion-->
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

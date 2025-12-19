@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popups:BaseLogsPopup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:popups="clr-namespace:GrayWolf.Views.Popups;assembly=GrayWolf"
+    Padding="{StaticResource PopupPadding}"
+    xmlns:xForms="clr-namespace:Syncfusion.Maui.ImageEditor;assembly=Syncfusion.Maui.ImageEditor"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels" 
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    x:Class="GrayWolf.Views.Popups.DrawingNotePopup"
+    x:DataType="vm:ImageNotePopupViewModel">
+    <Grid>
+
+        <Grid  BackgroundColor="{StaticResource AppGrayColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <controls:PopupHeader
+                Title="{Binding Title}"
+                CloseCommand="{Binding CancelCommand}"/>
+
+            <xForms:SfImageEditor
+                Grid.Row="1"
+                Source="{Binding Image}" x:Name="imgEditor"
+                ImageSaved="imgEditor_ImageSaved"
+                ImageSaving="imgEditor_ImageSaving">
+                <xForms:SfImageEditor.ToolbarSettings ToolbarItemSelected="ToolbarSettings_ToolbarItemSelected" >
+                    <xForms:ImageEditorToolbarSettings      />
+                </xForms:SfImageEditor.ToolbarSettings>
+            </xForms:SfImageEditor>
+        </Grid>
+    </Grid>
+</popups:BaseLogsPopup>

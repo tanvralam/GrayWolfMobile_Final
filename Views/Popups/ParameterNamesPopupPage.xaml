@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:res="clr-namespace:GrayWolf.Localization"
+    x:Class="GrayWolf.Views.Popups.ParameterNamesPopupPage"
+    x:DataType="vm:ParameterNamesViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <StackLayout
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand"
+            Margin="16"
+            WidthRequest="400"
+            BackgroundColor="{StaticResource AppGrayColor}">
+            <controls:PopupHeader
+                Title="{x:Static res:Localization.Menu_ParameterNames}"
+                CloseCommand="{Binding BacksCommand}"/>
+            <controls:PopupOptionsView
+                ItemsSource="{Binding Options}"/>
+
+            <Button
+                Text="{x:Static res:Localization.Button_Confirm}"
+                Command="{Binding ConfirmCommand}"
+                Margin="12, 0, 12, 12"
+                Style="{StaticResource ButtonStyle}"/>
+        </StackLayout>
+    </Grid>
+</controls:BasePopupPage>

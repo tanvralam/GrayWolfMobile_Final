@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GrayWolf.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:GrayWolf.CustomControls"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:enums="clr-namespace:GrayWolf.Enums;assembly=GrayWolf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels;assembly=GrayWolf"
+    xmlns:localization="clr-namespace:GrayWolf.Localization" 
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    xmlns:converters="clr-namespace:GrayWolf.Converters"
+    Title="Live"
+    x:DataType="vm:HomePageViewModel"
+    mc:Ignorable="d">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            IconImageSource="{converters:ImageSource ic_graph}"
+            Text="{x:Static localization:Localization.Menu_Graph}"
+            Order="Primary"
+            Command="{Binding GraphCommand}"/>
+        <ToolbarItem
+            IconImageSource="{converters:ImageSource ic_data_grid_toolbar}"
+            Text="{x:Static localization:Localization.Menu_Data}"
+            Order="Primary"
+            Command="{Binding SelectFileForDataGridCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="DisabledIconsOpacity">0.2</x:Double>
+
+            <Style x:Key="IconContainerStyle" TargetType="Grid">
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            </Style>
+
+            <Style x:Key="IconStyle" TargetType="Image">
+                <Setter Property="Margin" Value="0, 3, 0, 0"/>
+                <Setter Property="HeightRequest" Value="38"/>
+                <Setter Property="WidthRequest" Value="38"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+            
+            <ControlTemplate 
+                x:Key="EmptyTemplate">
+                <Grid
+                    BindingContext="{TemplateBinding BindingContext}"
+                    x:DataType="vm:HomePageViewModel">
+                    <Label
+                        Padding="12"
+                        FontSize="Large"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        Text="{x:Static localization:Localization.HomePage_EmptyListMessage}"
+                        TextColor="Black">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding SelectDevicesCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </ControlTemplate>
+
+            <ControlTemplate 
+                x:Key="LoadingTemplate">
+                <Grid>
+                    <ActivityIndicator
+                        IsRunning="True"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+                </Grid>
+            </ControlTemplate>
+
+            <ControlTemplate   x:Key="LoadingTemplatee">
+                <Grid>
+                    <Label Text="TESTTESTTEST"></Label>
+                </Grid>
+            </ControlTemplate>
+
+            <ControlTemplate 
+                x:Key="ProbesTemplate">
+                <ScrollView
+                    BindingContext="{TemplateBinding BindingContext}"
+                    x:DataType="vm:HomePageViewModel"
+                    HorizontalOptions="FillAndExpand"
+                    IsClippedToBounds="True"
+                    VerticalOptions="FillAndExpand">
+                    <StackLayout
+                        BindableLayout.ItemsSource="{Binding ProbeList}"
+                        Padding="15">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="domain:GrayWolfDevice">
+                                <control:HomePageProbeView
+                                    Probe="{Binding}"
+                                    SensorClickCommand="{Binding BindingContext.SensorClickCommand, Source={x:Reference root}}"
+                                    ProbeTappedCommand="{Binding BindingContext.ProbeTappedCommand, Source={x:Reference root}}" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <!--  Main Grid  -->
+        <Grid
+            x:Name="root"
+            BackgroundColor="{StaticResource AppBlueColor}"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand"
+            RowDefinitions="*, 2, auto, 50">
+            <Image
+                Grid.Row="0"
+                Aspect="Fill"
+                HorizontalOptions="FillAndExpand"
+                Source="popupBackground.png"
+                VerticalOptions="FillAndExpand" />
+
+            <ContentView
+                Grid.Row="0">
+                <ContentView.Triggers>
+                    <DataTrigger
+                        TargetType="ContentView"
+                        Binding="{Binding Status}"
+                        Value="{x:Static enums:HomePageStatus.Empty}">
+                        <Setter Property="ControlTemplate" Value="{StaticResource EmptyTemplate}"/>
+                    </DataTrigger>
+
+                    <DataTrigger
+                        TargetType="ContentView"
+                        Binding="{Binding Status}"
+                        Value="{x:Static enums:HomePageStatus.Loading}">
+                        <Setter Property="ControlTemplate" Value="{StaticResource LoadingTemplate}"/>
+                    </DataTrigger>
+
+                    <DataTrigger
+                        TargetType="ContentView"
+                        Binding="{Binding Status}"
+                        Value="{x:Static enums:HomePageStatus.DevicesListLoaded}">
+                        <Setter Property="ControlTemplate" Value="{StaticResource ProbesTemplate}"/>
+                    </DataTrigger>
+                </ContentView.Triggers>
+            </ContentView>
+
+            <!--  Seperator  -->
+            <Grid
+                Grid.Row="1"
+                BackgroundColor="Black"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand" />
+
+            <Grid
+                Grid.Row="2"
+                ColumnDefinitions="*, 50"
+                VerticalOptions="Start"
+                Padding="0, 4"
+                ColumnSpacing="0"
+                BackgroundColor="{StaticResource AppLightGrayColor}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding LocationCommand}"/>
+                </Grid.GestureRecognizers>
+                <Label
+                    Grid.Column="0"
+                    Text="{Binding CurrentLogName}"
+                    TextColor="{Binding LogNameColor}"
+                    FontSize="Medium"
+                    Margin="12, 0"
+                    VerticalTextAlignment="Center"/>
+
+                <Image
+                    Grid.Column="1"
+                    Opacity="{Binding CanSelectLogger, Converter={StaticResource IsEnabledToOpacityConverter}}"
+                    Source="{converters:ImageSource ic_folder}"
+                    Style="{StaticResource IconStyle}"/>
+            </Grid>
+            <!--  Footer  -->
+            <Grid
+                Grid.Row="3"
+                Padding="15,0,0,0"
+                BackgroundColor="{StaticResource AppLightGrayColor}"
+                ColumnSpacing="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                ColumnDefinitions="*, 50, 50, 50, 50, 50, 50, 50, 50">
+                <Grid
+                    Grid.Column="1"
+                    Opacity="{Binding CanStartLog, Converter={StaticResource IsEnabledToOpacityConverter}}"
+                    Style="{StaticResource IconContainerStyle}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding SnapshotCommand}"/>
+                    </Grid.GestureRecognizers>
+
+                    <Image
+                        Source="{converters:ImageSource ic_snap}"
+                        Style="{StaticResource IconStyle}"/>
+                </Grid>
+                <Grid
+                    Grid.Column="2"
+                    Opacity="{Binding LogButtonEnabled, Converter={StaticResource IsEnabledToOpacityConverter}}"
+                    Style="{StaticResource IconContainerStyle}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LogCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image
+                        Source="{Binding LogButtonSource}"
+                        Style="{StaticResource IconStyle}"/>
+                </Grid>
+                <Grid
+                    Grid.Column="3"
+                    Style="{StaticResource IconContainerStyle}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CameraCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image
+                        Source="camera.png"
+                        Opacity="{Binding AreGalleryAttachmentsEnabled, Converter={StaticResource IsEnabledToOpacityConverter}, ConverterParameter={StaticResource DisabledIconsOpacity}}"
+                        Style="{StaticResource IconStyle}"/>
+                </Grid>
+                <Grid
+                    Grid.Column="4"
+                    Style="{StaticResource IconContainerStyle}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RecordSoundCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image
+                        Source="microphone.png"
+                        Opacity="{Binding IsLocationSelected, Converter={StaticResource IsEnabledToOpacityConverter}, ConverterParameter={StaticResource DisabledIconsOpacity}}"
+                        Style="{StaticResource IconStyle}"/>
+                </Grid>
+                <Grid
+                    Grid.Column="5"
+                    Style="{StaticResource IconContainerStyle}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding VideoCommand}"/>
+                    </Grid.GestureRecognizers>
+                    <Image
+                        Source="{converters:ImageSource ic_video}"
+                        Opacity="{Binding AreGalleryAttachmentsEnabled, Converter={StaticResource IsEnabledToOpacityConverter}, ConverterParameter={StaticResource DisabledIconsOpacity}}"
+                        Style="{StaticResource IconStyle}"/>
+                </Grid>
+                <Grid
+                    Grid.Column="6"
+                    Style="{StaticResource IconContainerStyle}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding EventsCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image
+                        Source="events.png"
+                        Opacity="{Binding IsLogActive, Converter={StaticResource IsEnabledToOpacityConverter}, ConverterParameter={StaticResource DisabledIconsOpacity}}"
+                        Style="{StaticResource IconStyle}"/>
+                </Grid>
+                <Grid
+                    Grid.Column="7"
+                    Style="{StaticResource IconContainerStyle}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddNoteCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image
+                        Source="note.png"
+                        Opacity="{Binding IsLocationSelected, Converter={StaticResource IsEnabledToOpacityConverter}, ConverterParameter={StaticResource DisabledIconsOpacity}}"
+                        Style="{StaticResource IconStyle}"/>
+                </Grid>
+
+                <!--<Grid
+                    Grid.Column="8"
+                    Style="{StaticResource IconContainerStyle}">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenDrawingNoteCommand}" />
+                    </Grid.GestureRecognizers>
+                    <Image
+                        Source="picture.png"
+                        Opacity="{Binding IsLocationSelected, Converter={StaticResource IsEnabledToOpacityConverter}, ConverterParameter={StaticResource DisabledIconsOpacity}}"
+                        Style="{StaticResource IconStyle}"/>
+                </Grid>-->
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

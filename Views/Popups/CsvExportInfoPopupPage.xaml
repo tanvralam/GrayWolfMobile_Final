@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:res="clr-namespace:GrayWolf.Localization"
+    x:Class="GrayWolf.Views.Popups.CsvExportInfoPopupPage"
+    x:DataType="vm:CsvExportInfoPopupPageViewModel">
+    <Grid>
+        <StackLayout
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand"
+            WidthRequest="400"
+            Margin="30"
+            Spacing="0"
+            BackgroundColor="{StaticResource AppGrayColor}">
+            <controls:PopupHeader
+                Title="{x:Static res:Localization.DataSecurity_InfoTitle}"
+                CloseCommand="{Binding BacksCommand}"/>
+            <Label
+                Text="{x:Static res:Localization.DataSecurity_InfoText}"
+                LineBreakMode="WordWrap"
+                FontSize="16"
+                Padding="12"/>
+        </StackLayout>
+    </Grid>
+</controls:BasePopupPage>

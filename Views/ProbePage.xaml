@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<control:BaseContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:control="clr-namespace:GrayWolf.CustomControls"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels" 
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    xmlns:loc="clr-namespace:GrayWolf.Localization"
+    xmlns:converters="clr-namespace:GrayWolf.Converters"
+    mc:Ignorable="d"
+    x:Class="GrayWolf.Views.ProbePage"
+    BackgroundColor="{StaticResource AppBlueColor}"
+    Title="{x:Static loc:Localization.Probe_Title}"
+    x:DataType="vm:ProbePageViewModel"
+    x:Name="this">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ColumnPropertyTitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="16, 0, 0, 0"/>
+            </Style>
+
+            <Style x:Key="ColumnPropertyValueStyle" TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="End"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="Margin" Value="0, 0, 16, 0"/>
+            </Style>
+
+            <Style x:Key="TitleStyle" TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <!--Main Grid-->
+
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Probe.Data}">
+            <CollectionView.Header>
+                <Grid
+                    RowSpacing="12" 
+                    Padding="0,20,0,8"
+                    RowDefinitions="auto, auto, auto, auto, auto, auto"
+                    ColumnDefinitions="*, *">
+                    <Label 
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Text="{Binding Probe.DeviceDisplayName}"
+                        Style="{StaticResource TitleStyle}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="{x:Static loc:Localization.Probe_SerialNumber}"
+                        Style="{StaticResource ColumnPropertyTitleStyle}"/>
+                    <Label
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Text="{Binding Probe.DeviceSerialNum}"
+                        Style="{StaticResource ColumnPropertyValueStyle}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Text="{x:Static loc:Localization.Probe_ProbeStatus}"
+                        Style="{StaticResource ColumnPropertyTitleStyle}"/>
+                    <Label
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Text="{Binding Probe.Status}"
+                        Style="{StaticResource ColumnPropertyValueStyle}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Text="{x:Static loc:Localization.Probe_BatteryLevel}"
+                        Style="{StaticResource ColumnPropertyTitleStyle}"/>
+                    <Label
+                        Grid.Column="1"
+                        Grid.Row="3"
+                        Text="{Binding Probe.BatteryStatus}"
+                        Style="{StaticResource ColumnPropertyValueStyle}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        Text="{x:Static loc:Localization.Probe_UpTime}"
+                        Style="{StaticResource ColumnPropertyTitleStyle}"/>
+                    <Label
+                        Grid.Column="1"
+                        Grid.Row="4"
+                        IsVisible="{Binding Probe.IsOnline}"
+                        Style="{StaticResource ColumnPropertyValueStyle}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span
+                                        Text="{Binding Probe.Uptime}"/>
+                                    <Span
+                                        Text=" "/>
+                                    <Span
+                                        Text="seconds"/>
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Grid.Column="1"
+                        Grid.Row="4"
+                        IsVisible="{Binding Probe.IsOnline, Converter={StaticResource InvertBooleanConverter}}"
+                        Text="{x:Static loc:Localization.Probe_Offline}"
+                        Style="{StaticResource ColumnPropertyValueStyle}"/>
+                    <Label
+                        Grid.Row="5"
+                        Grid.ColumnSpan="2"
+                        IsVisible="{Binding AnySensors}"
+                        Text="{x:Static loc:Localization.Probe_Sensors}"
+                        Style="{StaticResource TitleStyle}"/>
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate
+                    x:DataType="domain:Reading">
+                    <StackLayout
+                        Orientation="Horizontal"
+                        Padding="16, 0, 12, 0">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={x:Reference this}, Path=BindingContext.SensorCommand}"
+                                CommandParameter="{Binding .}"/>
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            Padding="0, 6"
+                            VerticalTextAlignment="Center"
+                            FontSize="Medium">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span
+                                            Text="{Binding Name}"/>
+                                        <Span
+                                            Text=" (Serial # "/>
+                                        <Span
+                                            Text="{Binding SensorId}"/>
+                                        <Span
+                                            Text=")"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Image
+                            HeightRequest="30"
+                            HorizontalOptions="EndAndExpand"
+                            IsVisible="{Binding Source={x:Reference this}, Path=BindingContext.CanOpenSensorMenu}"
+                            Source="{converters:ImageSource ic_arrow_right_black}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ContentPage.Content>
+</control:BaseContentPage>

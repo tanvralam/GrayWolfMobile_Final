@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:res="clr-namespace:GrayWolf.Localization"
+    mc:Ignorable="d"
+    x:Class="GrayWolf.Views.Popups.ShowImagePopup"
+    x:DataType="vm:ShowImagePopupViewModel">
+    <Grid>
+        <!--Camera Image details-->
+        <Grid
+            HeightRequest="500"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="FillAndExpand"
+            Margin="15"
+            Padding="0,0,0,15"
+            BackgroundColor="{StaticResource AppGrayColor}"
+            RowDefinitions="auto, *"
+            RowSpacing="15">
+            <controls:PopupHeader
+                Grid.Row="0"
+                Title="{x:Static res:Localization.ShowImage_Title}"
+                CloseCommand="{Binding BacksCommand}"/>
+            <Image 
+                Grid.Row="1"
+                Source="{Binding ImageSource}"/>
+        </Grid>
+    </Grid>
+</controls:BasePopupPage>

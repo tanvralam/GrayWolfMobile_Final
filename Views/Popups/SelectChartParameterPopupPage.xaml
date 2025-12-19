@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage 
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:local="clr-namespace:GrayWolf.Localization"
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    BackgroundClickedCommand="{Binding BacksCommand}"
+    x:Class="GrayWolf.Views.Popups.SelectGraphParameterPopupPage"
+    x:DataType="vm:SelectChartParameterPopupViewModel"
+    x:Name="this">
+    <Grid>
+        <Grid
+            RowDefinitions="50, *, auto"
+            ColumnDefinitions="50, *, 50"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            WidthRequest="400"
+            HeightRequest="400"
+            Margin="60"
+            RowSpacing="8"
+            BackgroundColor="{StaticResource AppGrayColor}">
+            <BoxView
+                Grid.Row="0"
+                Grid.ColumnSpan="3"
+                BackgroundColor="{StaticResource AppDarkGrayColor}"/>
+
+            <Label 
+                Grid.Row="0"
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                Text="{x:Static local:Localization.Chart_SelectParameter}"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                VerticalOptions="FillAndExpand"
+                TextColor="White"/>
+
+            <Grid
+                Grid.Row="0"
+                Grid.Column="2">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BacksCommand}" />
+                </Grid.GestureRecognizers>
+                <Image
+                    HeightRequest="30"
+                    Source="cross.png"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="30" />
+            </Grid>
+            <Frame
+                Grid.Row="1"
+                Grid.ColumnSpan="3"
+                BackgroundColor="White"
+                Margin="5,0,5,0"
+                Padding="4"
+                BorderColor="Gray"
+                CornerRadius="5"
+                HasShadow="False"
+                VerticalOptions="FillAndExpand"
+                IsClippedToBounds="True">
+
+                <CollectionView
+                    ItemsSource="{Binding Parameters}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout
+                            Orientation="Vertical"
+                            ItemSpacing="0"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate
+                            x:DataType="domain:GraphParameter">
+                            <Label
+                                Text="{Binding DisplayName}"
+                                Padding="12, 6">
+                                <Label.BackgroundColor>
+                                    <MultiBinding Converter="{StaticResource IsEqualToResultMultiConverter}">
+                                        <Binding Path="."/>
+                                        <Binding Path="BindingContext.Parameter" Source="{x:Reference this}"/>
+                                        <Binding Path="SelectedLabelColor" Source="{x:Reference this}"/>
+                                        <Binding Path="DefaultLabelColor" Source="{x:Reference this}"/>
+                                    </MultiBinding>
+                                </Label.BackgroundColor>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+            <Button
+                Grid.Row="2"
+                Grid.ColumnSpan="3"
+                Text="{x:Static local:Localization.Button_Confirm}"
+                Margin="0, 0, 0, 8"
+                Command="{Binding ConfirmCommand}"
+                HorizontalOptions="Center"
+                Style="{StaticResource ButtonStyle}"/>
+            </Grid>
+    </Grid>
+</controls:BasePopupPage>

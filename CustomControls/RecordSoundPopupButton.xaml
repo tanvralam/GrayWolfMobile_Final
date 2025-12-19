@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="GrayWolf.CustomControls.RecordSoundPopupButton"
+    x:Name="Button">
+    <StackLayout.GestureRecognizers>
+        <TapGestureRecognizer
+            Command="{Binding Source={x:Reference Button}, Path=Command}"/>
+    </StackLayout.GestureRecognizers>
+    <Frame InputTransparent="True"
+        Padding="12, 4"
+        BackgroundColor="White">
+        <Image
+            HeightRequest="36"
+            WidthRequest="36"
+            VerticalOptions="Start"
+            HorizontalOptions="Start"
+            Aspect="AspectFit"
+            Source="{Binding Source={x:Reference Button}, Path=ImageSource}"/>
+    </Frame>
+
+    <Label
+        Text="{Binding Source={x:Reference Button}, Path=Text}"
+        HorizontalTextAlignment="Center"/>
+</StackLayout>

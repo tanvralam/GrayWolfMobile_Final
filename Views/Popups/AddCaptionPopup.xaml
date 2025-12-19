@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rg:PopupPage
+    xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+    x:Class="GrayWolf.Views.Popups.AddCaptionPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns:res="clr-namespace:GrayWolf.Localization"
+    mc:Ignorable="d"  >
+    <!--<ContentPage.Content>-->
+        <Grid
+            Grid.Row="0"
+            Margin="15"
+            HeightRequest="350"
+            BackgroundColor="{StaticResource AppGrayColor}"
+            Padding="0,0,0,10"
+            RowSpacing="5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand"
+            RowDefinitions="50, *, 50">
+            <!--  Header  -->
+            <controls:PopupHeader
+                Grid.Row="0"
+                Title="{x:Static res:Localization.AddCaption_Title}"
+                CloseCommand="{Binding BacksCommand}"/>
+
+            <Frame
+                Grid.Row="1"
+                Margin="10"
+                Padding="10"
+                BackgroundColor="White"
+                BorderColor="{StaticResource AppDarkGrayColor}"
+                CornerRadius="10"
+                HasShadow="False"
+                IsClippedToBounds="True">
+                <Editor
+                    x:Name="EDTCaption"
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Text"
+                    Placeholder="{x:Static res:Localization.AddCaption_EditorPlaceholder}"
+                    PlaceholderColor="LightGray"
+                    Text="{Binding Caption}"
+                    TextColor="Black"
+                    VerticalOptions="FillAndExpand" />
+            </Frame>
+            <StackLayout Grid.Row="2"
+                         Orientation="Horizontal">
+                <!--<Button VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand" CornerRadius="5" FontSize="20" FontAttributes="Bold" WidthRequest="100"
+                    Text="Delete" BackgroundColor="DarkRed" TextColor="White" Command="{ Binding DeleteNoteCommand }" IsVisible="{Binding IsDeleteVisible}">
+                </Button>-->
+                <!--  Note Log Button  -->
+                <Button
+                x:Name="BtnAddNoteLog"
+                BackgroundColor="Green"
+                Command="{Binding AddCaptionCommand}"
+                CornerRadius="5"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                Text="{x:Static res:Localization.Button_AddCaption}"
+                TextColor="White"
+                VerticalOptions="FillAndExpand"
+                WidthRequest="150" />
+            </StackLayout>
+        </Grid>
+    <!--</ContentPage.Content>-->
+</rg:PopupPage>

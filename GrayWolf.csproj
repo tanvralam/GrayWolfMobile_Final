@@ -1,0 +1,281 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
+
+		<!-- Note for MacCatalyst:
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+    <AndroidTargetSdkVersion>35</AndroidTargetSdkVersion>
+    <AndroidCompileSdkVersion>35</AndroidCompileSdkVersion>
+		<OutputType>Exe</OutputType>
+		<RootNamespace>GrayWolf</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>GrayWolf</ApplicationTitle>
+
+    <!-- Add this line -->
+		<!-- App Identifier -->
+		<ApplicationId>com.graywolfsensing.wolfsensemobile</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net9.0-android'">
+    <AndroidPackageFormat>apk</AndroidPackageFormat>  
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios'">
+
+    <CreatePackage>false</CreatePackage>
+
+    <RuntimeIdentifiers>ios-arm64;iossimulator-x64</RuntimeIdentifiers>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios'">
+    <CreatePackage>false</CreatePackage>
+    <CodesignKey>Apple Distribution: GrayWolf Sensing Solutions, LLC (3TLDR9YNYA)</CodesignKey>
+    <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
+    <CreatePackage>false</CreatePackage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
+    <CreatePackage>false</CreatePackage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
+    <AndroidUseAapt2>True</AndroidUseAapt2>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
+    <AndroidUseAapt2>True</AndroidUseAapt2>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+  </PropertyGroup>
+  
+	<ItemGroup>
+		<!-- App Icon -->
+		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />-->
+
+    <MauiIcon Include="Resources\AppIcon\appicon.png" Color="#FFFFFF" />
+
+    <!-- Splash Screen -->
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Helpers\LocalStorage.cs" />
+	  <Compile Remove="Platforms\Android\Dependencies\CloseAppService.cs" />
+	  <Compile Remove="Platforms\Android\Dependencies\SQLiteConn.cs" />
+	  <Compile Remove="Services\ReadWriteStoragePermissionsService.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\appicon.png" />
+	  <MauiImage Remove="Resources\Images\splash.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Splash\appicon.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiSplashScreen Include="Resources\Splash\appicon.png">
+	    <Color>#FFFFFF</Color>
+	  </MauiSplashScreen>
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="Acr.UserDialogs.Maui" Version="9.1.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.2" />
+		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="4.1.2" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Drastic.AudioRecorder" Version="1.0.2" />
+		<PackageReference Include="Geolocator.Plugin" Version="1.0.2" />
+		<PackageReference Include="Ionic.Zip" Version="1.9.1.8" />
+		<PackageReference Include="LocalizationResourceManager.Maui" Version="1.2.1" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.6" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.6" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Plugin.BLE" Version="3.1.0" />
+		<PackageReference Include="Plugin.Maui.Audio" Version="3.0.1" />
+		<PackageReference Include="Plugin.MediaManager" Version="1.2.2" />
+		<PackageReference Include="Rebex.Zip" Version="7.0.9147" />
+		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+		<PackageReference Include="RGPopup.Maui" Version="1.1.2" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+		<PackageReference Include="Syncfusion.Licensing" Version="28.1.39" />
+		<PackageReference Include="Syncfusion.Maui.Buttons" Version="28.1.39" />
+		<PackageReference Include="Syncfusion.Maui.ImageEditor" Version="28.1.39" />
+		<PackageReference Include="System.Reactive" Version="6.0.1" />
+		<PackageReference Include="System.Security.Permissions" Version="9.0.1" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.1" />
+		<PackageReference Include="Telerik.UI.for.Maui" Version="10.0.0" />
+		<PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
+		<PackageReference Include="Xam.Plugin.Media" Version="6.0.2" />
+		<PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Platforms\Android\Dependencies\PrepareRecording_Droid.cs">
+	    <ExcludeFromCurrentConfiguration>true</ExcludeFromCurrentConfiguration>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="CustomControls\HomePageProbeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ChartPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DataGridPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\AddCaptionPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\AddEventPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\AttachmentsSizeWarningPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\FirstDemoFormPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\GalleryAttachmentsSettingsPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\ImageGalleryPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\LocationShare.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\LogNotePopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\ParameterNamesPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\ProbeOptionsPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\RecordSoundPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\SelectAttachmentFilesPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\SelectChartParameterPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\SelectChartTimeOptionPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\SelectDevicesPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\SelectFilePopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\SelectSensorTipPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\SelectSetPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\SelectVOCItemPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\SensorPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\SensorStatusErrorPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\ShowImagePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\ShowVideoPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\StartLogPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Popups\VideoGalleryPopupPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ProbePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SensorTipsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\VOCListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+	  <PackageReference Include="Plugin.CurrentActivity">
+	    <Version>2.1.0.4</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Platforms\Android\Resources\xml\file_paths.xml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Resources\Splash\icon.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Resources\Splash\launcher_foreground.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Resources\Splash\splash.png" Color="#FFFFFF" BaseSize="128,128" />
+	</ItemGroup>
+
+</Project>

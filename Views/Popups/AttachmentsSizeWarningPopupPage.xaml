@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:res="clr-namespace:GrayWolf.Localization"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    x:Class="GrayWolf.Views.Popups.AttachmentsSizeWarningPopupPage"
+    x:DataType="vm:AttachmentsSizeWarningPopupViewModel">
+    <Grid>
+        <StackLayout
+            BackgroundColor="{StaticResource AppGrayColor}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="300"
+            Margin="16"
+            Spacing="8">
+            <controls:PopupHeader
+                Title="{x:Static res:Localization.AttachmentsSizeWarning_Title}"
+                CloseCommand="{Binding BacksCommand}"/>
+
+            <Label
+                Text="{x:Static res:Localization.AttachmentsSizeWarning_Message}"
+                FontSize="16"
+                Margin="12, 4"
+                HorizontalTextAlignment="Center"/>
+
+            <Button
+                Text="{x:Static res:Localization.Button_Ok}"
+                Command="{Binding ConfirmCommand}"
+                Margin="12, 8, 12, 12"
+                Style="{StaticResource ButtonStyle}"/>
+        </StackLayout>
+    </Grid>
+</controls:BasePopupPage>

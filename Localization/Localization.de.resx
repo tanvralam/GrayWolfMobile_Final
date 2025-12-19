@@ -1,0 +1,881 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="HomePage_EmptyListMessage" xml:space="preserve">
+    <value>Tippen Sie hier, um GrayWolf-Geräte auszuwählen.</value>
+  </data>
+	<data name="SelectDevices_Bluetooth" xml:space="preserve">
+    <value>Bluetooth-Geräte:</value>
+  </data>
+	<data name="SelectDevices_CloudTitle" xml:space="preserve">
+    <value>GrayWolfLive-Cloud:</value>
+  </data>
+	<data name="SelectDevices_Select" xml:space="preserve">
+    <value>Geräte auswählen:</value>
+  </data>
+	<data name="SelectDevices_Title" xml:space="preserve">
+    <value>Geräte auswählen</value>
+  </data>
+	<data name="SelectDevices_LogOut" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
+	<data name="SelectDevices_LoggedInAs" xml:space="preserve">
+    <value>Angemeldet als</value>
+  </data>
+	<data name="SelectDevices_NotLoggedIn" xml:space="preserve">
+    <value>Nicht angemeldet</value>
+  </data>
+	<data name="SelectDevices_LogIn" xml:space="preserve">
+    <value>Melden Sie sich bei GrayWolfLive an</value>
+  </data>
+	<data name="SelectDevices_Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+	<data name="SelectDevices_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+	<data name="SelectDevices_Cloud" xml:space="preserve">
+    <value>Cloud-Geräte:</value>
+  </data>
+	<data name="RecordSound_Title" xml:space="preserve">
+    <value>Sprachnotiz</value>
+  </data>
+	<data name="RecordSound_Play" xml:space="preserve">
+    <value>Starten</value>
+  </data>
+	<data name="RecordSound_Stop" xml:space="preserve">
+    <value>Stoppen</value>
+  </data>
+	<data name="RecordSound_Record" xml:space="preserve">
+    <value>Aufzeichnen</value>
+  </data>
+	<data name="RecordSound_AttachmentsDeleted" xml:space="preserve">
+    <value>Sprachnotiz erfolgreich gelöscht.</value>
+  </data>
+	<data name="RecordSound_AttachmentAdded" xml:space="preserve">
+    <value>Sprachnotiz gespeichert.</value>
+  </data>
+	<data name="StartLog_SelectDevicesMessage" xml:space="preserve">
+    <value>Bitte wählen Sie Geräte mit MESSWERTE/GERÄTE AUSWÄHLEN aus</value>
+  </data>
+	<data name="Alert" xml:space="preserve">
+    <value>Alarm</value>
+  </data>
+	<data name="SelectDevices_LogIsRunningMessage" xml:space="preserve">
+    <value>Änderungen sind nicht erlaubt, während der Logger läuft.</value>
+  </data>
+	<data name="DrawingNote_SelectLoggerMessage" xml:space="preserve">
+    <value>Es ist keine Standortprotokolldatei ausgewählt. Bitte wählen Sie eine Standortprotokolldatei aus, bevor Sie die Zeichennotiz erfassen.</value>
+  </data>
+	<data name="AddVideo_SelectLoggerMessage" xml:space="preserve">
+    <value>Es ist keine Standortprotokolldatei ausgewählt. Bitte wählen Sie einen Standort aus, bevor Sie ein Video anhängen.</value>
+  </data>
+	<data name="Menu_About" xml:space="preserve">
+    <value>Hilfe/Über</value>
+  </data>
+	<data name="About_Title" xml:space="preserve">
+    <value>Hilfe/Über</value>
+  </data>
+	<data name="About_Web" xml:space="preserve">
+    <value>Website</value>
+  </data>
+	<data name="About_Support" xml:space="preserve">
+    <value>E-Mail Support</value>
+  </data>
+	<data name="About_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+	<data name="SensorPopup_Title" xml:space="preserve">
+    <value>Sensor</value>
+  </data>
+	<data name="SensorPopup_SerialNum" xml:space="preserve">
+    <value>Seriennummer</value>
+  </data>
+	<data name="SensorPopup_Unit" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+	<data name="SensorPopup_Units" xml:space="preserve">
+    <value>Verfügbare Einheiten</value>
+  </data>
+	<data name="SensorPopup_Confirm" xml:space="preserve">
+    <value>Einheit ändern</value>
+  </data>
+	<data name="Log_StoragePermissionsMessage" xml:space="preserve">
+    <value>Zum Anhängen von Dokumenten sind Speicherberechtigungen erforderlich</value>
+  </data>
+	<data name="Log_RecordDeviceNotAvailable" xml:space="preserve">
+    <value>Mikrofon ist nicht verfügbar</value>
+  </data>
+	<data name="Menu_VideoHelp" xml:space="preserve">
+    <value>Video-Hilfe</value>
+  </data>
+	<data name="Menu_Live" xml:space="preserve">
+    <value>Live</value>
+  </data>
+	<data name="Menu_Log" xml:space="preserve">
+    <value>Protokoll</value>
+  </data>
+	<data name="Menu_StartLog" xml:space="preserve">
+    <value>Protokoll starten</value>
+  </data>
+	<data name="Menu_StopLog" xml:space="preserve">
+    <value>Protokoll stoppen</value>
+  </data>
+	<data name="Menu_Locations" xml:space="preserve">
+    <value>Standorte</value>
+  </data>
+	<data name="Menu_Notes" xml:space="preserve">
+    <value>Notizen</value>
+  </data>
+	<data name="Menu_Photo" xml:space="preserve">
+    <value>Foto</value>
+  </data>
+	<data name="Menu_Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+	<data name="Menu_Audio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+	<data name="Menu_Text" xml:space="preserve">
+    <value>Texthinweis</value>
+  </data>
+	<data name="Menu_Event" xml:space="preserve">
+    <value>Event</value>
+  </data>
+	<data name="Menu_Drawing" xml:space="preserve">
+    <value>Zeichnung</value>
+  </data>
+	<data name="Menu_Readings" xml:space="preserve">
+    <value>Lesungen</value>
+  </data>
+	<data name="Menu_SelectDevices" xml:space="preserve">
+    <value>Geräte auswählen</value>
+  </data>
+	<data name="StartLog_Snapshot" xml:space="preserve">
+    <value>Schnappschuss</value>
+  </data>
+	<data name="StartLog_TrendingLog" xml:space="preserve">
+    <value>Protokoll starten</value>
+  </data>
+	<data name="StartLog_SelectLocation" xml:space="preserve">
+    <value>Standortprotokolldatei auswählen:</value>
+  </data>
+	<data name="StartLog_EmptyLocationsMessage" xml:space="preserve">
+    <value>Tippen Sie auf die Schaltfläche Hinzufügen, um eine neue Standortprotokolldatei hinzuzufügen.</value>
+  </data>
+	<data name="StartLog_AddLocation" xml:space="preserve">
+    <value>Protokollspeicherortdatei hinzufügen</value>
+  </data>
+	<data name="StartLog_Interval" xml:space="preserve">
+    <value>Intervall:</value>
+  </data>
+	<data name="Log_SnapshotCreated_Format" xml:space="preserve">
+    <value>Schnappschuss-Protokoll aufgezeichnet auf "{0}"</value>
+  </data>
+	<data name="StartLog_SelectLocationMessage" xml:space="preserve">
+    <value>Bitte wählen Sie eine Standortprotokolldatei aus.</value>
+  </data>
+	<data name="AddEvent_LabelPlaceholder" xml:space="preserve">
+    <value>Ereignisnotiz hier eingeben... Ereignisnotizen sind Einträge mit Zeitstempel, die mit den protokollierten Daten gespeichert werden.</value>
+  </data>
+	<data name="AddEvent_Title" xml:space="preserve">
+    <value>Event</value>
+  </data>
+	<data name="AddEvent_SuccessMessage_Format" xml:space="preserve">
+    <value>Event erfolgreich zu "{0}" hinzugefügt.</value>
+    <comment>Leave any "{0}" as is...
+</comment>
+  </data>
+	<data name="Log_Events_NotRunningMessage" xml:space="preserve">
+    <value>Ereignisse können nur protokolliert werden, während der Logger läuft.</value>
+  </data>
+	<data name="Log_LocationAlreadyExist" xml:space="preserve">
+    <value>Eine Standortprotokolldatei mit diesem Namen existiert bereits!</value>
+  </data>
+	<data name="StartLog_Snahshot_LogIsAlreadyRunning" xml:space="preserve">
+    <value>Momentaufnahmen dürfen nicht gemacht werden, während Trend Log läuft.</value>
+  </data>
+	<data name="HomePage_SelectLocation" xml:space="preserve">
+    <value>&lt;TIPPEN, UM STANDORTPROTOKOLLDATEI AUSZUWÄHLEN&gt;</value>
+    <comment>Leave &lt; &gt; marks in place</comment>
+  </data>
+	<data name="HomePage_LocationFormat" xml:space="preserve">
+    <value>Standortprotokolldatei: {0}</value>
+  </data>
+	<data name="Log_FileNameTooLongFormat" xml:space="preserve">
+    <value>Der Name der Standortprotokolldatei sollte weniger als {0} Zeichen lang sein.</value>
+  </data>
+	<data name="Log_SelectionWhileLoggingMessage" xml:space="preserve">
+    <value>Sie können den Standort nicht ändern, während der Logger läuft</value>
+  </data>
+	<data name="SelectAttachmentFiles_Title" xml:space="preserve">
+    <value>Wählen Sie Fotos/Videos aus</value>
+  </data>
+	<data name="SelectAttachmentFiles_Files" xml:space="preserve">
+    <value>Dateien:</value>
+  </data>
+	<data name="SelectAttachmentFiles_Description" xml:space="preserve">
+    <value>Ihre Standortprotokolldatei enthält Fotos und Videos und ist möglicherweise zu groß, wenn Sie eine E-Mail versenden. Löschen Sie Bilder und Videos, um die Größe zu reduzieren.</value>
+  </data>
+	<data name="Probe_SerialNumber" xml:space="preserve">
+    <value>Seriennummer:</value>
+  </data>
+	<data name="Probe_ProbeStatus" xml:space="preserve">
+    <value>Sondenstatus:</value>
+  </data>
+	<data name="Probe_BatteryLevel" xml:space="preserve">
+    <value>Batterie Level:</value>
+  </data>
+	<data name="Probe_UpTime" xml:space="preserve">
+    <value>Einschaltzeit der Sonde:</value>
+  </data>
+	<data name="Probe_Sensors" xml:space="preserve">
+    <value>Sensoren</value>
+  </data>
+	<data name="Probe_Title" xml:space="preserve">
+    <value>Sondenstatus</value>
+  </data>
+	<data name="Chart_FifteenMinutes" xml:space="preserve">
+    <value>Fünfzehn Minuten</value>
+  </data>
+	<data name="Chart_OneHour" xml:space="preserve">
+    <value>Eine Stunde</value>
+  </data>
+	<data name="Chart_EightHours" xml:space="preserve">
+    <value>Acht Stunden</value>
+  </data>
+	<data name="Chart_Day" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+	<data name="Chart_Everything" xml:space="preserve">
+    <value>Alles</value>
+  </data>
+	<data name="Chart_SelectTimeOption" xml:space="preserve">
+    <value>Zeitoption auswählen</value>
+  </data>
+	<data name="Chart_TimeOption" xml:space="preserve">
+    <value>Zeitspanne:</value>
+  </data>
+	<data name="Chart_Parameter" xml:space="preserve">
+    <value>Parameter:</value>
+  </data>
+	<data name="Chart_SelectParameter" xml:space="preserve">
+    <value>Parameter auswählen</value>
+  </data>
+	<data name="Chart_NoDataToDisplay" xml:space="preserve">
+    <value>Es gibt keine anzuzeigenden Daten in {0}</value>
+  </data>
+	<data name="Chart_LiveGraph" xml:space="preserve">
+    <value>LIVE-GRAFIK VON {0}</value>
+  </data>
+	<data name="Chart_ReviewGraph" xml:space="preserve">
+    <value>ÜBERPRÜFE GRAFIK VON {0}</value>
+  </data>
+	<data name="Locations_Add" xml:space="preserve">
+    <value>Ort hinzufügen</value>
+  </data>
+	<data name="Locations_Title" xml:space="preserve">
+    <value>Standortprotokolldateien</value>
+  </data>
+	<data name="Locations_Locations" xml:space="preserve">
+    <value>Standortprotokolldateien:</value>
+  </data>
+	<data name="Locations_Hint" xml:space="preserve">
+    <value>Wählen Sie unten eine Datei aus oder erstellen Sie eine.</value>
+  </data>
+	<data name="Menu_Graph" xml:space="preserve">
+    <value>Grafik</value>
+  </data>
+	<data name="SensorPopup_DisplayedInUI" xml:space="preserve">
+    <value>Auf der Startseite anzeigen</value>
+  </data>
+	<data name="SensorPopup_IsLogged" xml:space="preserve">
+    <value>Ermöglichen</value>
+  </data>
+	<data name="Button_Confirm" xml:space="preserve">
+    <value>Bestätigen</value>
+  </data>
+	<data name="Password_NoEncryption" xml:space="preserve">
+    <value>Kein Passwort</value>
+  </data>
+	<data name="Password_DefaultPassword" xml:space="preserve">
+    <value>Standard-Passwort</value>
+  </data>
+	<data name="Password_CustomPassword" xml:space="preserve">
+    <value>Benutzerdefiniertes Passwort</value>
+  </data>
+	<data name="Password_Title" xml:space="preserve">
+    <value>Datensicherheit</value>
+  </data>
+	<data name="Menu_Encryption" xml:space="preserve">
+    <value>Sicherheit von Dateien</value>
+  </data>
+	<data name="Password_ValidationRulesMessage" xml:space="preserve">
+    <value>Das Passwort muss 8-30 Zeichen enthalten, davon 1 Kleinbuchstabe, 1 Großbuchstabe, 1 Ziffer und 1 Sonderzeichen und darf keine Leerzeichen enthalten</value>
+  </data>
+	<data name="Menu_Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+	<data name="DataSecurity_IncludeCSV" xml:space="preserve">
+    <value>CSV exportieren</value>
+  </data>
+	<data name="DataSecurity_InfoText" xml:space="preserve">
+    <value>Von WolfSense gesammelte Dateien können vor dem Exportieren/E-Mailen verschlüsselt werden. Um die Verschlüsselung zu deaktivieren, wählen Sie KEIN PASSWORT. Um die Verschlüsselung zu aktivieren, wählen Sie das Standardpasswort oder ein benutzerdefiniertes Passwort. Für ein benutzerdefiniertes Passwort müssen Sie es auch in WolfSense PC eingeben, um die Datei zu öffnen.Deaktivieren Sie „CSV exportieren“, wenn Sie nicht möchten, dass eine unverschlüsselte CSV-Datei generiert und mit Ihren Dateien gesendet wird.</value>
+  </data>
+	<data name="DataSecurity_InfoTitle" xml:space="preserve">
+    <value>Informationen</value>
+  </data>
+	<data name="DataSecurity_ConfirmPassword" xml:space="preserve">
+    <value>Bestätigen Sie das benutzerdefinierte Passwort</value>
+  </data>
+	<data name="DataSecurity_PasswordMissmatch" xml:space="preserve">
+    <value>Passwörter stimmen nicht überein!</value>
+  </data>
+	<data name="HomePage_UseInDemoMode" xml:space="preserve">
+    <value>IM DEMO-MODUS VERWENDEN</value>
+  </data>
+	<data name="Menu_EndDemo" xml:space="preserve">
+    <value>Demomodus beenden</value>
+  </data>
+	<data name="Menu_StartDemoIAQ" xml:space="preserve">
+    <value>IAQ-Demomodus starten</value>
+  </data>
+	<data name="SelectDevices_CannotOpenInDemo" xml:space="preserve">
+    <value>Im Demo-Modus sind keine Änderungen erlaubt.</value>
+  </data>
+	<data name="Menu_AlreadyInDemo" xml:space="preserve">
+    <value>Der Demo-Modus ist bereits gestartet</value>
+  </data>
+	<data name="Menu_AlreadyStoppedDemo" xml:space="preserve">
+    <value>Der Demo-Modus ist bereits gestoppt</value>
+  </data>
+	<data name="About_Instructions" xml:space="preserve">
+    <value>Anweisungen</value>
+  </data>
+	<data name="DemoForm_Description" xml:space="preserve">
+    <value>Vielen Dank für Ihr Interesse an WolfSense Mobile. Bitte geben Sie unten Ihre Informationen ein.</value>
+  </data>
+	<data name="DemoForm_Title" xml:space="preserve">
+    <value>Form</value>
+  </data>
+	<data name="DemoForm_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+	<data name="DemoForm_Email" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+	<data name="DemoForm_EmptyDataMessage" xml:space="preserve">
+    <value>Bitte geben Sie Ihren Namen und Ihre E-Mail-Adresse ein</value>
+  </data>
+	<data name="ShowImage_Title" xml:space="preserve">
+    <value>Kamerabild</value>
+  </data>
+	<data name="BatteryStatus_Title" xml:space="preserve">
+    <value>Batteriedetails</value>
+  </data>
+	<data name="Locations_DeleteConfirmationText" xml:space="preserve">
+    <value>Möchten Sie diese Standortprotokolldatei löschen?</value>
+  </data>
+	<data name="Locations_ClearConfirmationText" xml:space="preserve">
+    <value>Möchten Sie diese Standortprotokolldatei bereinigen?</value>
+  </data>
+	<data name="Button_No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+	<data name="Button_Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+	<data name="Locations_AreYouSure" xml:space="preserve">
+    <value>Sind Sie sicher?</value>
+  </data>
+	<data name="Chart_SelectLocationMessage" xml:space="preserve">
+    <value>Es ist keine Standortprotokolldatei ausgewählt</value>
+  </data>
+	<data name="Menu_ParameterNames" xml:space="preserve">
+    <value>Parameternamen</value>
+  </data>
+	<data name="ParameterNames_UseShort" xml:space="preserve">
+    <value>Verwenden Sie kurze Parameternamen</value>
+  </data>
+	<data name="ParameterNames_UseLong" xml:space="preserve">
+    <value>Verwenden Sie lange Parameternamen</value>
+  </data>
+	<data name="DataGrid_CurrentSet" xml:space="preserve">
+    <value>Aktueller Satz:</value>
+  </data>
+	<data name="DataGrid_Title" xml:space="preserve">
+    <value>Datenansicht</value>
+  </data>
+	<data name="SelectSet_Title" xml:space="preserve">
+    <value>Satz auswählen</value>
+  </data>
+	<data name="Menu_Data" xml:space="preserve">
+    <value>Daten</value>
+  </data>
+	<data name="SelectFileForDataGrid_Title" xml:space="preserve">
+    <value>Standortprotokolldatei auswählen</value>
+  </data>
+	<data name="SelectFileForDataGrid_NoItemsMessage" xml:space="preserve">
+    <value>Keine anzuzeigenden Standortprotokolldateien.</value>
+  </data>
+	<data name="GalleryAttachmentsSettings_Enabled" xml:space="preserve">
+    <value>Aktiviert</value>
+  </data>
+	<data name="GalleryAttachmentsSettings_Disabled" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+	<data name="GalleryAttachmentsSettings_Title" xml:space="preserve">
+    <value>Fotos/Videos aus der Galerie zulassen</value>
+  </data>
+	<data name="Menu_GalleryAttachmentsSettings" xml:space="preserve">
+    <value>Kamera/Video</value>
+  </data>
+	<data name="DoNotShowAgain" xml:space="preserve">
+    <value>Nicht erneut anzeigen</value>
+  </data>
+	<data name="Button_Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+	<data name="Welcome_Message" xml:space="preserve">
+    <value>Willkommen bei WolfSense Mobile. Diese App erfordert eine DirectSense II Smart Probe (oder bis zu zwei oder drei), die über Bluetooth verbunden ist, um zu funktionieren. Auf simulierte Messwerte kann zugegriffen werden, um die App zu bewerten, indem Sie HAUPTMENÜ &gt; MESSWERTE &gt; DEMOMODUS STARTEN wählen.</value>
+  </data>
+	<data name="Menu_View" xml:space="preserve">
+    <value>Ansehen</value>
+  </data>
+	<data name="Email_MessageHeader" xml:space="preserve">
+    <value>Von GrayWolf protokollierte Daten</value>
+  </data>
+	<data name="Email_MessageBody" xml:space="preserve">
+    <value>Die angehängte .LCZ (Standortprotokolldatei) wurde in der WolfSense Mobile App erstellt. Verwenden Sie zum Öffnen und Anzeigen dieser Datei WolfSense PC, das von GrayWolf Sensing Solutions unter https://wolfsensepc.com/ erhältlich ist.</value>
+  </data>
+	<data name="Email_LogFileMessageSubject" xml:space="preserve">
+    <value>Standortprotokolldatei</value>
+  </data>
+	<data name="Share_InstructionsFileText" xml:space="preserve">
+    <value>Die angehängte .LCZ (Standortprotokolldatei) wurde in der WolfSense Mobile App erstellt. Verwenden Sie zum Öffnen und Anzeigen dieser Datei WolfSense PC, das von GrayWolf Sensing Solutions unter https://wolfsensepc.com/ erhältlich ist.</value>
+  </data>
+	<data name="Locations_Share" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+	<data name="AttachmentsSizeWarning_Message" xml:space="preserve">
+    <value>Ihre Standortprotokolldatei enthält Fotos und/oder Videos und ist möglicherweise zu groß für eine E-Mail. Wenn Sie diese Datei per E-Mail versenden, können Sie die Größe verringern, indem Sie die Auswahl von Bildern und Videos aufheben. Wenn Sie die Datei in einem Cloud-Speicherdienst wie DropBox, Google Drive, OneDrive usw. speichern, können Sie alle Bilder und Videos ausgewählt lassen und auf den folgenden Bildschirmen Ihr Ziel auswählen.</value>
+  </data>
+	<data name="AttachmentsSizeWarning_Title" xml:space="preserve">
+    <value>Warnung</value>
+  </data>
+	<data name="Login_AccountRequired" xml:space="preserve">
+    <value>Anmelden (GrayWolfLive-Konto erforderlich)</value>
+  </data>
+	<data name="Login_Username" xml:space="preserve">
+    <value>Nutzername</value>
+  </data>
+	<data name="Login_Password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+	<data name="Login_ButtonText" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
+	<data name="Button_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+	<data name="LogNote_Title" xml:space="preserve">
+    <value>Textnotiz</value>
+  </data>
+	<data name="LogNote_EditorPlaceholder" xml:space="preserve">
+    <value>Textnotiz hier eingeben... Textnotiz wird mit den protokollierten Daten gespeichert.</value>
+  </data>
+	<data name="AddCaption_EditorPlaceholder" xml:space="preserve">
+    <value>Bild-/Videounterschrift hier eingeben...</value>
+  </data>
+	<data name="RecordSound_Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+	<data name="WolfSenseAlert_Title" xml:space="preserve">
+    <value>WolfSense - Alarm</value>
+  </data>
+	<data name="WolfSenseMessage_Title" xml:space="preserve">
+    <value>WolfSense</value>
+  </data>
+	<data name="LogService_LoggingStopped" xml:space="preserve">
+    <value>Protokollierung gestoppt.</value>
+  </data>
+	<data name="LogFileWritingMode_Overwrite" xml:space="preserve">
+    <value>ÜBERSCHREIBEN</value>
+  </data>
+	<data name="LogFileWritingMode_Append" xml:space="preserve">
+    <value>ANHÄNGEN</value>
+  </data>
+	<data name="LogService_LogAlreadyExistMessage" xml:space="preserve">
+    <value>Die Datei existiert bereits. Wählen Sie eine Option:</value>
+  </data>
+	<data name="LogService_OverwriteButton" xml:space="preserve">
+    <value>Überschreiben</value>
+  </data>
+	<data name="LogService_OverwriteDialogTitle" xml:space="preserve">
+    <value>Aktuelle Protokollspeicherortdatei überschreiben?</value>
+  </data>
+	<data name="LogService_SelectLocationBeforeRecord" xml:space="preserve">
+    <value>Es ist keine Protokollspeicherortdatei ausgewählt. Bitte wählen Sie eine Standortprotokolldatei aus, bevor Sie mit der Aufzeichnung beginnen.</value>
+  </data>
+	<data name="LogService_SelectLocationBeforeNote" xml:space="preserve">
+    <value>Es ist keine Protokollspeicherortdatei ausgewählt. Bitte wählen Sie eine Standortprotokolldatei aus, bevor Sie eine Notiz hinzufügen.</value>
+  </data>
+	<data name="LogService_SelectLocationBeforePhoto" xml:space="preserve">
+    <value>Es ist keine Protokollspeicherortdatei ausgewählt. Bitte wählen Sie eine Standortprotokolldatei aus, bevor Sie ein Foto anhängen</value>
+  </data>
+	<data name="LogService_GallerySource" xml:space="preserve">
+    <value>Galerie</value>
+  </data>
+	<data name="LogService_CameraSource" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+	<data name="Localization_SelectPhotoSource" xml:space="preserve">
+    <value>Quelle auswählen:</value>
+  </data>
+	<data name="LogService_NoCameraAvailableMessage" xml:space="preserve">
+    <value>Keine Kamera verfügbar.</value>
+  </data>
+	<data name="Loading" xml:space="preserve">
+    <value>Wird geladen...</value>
+  </data>
+	<data name="LogService_CameraPermissionsDenied" xml:space="preserve">
+    <value>Kameraerlaubnis verweigert. Gehen Sie zu Einstellungen und aktivieren Sie die Kameraberechtigung, damit WolfSense Fotos an Ihre Standortprotokolldateien anhängen kann.</value>
+  </data>
+	<data name="LogService_GalleryIsNotAvailable" xml:space="preserve">
+    <value>Keine Galerie vorhanden</value>
+  </data>
+	<data name="LogService_MediaFileLogged" xml:space="preserve">
+    <value>Mediendatei erfolgreich protokolliert.</value>
+  </data>
+	<data name="LogService_VideoFileLogged" xml:space="preserve">
+    <value>Videodatei erfolgreich protokolliert.</value>
+  </data>
+	<data name="DataGrid_LoggerIsRunning" xml:space="preserve">
+    <value>Die Datenansicht ist nicht verfügbar, wenn der Logger läuft</value>
+  </data>
+	<data name="Log_SnapshotNotCreated" xml:space="preserve">
+    <value>Es wurden keine Daten protokolliert</value>
+  </data>
+	<data name="Button_Select" xml:space="preserve">
+    <value>Auswählen</value>
+  </data>
+	<data name="Menu_Export" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+	<data name="Menu_StartDemoTOX" xml:space="preserve">
+    <value>TAX-Demomodus starten</value>
+  </data>
+	<data name="Button_AddNote" xml:space="preserve">
+    <value>Notiz hinzufügen</value>
+  </data>
+	<data name="Probe_Offline" xml:space="preserve">
+    <value>Offline / Getrennt</value>
+  </data>
+	<data name="Probe_DisconnectMsg" xml:space="preserve">
+    <value>Das Gerät wurde getrennt. Bitte wählen Sie MENÜ/MESSWERTE/GERÄTE AUSWÄHLEN, um die Verbindung wieder herzustellen.</value>
+  </data>
+	<data name="Data_NoData" xml:space="preserve">
+    <value>Es gibt keine anzuzeigenden Daten.</value>
+  </data>
+	<data name="Confirm_Export" xml:space="preserve">
+    <value>Möchten Sie diese Standortprotokolldatei wirklich exportieren?</value>
+  </data>
+	<data name="Confirm_Export_Zip" xml:space="preserve">
+    <value>Möchten Sie diese Standortprotokolldatei wirklich exportieren und per E-Mail versenden?</value>
+  </data>
+	<data name="OperationCancelled" xml:space="preserve">
+    <value>Prozess wurde abgebrochen.</value>
+  </data>
+	<data name="Platform_NotSupported" xml:space="preserve">
+    <value>Prozess wird auf dieser Plattform nicht unterstützt.</value>
+  </data>
+	<data name="Logger_NotWhileLogging" xml:space="preserve">
+    <value>Sie dürfen Standortprotokolldateien nicht exportieren, freigeben oder löschen, während der Logger läuft.</value>
+  </data>
+	<data name="Export_Success" xml:space="preserve">
+    <value>Export in Datei erfolgreich.</value>
+  </data>
+	<data name="SelectOption" xml:space="preserve">
+    <value>Option auswählen</value>
+  </data>
+	<data name="Button_Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+	<data name="Button_Clear" xml:space="preserve">
+    <value>Bereinigen</value>
+  </data>
+	<data name="TrendLog_Status" xml:space="preserve">
+    <value>Protokollierung bei {0} im Intervall von {1} Sekunden</value>
+  </data>
+	<data name="Title_TrendLog" xml:space="preserve">
+    <value>Trendprotokoll</value>
+  </data>
+	<data name="Button_StopLog" xml:space="preserve">
+    <value>Protokoll stoppen</value>
+  </data>
+	<data name="ShowVideo_Title" xml:space="preserve">
+    <value>Kameravideo</value>
+  </data>
+	<data name="SensorPopup_Tips" xml:space="preserve">
+    <value>Tipps &gt;&gt;&gt;</value>
+  </data>
+	<data name="SensorTip_DefaultText" xml:space="preserve">
+    <value>Sensorgrundlagen für</value>
+  </data>
+	<data name="SelectSensorTip_Title" xml:space="preserve">
+    <value>Sensortipp auswählen</value>
+  </data>
+	<data name="SensorTips_SensorTip" xml:space="preserve">
+    <value>Sensortipp</value>
+  </data>
+	<data name="SensorTips_Title" xml:space="preserve">
+    <value>Sensortipps</value>
+  </data>
+	<data name="Menu_ProbeOptions" xml:space="preserve">
+    <value>Sondenoptionen</value>
+  </data>
+	<data name="ProbeOptions_Title" xml:space="preserve">
+    <value>Sondenoptionen</value>
+  </data>
+	<data name="ProbeOptions_EnableSnapshotButtonFromDSIIDevice" xml:space="preserve">
+    <value>Aktivieren Sie das Schnappschuss-Protokoll über die DSII-Protokollschaltfläche</value>
+  </data>
+	<data name="SelectVOCItem_Title" xml:space="preserve">
+    <value>VOC-Element auswählen</value>
+  </data>
+	<data name="SensorPopup_VOC" xml:space="preserve">
+    <value>VOC &gt;&gt;&gt;</value>
+    <comment>leave &gt;&gt;&gt; as its a button label</comment>
+  </data>
+	<data name="VOCList_VOCItem" xml:space="preserve">
+    <value>VOC-Element</value>
+  </data>
+	<data name="VOCList_Formula" xml:space="preserve">
+    <value>Chemische Formel</value>
+  </data>
+	<data name="VOCList_AltName" xml:space="preserve">
+    <value>Alternative(r) Name(n)</value>
+  </data>
+	<data name="VOCList_CorrectionFactor" xml:space="preserve">
+    <value>Kalibrierungskorrekturfaktor</value>
+  </data>
+	<data name="VOCList_OSHAPel" xml:space="preserve">
+    <value>OSHA PEL</value>
+  </data>
+	<data name="VOCList_Title" xml:space="preserve">
+    <value>VOC</value>
+  </data>
+	<data name="Menu_VOC" xml:space="preserve">
+    <value>VOC</value>
+  </data>
+	<data name="DeviceName_PC" xml:space="preserve">
+    <value>Partikelzähler</value>
+  </data>
+	<data name="DeviceName_WR" xml:space="preserve">
+    <value>WolfRadio</value>
+  </data>
+	<data name="DeviceName_PM" xml:space="preserve">
+    <value>Partikelmessgerät</value>
+  </data>
+	<data name="VOCList_SearchPlaceholder" xml:space="preserve">
+    <value>Namen der Verbindung eingeben</value>
+  </data>
+	<data name="Error_NetworkRequired" xml:space="preserve">
+    <value>Internetverbindung ist erforderlich</value>
+  </data>
+	<data name="SensorTips_ChangeTip" xml:space="preserve">
+    <value>Spitze ändern &gt;&gt;&gt;</value>
+    <comment>leave &gt;&gt;&gt; as its a button label</comment>
+  </data>
+	<data name="ReviewPhotos_Title" xml:space="preserve">
+    <value>Fotos überprüfen</value>
+  </data>
+	<data name="AddCaption_Title" xml:space="preserve">
+    <value>Bildunterschrift hinzufügen/bearbeiten</value>
+  </data>
+	<data name="Button_AddCaption" xml:space="preserve">
+    <value>Bildunterschrift aktualisieren</value>
+  </data>
+	<data name="ReviewVideos_Title" xml:space="preserve">
+    <value>Videos überprüfen</value>
+  </data>
+	<data name="SensorStatusError_Title" xml:space="preserve">
+    <value>Sensorstatusfehler</value>
+  </data>
+	<data name="Menu_ReviewNotes" xml:space="preserve">
+    <value>Notizen überprüfen</value>
+  </data>
+	<data name="Error_CheckCal" xml:space="preserve">
+    <value>Überprüfen Sie die Sondenkalibrierung</value>
+  </data>
+	<data name="Error_FanFault" xml:space="preserve">
+    <value>Lüfterfehler</value>
+  </data>
+	<data name="Error_GeneralError" xml:space="preserve">
+    <value>Allgemeiner Fehler</value>
+  </data>
+	<data name="Error_GeneralSensorError" xml:space="preserve">
+    <value>Allgemeiner Sensorfehler</value>
+  </data>
+	<data name="Error_HCHO_HiCO" xml:space="preserve">
+    <value>Warnung: Hohe CO-Werte (&gt;10 ppm) beeinflussen die Formaldehyd-Messwerte.</value>
+  </data>
+	<data name="Error_HCHO_LoRH" xml:space="preserve">
+    <value>Niedrige % RH (&lt;20 % RH) wirken sich negativ auf die HCHO-Messwerte aus. Dieser Sensor wird NICHT für den Einsatz in Umgebungen mit &lt;20 %rF empfohlen.</value>
+  </data>
+	<data name="Error_HCHO_NoCO" xml:space="preserve">
+    <value>Kein CO-Sensor – HCHO-Querempfindlichkeitsmeldungen können nicht angezeigt werden.</value>
+  </data>
+	<data name="Error_MissingTRH" xml:space="preserve">
+    <value>Fehlender Temperatur-/rF-Sensor</value>
+  </data>
+	<data name="Error_NoSensorsInstalled" xml:space="preserve">
+    <value>Keine Sensoren installiert</value>
+  </data>
+	<data name="Error_ProbeBatteryCritical" xml:space="preserve">
+    <value>Sondenbatterie kritisch</value>
+  </data>
+	<data name="Error_WiFi_Disco" xml:space="preserve">
+    <value>WLAN ist getrennt</value>
+  </data>
+	<data name="Test" xml:space="preserve">
+    <value />
+  </data>
+	<data name="ChangeLanguage" xml:space="preserve">
+    <value>Sprache auswählen</value>
+  </data>
+	<data name="Select_Language" xml:space="preserve">
+    <value>Sprache auswählen (Language)</value>
+  </data>
+	<data name="SensorStabilization_Generic" xml:space="preserve">
+    <value>Smart Sensoren benötigen eine Stabilisierungszeit von 5 Minuten, wenn sie zum ersten Mal eingeschaltet werden, bevor sie verwendet werden können. Während der Stabilisierung ist das Schnappschussprotokoll deaktiviert und die Speicherung des Trendprotokolls verzögert. Wenn die Sensoren vollständig stabilisiert sind, verschwindet das Sensorsymbol, die Farbe der Messwerte wird schwarz und alle Protokollfunktionen werden wiederhergestellt.</value>
+  </data>
+	<data name="SensorStabilization_PID" xml:space="preserve">
+    <value>Der PID-Sensor benötigt MINDESTENS 15 Minuten Stabilisierung, wenn der Sensor kürzlich verwendet wurde, und 30 Minuten, wenn der Sensor häufig verwendet wird. Eine 24-stündige Stabilisierungsphase wird empfohlen, wenn der Sensor längere Zeit gelagert, hoher Feuchtigkeit oder Kontaminationsquellen ausgesetzt war oder vor der Benutzerkalibrierung. Weitere Informationen finden Sie in den Sensortipps und PID-Leitfäden.</value>
+  </data>
+	<data name="Menu_CloseApp" xml:space="preserve">
+    <value>App schließen</value>
+  </data>
+  <data name="Log_EnterFileName" xml:space="preserve">
+    <value>Geben Sie den Dateinamen ein:</value>
+  </data>
+  <data name="Log_EnterValidFileName" xml:space="preserve">
+    <value>Geben Sie einen gültigen Dateinamen ein.</value>
+  </data>
+</root>

@@ -1,0 +1,648 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GrayWolf.Views.MenuPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:GrayWolf.ViewModels;assembly=GrayWolf" 
+    xmlns:loc="clr-namespace:GrayWolf.Localization"
+    xmlns:enum="clr-namespace:GrayWolf.Enums"
+    Title="Menu"
+    x:DataType="viewModels:MenuPageViewModel"
+    mc:Ignorable="d"
+    BackgroundColor="{StaticResource NavigationPrimary}">
+    <ContentPage.Resources>
+        <Style x:Key="LineStyle" TargetType="BoxView">
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="Opacity" Value="0.5"/>
+            <Setter Property="HeightRequest" Value="1"/>
+            <Setter Property="VerticalOptions" Value="Start"/>
+        </Style>
+
+        <Style x:Key="MenuItemLabelStyle" TargetType="Label">
+            <Setter Property="VerticalOptions" Value="EndAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+
+        <Style x:Key="MenuItemStackStyle" TargetType="StackLayout">
+            <Setter Property="Padding" Value="12"/>
+        </Style>
+
+        <Style x:Key="DropDownContainerStyle" TargetType="Grid">
+            <Setter Property="Padding" Value="70, 0, 0, 0"/>
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+        </Style>
+        
+        <x:Double x:Key="DisabledOpacity">0.4</x:Double>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="{StaticResource AppGrayColor}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <ScrollView
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                IsClippedToBounds="True"
+                VerticalOptions="FillAndExpand">
+                <StackLayout
+                    Margin="15"
+                    Spacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <!--  Menu Options  -->
+
+                    <!--  Log  -->
+                    <Grid
+                        Padding="12,12,0,10"
+                        HorizontalOptions="FillAndExpand"
+                        RowDefinitions="auto, auto">
+
+                        <StackLayout
+                            Grid.Row="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LogCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Label
+                                Text="{Binding Menu_Log}"
+                                Style="{StaticResource MenuItemLabelStyle}"/>
+                            <Image
+                                HeightRequest="20"
+                                HorizontalOptions="EndAndExpand"
+                                Source="{Binding ExpandLog.ImageSource}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="20"/>
+
+                        </StackLayout>
+                        <!--  Log Sub Menu  -->
+                        <Grid
+                            Grid.Row="1"
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{Binding ExpandLog.IsExpanded}"
+                            VerticalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackLayout
+                                Grid.Row="0"
+                                Padding="30,8,0,8"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <!--  Start  -->
+                                <Grid 
+                                    Opacity="{Binding CanStartLog, Converter={StaticResource IsEnabledToOpacityConverter}}">
+                                    <Label
+                                        Text="{Binding Menu_StartLog}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding StartLogPopupCommand}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+
+                                <!-- Separator -->
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+
+                                <!-- Snapshot -->
+                                <Grid
+                                    Opacity="{Binding CanStartLog, Converter={StaticResource IsEnabledToOpacityConverter}}">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding SnapshotCommand}"/>
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding StartLog_Snapshot}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+
+                                <!--  Separator  -->
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+                                <!--  Stop  -->
+                                <Grid
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand"
+                                    Opacity="{Binding CanStopLog, Converter={StaticResource IsEnabledToOpacityConverter}}">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding StopLogCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_StopLog}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+                                <!--  Separator  -->
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+                                <!--  Export  -->
+                                <Grid
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LocationCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_Locations}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+                                <!--  Separator  -->
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+                                <!--  Note  -->
+                                <StackLayout
+                                    Padding="0,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="FillAndExpand">
+                                    <Label
+                                        Text="{Binding Menu_Notes}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                    <Image
+                                        HeightRequest="20"
+                                        HorizontalOptions="EndAndExpand"
+                                        Source="{Binding ExpandNotes.ImageSource}"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="20"/>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NoteCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                                <!--  Separator  -->
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+                                <!--  Export  -->
+                                <Grid
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectFileForDataGridCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_ReviewNotes}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+                            </StackLayout>
+                            <!--  Note Sub Menu  -->
+                            <Grid
+                                Grid.Row="1"
+                                IsVisible="{Binding ExpandNotes.IsExpanded}"
+                                RowDefinitions="Auto, 1, Auto, 1, Auto, 1, Auto, 1, Auto, 1"
+                                Style="{StaticResource DropDownContainerStyle}">
+                                <!--  Photo  -->
+                                <Grid
+                                    Grid.Row="0"
+                                    Opacity="{Binding AreGalleryAttachmentsEnabled, Converter={StaticResource IsEnabledToOpacityConverter}}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding PhotoLogCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_Photo}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+                                <!--  Separator  -->
+                                <BoxView
+                                    Grid.Row="1"
+                                    Style="{StaticResource LineStyle}"/>
+                                <!--  Audio  -->
+                                <Grid
+                                    Grid.Row="2"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding AudioLogCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_Audio}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+
+                                <!--  Separator  -->
+                                <BoxView
+                                    Grid.Row="3"
+                                    Style="{StaticResource LineStyle}"/>
+                                <!--  Text  -->
+                                <Grid
+                                    Grid.Row="4"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding TextLogCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_Text}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+
+                                <!--  Separator  -->
+                                <BoxView
+                                    Grid.Row="5"
+                                    Style="{StaticResource LineStyle}"/>
+                                <!--  Event  -->
+                                <Grid
+                                    Grid.Row="6"
+                                    Opacity="{Binding IsLogActive, Converter={StaticResource IsEnabledToOpacityConverter}}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding EventsCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_Event}" 
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+                                <!--  Separator  -->
+                                <!--  
+                                <BoxView
+                                    Grid.Row="7"
+                                    Style="{StaticResource LineStyle}"/>
+                                 -->
+                                <!--  Drawing Note  --><!--
+                                <Grid
+                                    Grid.Row="8"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding DrawingNoteCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_Drawing}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>-->
+
+                                <!--  Separator  -->
+                                <BoxView
+                                    Grid.Row="7"
+                                    Style="{StaticResource LineStyle}"/>
+                                <!--  Drawing Note  -->
+                                <Grid
+                                    Grid.Row="8"
+                                    Opacity="{Binding AreGalleryAttachmentsEnabled, Converter={StaticResource IsEnabledToOpacityConverter}}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding VideoLogCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_Video}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <!--  Separator  -->
+                    <BoxView
+                        Style="{StaticResource LineStyle}"/>
+                    
+                    <!--  Readings  -->
+                    <Grid
+                        Padding="12,12,0,10"
+                        HorizontalOptions="FillAndExpand">
+                        <Grid
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <!--  Probe  -->
+                            <StackLayout
+                                Grid.Row="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                VerticalOptions="FillAndExpand">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ReadingsCommand}" />
+                                </StackLayout.GestureRecognizers>
+                                <Label
+                                    Text="{Binding Menu_Readings}"
+                                    Style="{StaticResource MenuItemLabelStyle}"/>
+                                <Image
+                                    HeightRequest="20"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="{Binding ExpandReadings.ImageSource}"
+                                    VerticalOptions="CenterAndExpand"
+                                    WidthRequest="20"/>
+                            </StackLayout>
+
+                            <StackLayout
+                                Grid.Row="1"
+                                Padding="30,0,0,0"
+                                HorizontalOptions="FillAndExpand"
+                                IsVisible="{Binding ExpandReadings.IsExpanded}"
+                                VerticalOptions="FillAndExpand">
+                                <!--  Select Devices  -->
+                                <Label
+                                    Text="{Binding Menu_SelectDevices}"
+                                    Opacity="{Binding CanSelectDevice, Converter={StaticResource IsEnabledToOpacityConverter}, ConverterParameter={StaticResource DisabledOpacity}}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand"
+                                    Style="{StaticResource MenuItemLabelStyle}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding SelectDevicesCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+                                
+                                <Label
+                                    Text="{Binding Menu_StartDemoIAQ}"
+                                    Opacity="{Binding CanStartDemo, Converter={StaticResource IsEnabledToOpacityConverter}, ConverterParameter={StaticResource DisabledOpacity}}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand"
+                                    Style="{StaticResource MenuItemLabelStyle}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding StartDemoCommand}"
+                                            CommandParameter="{x:Static enum:DemoProbeType.IAQ}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+
+                                <Label
+                                    Text="{Binding Menu_StartDemoTOX}"
+                                    Opacity="{Binding CanStartDemo, Converter={StaticResource IsEnabledToOpacityConverter}, ConverterParameter={StaticResource DisabledOpacity}}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand"
+                                    Style="{StaticResource MenuItemLabelStyle}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding StartDemoCommand}"
+                                            CommandParameter="{x:Static enum:DemoProbeType.TOX}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+                                
+                                <Label
+                                    Text="{Binding Menu_EndDemo}"
+                                    Opacity="{Binding CanStopDemo, Converter={StaticResource IsEnabledToOpacityConverter}, ConverterParameter={StaticResource DisabledOpacity}}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand"
+                                    Style="{StaticResource MenuItemLabelStyle}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding StopDemoCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+
+                                <Label
+                                    Text="{Binding Menu_VOC}"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand"
+                                    Style="{StaticResource MenuItemLabelStyle}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding VOCCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                    
+                    <!--  Separator  -->
+                    <BoxView
+                        Style="{StaticResource LineStyle}"/>
+
+                    <!--  View  -->
+                    <StackLayout
+                        Padding="12,12,0,10"
+                        HorizontalOptions="FillAndExpand">
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ViewCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Label
+                                Text="{Binding Menu_View}"
+                                Style="{StaticResource MenuItemLabelStyle}"/>
+                            <Image
+                                HeightRequest="20"
+                                HorizontalOptions="EndAndExpand"
+                                Source="{Binding ExpandView.ImageSource}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="20"/>
+                        </StackLayout>
+                        <Grid
+                            IsVisible="{Binding ExpandView.IsExpanded}">
+                            <StackLayout
+                                Grid.Row="0"
+                                Padding="30,8,0,8"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <!--  Graph  -->
+                                <Grid
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand"
+                                    Opacity="{Binding CanOpenGraph, Converter={StaticResource IsEnabledToOpacityConverter}}">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding GraphCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_Graph}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+
+                                <!-- Separator -->
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+
+                                <!-- Table -->
+                                <Grid>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding SelectFileForDataGridCommand}"/>
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        Text="{Binding Menu_Data}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                </Grid>
+
+                                <!--  Separator  -->
+                                <BoxView
+                                    Style="{StaticResource LineStyle}"/>
+                                <!--  Live  -->
+                                <Grid >
+                                    <Label
+                                        Text="{Binding Menu_Live}"
+                                        Style="{StaticResource MenuItemLabelStyle}"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LiveCommand}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+
+                    <BoxView
+                        Style="{StaticResource LineStyle}"/>
+                    <StackLayout
+                        Padding="12,12,0,10"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ExportCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            Text="{Binding Menu_Export}"
+                            Style="{StaticResource MenuItemLabelStyle}"/>
+                    </StackLayout>
+                    <BoxView
+                        Style="{StaticResource LineStyle}"/>
+                    
+                    <StackLayout
+                        Padding="12,12,0,10">
+                        <!--  Settings  -->
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand">
+                            <Label
+                                Text="{Binding Menu_Settings}"
+                                Style="{StaticResource MenuItemLabelStyle}"/>
+                            <Image
+                                HeightRequest="20"
+                                HorizontalOptions="EndAndExpand"
+                                Source="{Binding ExpandSettings.ImageSource}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="20"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding SettingsCommand}" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                        <StackLayout
+                            Margin="30,0,0,0"
+                            Padding="0"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand"
+                            IsVisible="{Binding ExpandSettings.IsExpanded}">
+                            <!-- Encryption -->
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding EncryptionCommand}"/>
+                                </StackLayout.GestureRecognizers>
+                                <Label
+                                    Text="{Binding Menu_Encryption}"
+                                    Style="{StaticResource MenuItemLabelStyle}"/>
+                            </StackLayout>
+
+                            <!-- Parameter Names -->
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding ParameterNamesCommand}"/>
+                                </StackLayout.GestureRecognizers>
+
+                                <Label
+                                    Text="{Binding Menu_ParameterNames}"
+                                    Style="{StaticResource MenuItemLabelStyle}"/>
+                            </StackLayout>
+
+                            <!-- Gallery Attachments Settings -->
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding GalleryAttachmentsSettingsCommand}"/>
+                                </StackLayout.GestureRecognizers>
+
+                                <Label
+                                    Text="{Binding Menu_GalleryAttachmentsSettings}"
+                                    Style="{StaticResource MenuItemLabelStyle}"/>
+                            </StackLayout>
+
+                            <!-- Probe Options -->
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding ProbeOptionsCommand}"/>
+                                </StackLayout.GestureRecognizers>
+
+                                <Label
+                                    Text="{Binding Menu_ProbeOptions}"
+                                    Style="{StaticResource MenuItemLabelStyle}"/>
+                            </StackLayout>
+                            <!-- Language Change -->
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding ChangeLanguageCommand}"/>
+                                </StackLayout.GestureRecognizers>
+
+                                <Label
+                                    Text="{Binding Menu_Select_Language}"
+                                    Style="{StaticResource MenuItemLabelStyle}"/>
+                            </StackLayout>
+
+                        </StackLayout>
+                    </StackLayout>
+                    
+                    <BoxView
+                        Style="{StaticResource LineStyle}"/>
+
+                    <StackLayout
+                        Style="{StaticResource MenuItemStackStyle}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding AboutCommand}"/>
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            Text="{Binding Menu_About}"
+                            Style="{StaticResource MenuItemLabelStyle}"/>
+                    </StackLayout>
+
+                    <BoxView
+                        Style="{StaticResource LineStyle}"/>
+
+                    <StackLayout
+                        Style="{StaticResource MenuItemStackStyle}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding VideoHelpCommand}"/>
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            Text="{Binding Menu_VideoHelp}"
+                            Style="{StaticResource MenuItemLabelStyle}"/>
+                    </StackLayout>
+                    <BoxView
+                        Style="{StaticResource LineStyle}"/>
+
+                    <StackLayout
+                        Style="{StaticResource MenuItemStackStyle}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding CloseAppCommand}"/>
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            Text="{Binding Menu_CloseApp}"
+                            Style="{StaticResource MenuItemLabelStyle}"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

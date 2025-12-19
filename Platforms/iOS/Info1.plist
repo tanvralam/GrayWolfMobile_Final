@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/appicon.appiconset</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.graywolfsensing.wolfsensemobile</string>
+	<key>CFBundleDisplayName</key>
+	<string>WolfSense Mobile</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.7.1</string>
+	<key>CFBundleVersion</key>
+	<string>1.7.1</string>
+	<key>MinimumOSVersion</key>
+	<string>11.0</string>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>WolfSense Mobile needs access to the camera to allow users to capture pictures and videos and add them to thier data log files for documentation purposes.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>WolfSense Mobile needs access to the photo gallery to allow users to attach pictures and videos to thier data log files for documentation purposes.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>WolfSense Mobile needs access to the microphone to allow users to record audio notes and attach them to thier data log files for documentation purposes.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>WolfSense Mobile needs access to the photo gallery to allow users to attach pictures and videos to thier data log files for documentation purposes.</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>WolfSense Mobile needs access to collected audio files to allow users to record audio notes and attach them to thier data log files for documentation purposes.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+	</array>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>WolfSense Mobile needs access to Bluetooth to connect to DirectSense II SmartProbes for Environmental Measurements.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>WolfSense Mobile needs access to Bluetooth to connect to DirectSense II SmartProbes for Environmental Measurements.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>WolfSense Mobile needs access to Location to store the GPS coordinates of where environmental data was collected in data log files for documentation purposes.</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDarkContent</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>WolfSense Mobile needs access to the Calendar</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+		<true/>
+	</dict>
+</dict>
+</plist>

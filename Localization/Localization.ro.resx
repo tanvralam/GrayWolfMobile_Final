@@ -1,0 +1,872 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="HomePage_EmptyListMessage" xml:space="preserve">
+    <value>Atinge aici pentru a selecta dispozitivele GrayWolf.</value>
+  </data>
+  <data name="SelectDevices_Bluetooth" xml:space="preserve">
+    <value>Dispozitive Bluetooth:</value>
+  </data>
+  <data name="SelectDevices_CloudTitle" xml:space="preserve">
+    <value>Cloud GrayWolfLive:</value>
+  </data>
+  <data name="SelectDevices_Select" xml:space="preserve">
+    <value>Selecteaza dispozitive:</value>
+  </data>
+  <data name="SelectDevices_Title" xml:space="preserve">
+    <value>Selecteaza dispozitive</value>
+  </data>
+  <data name="SelectDevices_LogOut" xml:space="preserve">
+    <value>Deconectare</value>
+  </data>
+  <data name="SelectDevices_LoggedInAs" xml:space="preserve">
+    <value>Conectat ca</value>
+  </data>
+  <data name="SelectDevices_NotLoggedIn" xml:space="preserve">
+    <value>Neconectat</value>
+  </data>
+  <data name="SelectDevices_LogIn" xml:space="preserve">
+    <value>Conectare la GrayWolfLive</value>
+  </data>
+  <data name="SelectDevices_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SelectDevices_Cancel" xml:space="preserve">
+    <value>Anuleaza</value>
+  </data>
+  <data name="SelectDevices_Cloud" xml:space="preserve">
+    <value>Dispozitive cloud:</value>
+  </data>
+  <data name="RecordSound_Title" xml:space="preserve">
+    <value>Nota audio</value>
+  </data>
+  <data name="RecordSound_Play" xml:space="preserve">
+    <value>Porneste</value>
+  </data>
+  <data name="RecordSound_Stop" xml:space="preserve">
+    <value>Opreste</value>
+  </data>
+  <data name="RecordSound_Record" xml:space="preserve">
+    <value>Inregistreaza</value>
+  </data>
+  <data name="RecordSound_AttachmentsDeleted" xml:space="preserve">
+    <value>Nota audio stearsa cu succes.</value>
+  </data>
+  <data name="RecordSound_AttachmentAdded" xml:space="preserve">
+    <value>Nota audio inregistrata.</value>
+  </data>
+  <data name="StartLog_SelectDevicesMessage" xml:space="preserve">
+    <value>Selecteaza dispozitive folosind INREGISTRARI/SELECTIE DISPOZITIVE</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alerta</value>
+  </data>
+  <data name="SelectDevices_LogIsRunningMessage" xml:space="preserve">
+    <value>Modificarile nu sunt permise in timpul rularii inregistrarii.</value>
+  </data>
+  <data name="DrawingNote_SelectLoggerMessage" xml:space="preserve">
+    <value>Nu este selectat niciun fisier Jurnal locatie. Selectati un fisier Jurnal locatie inainte de a captura schita notei.</value>
+  </data>
+  <data name="AddVideo_SelectLoggerMessage" xml:space="preserve">
+    <value>Nu este selectat niciun fisier Jurnal locatie. Selecteaza o locatie inainte de atasarea unui videoclip.</value>
+  </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>Ajutor/Despre</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>Ajutor/Despre</value>
+  </data>
+  <data name="About_Web" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="About_Support" xml:space="preserve">
+    <value>Asistenta prin email</value>
+    <comment>Testing </comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Versiune</value>
+  </data>
+  <data name="SensorPopup_Title" xml:space="preserve">
+    <value>Senzor</value>
+  </data>
+  <data name="SensorPopup_SerialNum" xml:space="preserve">
+    <value>Serie</value>
+  </data>
+  <data name="SensorPopup_Unit" xml:space="preserve">
+    <value>Parametru</value>
+  </data>
+  <data name="SensorPopup_Units" xml:space="preserve">
+    <value>Unitati de masura disponibile</value>
+  </data>
+  <data name="SensorPopup_Confirm" xml:space="preserve">
+    <value>Modifica unitate de masura</value>
+  </data>
+  <data name="Log_StoragePermissionsMessage" xml:space="preserve">
+    <value>Sunt necesare permisiuni de stocare pentru atasarea documentelor</value>
+  </data>
+  <data name="Log_RecordDeviceNotAvailable" xml:space="preserve">
+    <value>Microfonul nu este disponibil</value>
+  </data>
+  <data name="Menu_VideoHelp" xml:space="preserve">
+    <value>Video explicativ</value>
+  </data>
+  <data name="Menu_Live" xml:space="preserve">
+    <value>Live</value>
+  </data>
+  <data name="Menu_Log" xml:space="preserve">
+    <value>Inregistrare</value>
+  </data>
+  <data name="Menu_StartLog" xml:space="preserve">
+    <value>Pornire inregistrare</value>
+  </data>
+  <data name="Menu_StopLog" xml:space="preserve">
+    <value>Oprire inregistrare</value>
+  </data>
+  <data name="Menu_Locations" xml:space="preserve">
+    <value>Locatii</value>
+  </data>
+  <data name="Menu_Notes" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Menu_Photo" xml:space="preserve">
+    <value>Fotografie</value>
+  </data>
+  <data name="Menu_Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="Menu_Audio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="Menu_Text" xml:space="preserve">
+    <value>Nota text</value>
+  </data>
+  <data name="Menu_Event" xml:space="preserve">
+    <value>Eveniment</value>
+  </data>
+  <data name="Menu_Drawing" xml:space="preserve">
+    <value>Schita</value>
+  </data>
+  <data name="Menu_Readings" xml:space="preserve">
+    <value>Inregistrari</value>
+  </data>
+  <data name="Menu_SelectDevices" xml:space="preserve">
+    <value>Selecteaza dispozitive</value>
+  </data>
+  <data name="StartLog_Snapshot" xml:space="preserve">
+    <value>Instantaneu</value>
+  </data>
+  <data name="StartLog_TrendingLog" xml:space="preserve">
+    <value>Pornire inregistrare</value>
+  </data>
+  <data name="StartLog_SelectLocation" xml:space="preserve">
+    <value>Selecteaza fisier Jurnal locatie:</value>
+  </data>
+  <data name="StartLog_EmptyLocationsMessage" xml:space="preserve">
+    <value>Atinge butonul Adauga pentru a adauga un nou fisier jurnal locatie.</value>
+  </data>
+  <data name="StartLog_AddLocation" xml:space="preserve">
+    <value>Adauga fisier Jurnal locatie</value>
+  </data>
+  <data name="StartLog_Interval" xml:space="preserve">
+    <value>Interval:</value>
+  </data>
+  <data name="Log_SnapshotCreated_Format" xml:space="preserve">
+    <value>Poza instantanee inregistrata in "{0}"</value>
+  </data>
+  <data name="StartLog_SelectLocationMessage" xml:space="preserve">
+    <value>Selecteaza fisier Jurnal locatie</value>
+  </data>
+  <data name="AddEvent_LabelPlaceholder" xml:space="preserve">
+    <value>Introduce aici nota eveniment... Notele eveniment sunt memorate cu ora si datele inregistrate.</value>
+  </data>
+  <data name="AddEvent_Title" xml:space="preserve">
+    <value>Eveniment</value>
+  </data>
+  <data name="AddEvent_SuccessMessage_Format" xml:space="preserve">
+    <value>Eveniment adaugat cu succes "{0}".</value>
+  </data>
+  <data name="Log_Events_NotRunningMessage" xml:space="preserve">
+    <value>Evenimentele pot fi inregistrate numai in timpul rularii inregistrarii.</value>
+  </data>
+  <data name="Log_LocationAlreadyExist" xml:space="preserve">
+    <value>Un fisier Jurnal locatie cu acest nume exista deja!</value>
+  </data>
+  <data name="StartLog_Snahshot_LogIsAlreadyRunning" xml:space="preserve">
+    <value>Instantaneele ar putea sa nu fie facute in timpul rularii inregistrarii.</value>
+  </data>
+  <data name="HomePage_SelectLocation" xml:space="preserve">
+    <value>&lt;ATINGE PENTRU A SELECTA FISIERUL JURNAL LOCATIE&gt;</value>
+  </data>
+  <data name="HomePage_LocationFormat" xml:space="preserve">
+    <value>Fisier Jurnal locatie: {0}</value>
+  </data>
+  <data name="Log_FileNameTooLongFormat" xml:space="preserve">
+    <value>Numele fisierului Jurnal locatie trebuie sa aiba mai putin de {0} caractere.</value>
+  </data>
+  <data name="Log_SelectionWhileLoggingMessage" xml:space="preserve">
+    <value>Nu puteti modifica locatiile in timpul rularii inregistrarii</value>
+  </data>
+  <data name="SelectAttachmentFiles_Title" xml:space="preserve">
+    <value>Selecteaza Fotografii/Videoclipuri pentru includere</value>
+  </data>
+  <data name="SelectAttachmentFiles_Files" xml:space="preserve">
+    <value>Fisiere:</value>
+  </data>
+  <data name="SelectAttachmentFiles_Description" xml:space="preserve">
+    <value>Fisierul Jurnal locatie contine fotografii si videoclipuri si poate fi prea mare daca utilizati emailul. Deselectati fotografii si videoclipuri pentru a-i reduce dimensiunea.</value>
+  </data>
+  <data name="Probe_SerialNumber" xml:space="preserve">
+    <value>Serie sonda: </value>
+  </data>
+  <data name="Probe_ProbeStatus" xml:space="preserve">
+    <value>Stare sonda:</value>
+  </data>
+  <data name="Probe_BatteryLevel" xml:space="preserve">
+    <value>Nivel baterie:</value>
+  </data>
+  <data name="Probe_UpTime" xml:space="preserve">
+    <value>Ora pornire sonda:</value>
+  </data>
+  <data name="Probe_Sensors" xml:space="preserve">
+    <value>Senzori</value>
+  </data>
+  <data name="Probe_Title" xml:space="preserve">
+    <value>Stare sonda</value>
+  </data>
+  <data name="Chart_FifteenMinutes" xml:space="preserve">
+    <value>15 minute</value>
+  </data>
+  <data name="Chart_OneHour" xml:space="preserve">
+    <value>1 ora</value>
+  </data>
+  <data name="Chart_EightHours" xml:space="preserve">
+    <value>8 ore</value>
+  </data>
+  <data name="Chart_Day" xml:space="preserve">
+    <value>Zi</value>
+  </data>
+  <data name="Chart_Everything" xml:space="preserve">
+    <value>Totul</value>
+  </data>
+  <data name="Chart_SelectTimeOption" xml:space="preserve">
+    <value>Selecteaza optiunea de timp</value>
+  </data>
+  <data name="Chart_TimeOption" xml:space="preserve">
+    <value>Interval de timp:</value>
+  </data>
+  <data name="Chart_Parameter" xml:space="preserve">
+    <value>Parametru:</value>
+  </data>
+  <data name="Chart_SelectParameter" xml:space="preserve">
+    <value>Selecteaza parametru</value>
+  </data>
+  <data name="Chart_NoDataToDisplay" xml:space="preserve">
+    <value>Nu exista date de afisat in {0}</value>
+  </data>
+  <data name="Chart_LiveGraph" xml:space="preserve">
+    <value>GRAFIC LIVE {0}</value>
+  </data>
+  <data name="Chart_ReviewGraph" xml:space="preserve">
+    <value>GRAFIC ACTUALIZAT {0}</value>
+  </data>
+  <data name="Locations_Add" xml:space="preserve">
+    <value>Adauga locatie</value>
+  </data>
+  <data name="Locations_Title" xml:space="preserve">
+    <value>Fisiere Jurnal locatie</value>
+  </data>
+  <data name="Locations_Locations" xml:space="preserve">
+    <value>Fisiere Jurnal locatie:</value>
+  </data>
+  <data name="Locations_Hint" xml:space="preserve">
+    <value>Selecteaza sau creaza un fisier de date mai jos.</value>
+  </data>
+  <data name="Menu_Graph" xml:space="preserve">
+    <value>Grafic</value>
+  </data>
+  <data name="SensorPopup_DisplayedInUI" xml:space="preserve">
+    <value>Afiseaza pe pagina principala</value>
+  </data>
+  <data name="SensorPopup_IsLogged" xml:space="preserve">
+    <value>Activat</value>
+  </data>
+  <data name="Button_Confirm" xml:space="preserve">
+    <value>Confirma</value>
+  </data>
+  <data name="Password_NoEncryption" xml:space="preserve">
+    <value>Fara parola</value>
+  </data>
+  <data name="Password_DefaultPassword" xml:space="preserve">
+    <value>Parola implicita</value>
+  </data>
+  <data name="Password_CustomPassword" xml:space="preserve">
+    <value>Parola personalizata</value>
+  </data>
+  <data name="Password_Title" xml:space="preserve">
+    <value>Securitate date</value>
+  </data>
+  <data name="Menu_Encryption" xml:space="preserve">
+    <value>Securitate fisier date</value>
+  </data>
+  <data name="Password_ValidationRulesMessage" xml:space="preserve">
+    <value>Parola trebuie sa contina 8-30 caractere, inclusiv 1 litera mica, 1 majuscula, 1 cifra si 1 caracter special si nu trebuie sa contina spatii.</value>
+  </data>
+  <data name="Menu_Settings" xml:space="preserve">
+    <value>Setari</value>
+  </data>
+  <data name="DataSecurity_IncludeCSV" xml:space="preserve">
+    <value>Exporta CSV</value>
+  </data>
+  <data name="DataSecurity_InfoText" xml:space="preserve">
+    <value>Fisierele de date colectate de WolfSense pot fi criptate inainte de export/trimitere prin email. Pentru a dezactiva criptarea, selectati FARA PAROLA. Pentru a activa criptarea, alegeti parola implicita sau o parola personalizata. Parola personalizata trebuie sa o introduceti si in WolfSense PC pentru a deschide fisierul. Debifati „Export CSV” daca nu doriti ca un fisier CSV necriptat sa fie generat si trimis impreuna cu fisierele de date.</value>
+  </data>
+  <data name="DataSecurity_InfoTitle" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="DataSecurity_ConfirmPassword" xml:space="preserve">
+    <value>Confirma parola personalizata</value>
+  </data>
+  <data name="DataSecurity_PasswordMissmatch" xml:space="preserve">
+    <value>Parolele nu se potrivesc!</value>
+  </data>
+  <data name="HomePage_UseInDemoMode" xml:space="preserve">
+    <value>UTILIZARE IN MOD DEMO</value>
+  </data>
+  <data name="Menu_EndDemo" xml:space="preserve">
+    <value>Incheiere mod demo</value>
+  </data>
+  <data name="Menu_StartDemoIAQ" xml:space="preserve">
+    <value>Pornire mod IAQ demo</value>
+  </data>
+  <data name="SelectDevices_CannotOpenInDemo" xml:space="preserve">
+    <value>Modificarile nu sunt permise in modul demo.</value>
+  </data>
+  <data name="Menu_AlreadyInDemo" xml:space="preserve">
+    <value>Modul demo este pornit deja</value>
+  </data>
+  <data name="Menu_AlreadyStoppedDemo" xml:space="preserve">
+    <value>Modul demo este oprit deja</value>
+  </data>
+  <data name="About_Instructions" xml:space="preserve">
+    <value>Instructiuni</value>
+    <comment>Testing </comment>
+  </data>
+  <data name="DemoForm_Description" xml:space="preserve">
+    <value>Multumim pentru interesul dvs. fata de WolfSense Mobile si va rugam sa introduceti informatiile mai jos.</value>
+  </data>
+  <data name="DemoForm_Title" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="DemoForm_Name" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="DemoForm_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="DemoForm_EmptyDataMessage" xml:space="preserve">
+    <value>Introduceti numele si adresa de email</value>
+  </data>
+  <data name="ShowImage_Title" xml:space="preserve">
+    <value>Camera foto</value>
+  </data>
+  <data name="BatteryStatus_Title" xml:space="preserve">
+    <value>Detalii baterie</value>
+  </data>
+  <data name="Locations_DeleteConfirmationText" xml:space="preserve">
+    <value>Doriti sa stergeti acest fisier Jurnal locatie?</value>
+  </data>
+  <data name="Locations_ClearConfirmationText" xml:space="preserve">
+    <value>Doriti sa goliti acest fisier Jurnal locatie?</value>
+  </data>
+  <data name="Button_No" xml:space="preserve">
+    <value>Nu</value>
+  </data>
+  <data name="Button_Yes" xml:space="preserve">
+    <value>Da</value>
+  </data>
+  <data name="Locations_AreYouSure" xml:space="preserve">
+    <value>Sunteti sigur?</value>
+  </data>
+  <data name="Chart_SelectLocationMessage" xml:space="preserve">
+    <value>Nu este selectat niciun fisier Jurnal locatie</value>
+  </data>
+  <data name="Menu_ParameterNames" xml:space="preserve">
+    <value>Nume parametri</value>
+  </data>
+  <data name="ParameterNames_UseShort" xml:space="preserve">
+    <value>Utilizati nume scurt parametru</value>
+  </data>
+  <data name="ParameterNames_UseLong" xml:space="preserve">
+    <value>Utilizati nume lung parametru</value>
+  </data>
+  <data name="DataGrid_CurrentSet" xml:space="preserve">
+    <value>Setari curente:</value>
+  </data>
+  <data name="DataGrid_Title" xml:space="preserve">
+    <value>Vizualizare date</value>
+  </data>
+  <data name="SelectSet_Title" xml:space="preserve">
+    <value>Selecteaza set</value>
+  </data>
+  <data name="Menu_Data" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="SelectFileForDataGrid_Title" xml:space="preserve">
+    <value>Selecteaza fisier Jurnal locatie</value>
+  </data>
+  <data name="SelectFileForDataGrid_NoItemsMessage" xml:space="preserve">
+    <value>Nu exista fisiere jurnal locatie de afisat.</value>
+  </data>
+  <data name="GalleryAttachmentsSettings_Enabled" xml:space="preserve">
+    <value>Activat</value>
+  </data>
+  <data name="GalleryAttachmentsSettings_Disabled" xml:space="preserve">
+    <value>Dezactivat</value>
+  </data>
+  <data name="GalleryAttachmentsSettings_Title" xml:space="preserve">
+    <value>Permite acces Fotografii/Video din galerie</value>
+  </data>
+  <data name="Menu_GalleryAttachmentsSettings" xml:space="preserve">
+    <value>Camera/Video</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Nu mai afisa pe viitor</value>
+  </data>
+  <data name="Button_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Welcome_Message" xml:space="preserve">
+    <value>Bun venit la WolfSense Mobile. Pentru a functiona, aplicatia necesita conectarea unei sonde inteligente DirectSense II conectata prin Bluetooth (se pot conecta maxim 3 sonde). Inregistrarile simulate pot fi accesate in aplicatie selectand MENIU PRINCIPAL &gt; INREGISTRARI &gt; START DEMO.</value>
+  </data>
+  <data name="Menu_View" xml:space="preserve">
+    <value>Vizualizare</value>
+  </data>
+  <data name="Email_MessageHeader" xml:space="preserve">
+    <value>Date inregistrate GrayWolf</value>
+  </data>
+  <data name="Email_MessageBody" xml:space="preserve">
+    <value>Fisierul jurnal locatie .LCZ atasat a fost creat in aplicatia WolfSense Mobile. Pentru a deschide si vizualiza acest fisier, utilizati softul WolfSense PC de la GrayWolf Sensing Solutions care poate fi descarcat la https://wolfsensepc.com/</value>
+  </data>
+  <data name="Email_LogFileMessageSubject" xml:space="preserve">
+    <value>Fisier Jurnal locatie</value>
+  </data>
+  <data name="Share_InstructionsFileText" xml:space="preserve">
+    <value>Fisierul Jurnal locatie .LCZ atasat a fost creat in aplicatia WolfSense Mobile. Pentru a deschide si vizualiza acest fisier, utilizati softul WolfSense PC de la GrayWolf Sensing Solutions care poate fi descarcat la https://wolfsensepc.com/</value>
+  </data>
+  <data name="Locations_Share" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="AttachmentsSizeWarning_Message" xml:space="preserve">
+    <value>Fisierul Jurnal locatie contine fotografii si/sau videoclipuri si poate fi prea mare pentru a fi trimis prin email. Daca trimiteti acest fisier prin email, puteti reduce dimensiunea sa prin deselectarea fotografiilor si videoclipurilor. Daca salvati fisierul cu o aplicatie de stocare in cloud, cum ar fi DropBox, Google Drive, OneDrive, etc., puteti pastra toate fotografiile si videoclipurile selectate si puteti alege destinatia in ecranele urmatoare.</value>
+  </data>
+  <data name="AttachmentsSizeWarning_Title" xml:space="preserve">
+    <value>Avertizare</value>
+  </data>
+  <data name="Login_AccountRequired" xml:space="preserve">
+    <value>Autentificare (este necesar un cont GrayWolfLive)</value>
+  </data>
+  <data name="Login_Username" xml:space="preserve">
+    <value>Nume utilizator</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="Login_ButtonText" xml:space="preserve">
+    <value>Autentificare</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Anuleaza</value>
+  </data>
+  <data name="LogNote_Title" xml:space="preserve">
+    <value>Nota text</value>
+  </data>
+  <data name="LogNote_EditorPlaceholder" xml:space="preserve">
+    <value>Introduceti nota text aici... Nota text va fi memorata impreuna cu datele inregistrate.</value>
+  </data>
+  <data name="AddCaption_EditorPlaceholder" xml:space="preserve">
+    <value>Introduce aici Fotografie/Subtitrare video...</value>
+  </data>
+  <data name="RecordSound_Delete" xml:space="preserve">
+    <value>Sterge</value>
+  </data>
+  <data name="WolfSenseAlert_Title" xml:space="preserve">
+    <value>Alerta - WolfSense</value>
+  </data>
+  <data name="WolfSenseMessage_Title" xml:space="preserve">
+    <value>WolfSense</value>
+  </data>
+  <data name="LogService_LoggingStopped" xml:space="preserve">
+    <value>Inregistrare oprita.</value>
+  </data>
+  <data name="LogFileWritingMode_Overwrite" xml:space="preserve">
+    <value>SUPRASCRIERE</value>
+  </data>
+  <data name="LogFileWritingMode_Append" xml:space="preserve">
+    <value>ADAUGARE</value>
+  </data>
+  <data name="LogService_LogAlreadyExistMessage" xml:space="preserve">
+    <value>Fisierul exista deja. Selectati optiunea:</value>
+  </data>
+  <data name="LogService_OverwriteButton" xml:space="preserve">
+    <value>Suprascriere</value>
+  </data>
+  <data name="LogService_OverwriteDialogTitle" xml:space="preserve">
+    <value>Suprascriere fisier curent Jurnal locatie?</value>
+  </data>
+  <data name="LogService_SelectLocationBeforeRecord" xml:space="preserve">
+    <value>Nu este selectat niciun fisier Jurnal locatie. Selectati un fisier Jurnal locatie inaintea adaugarii unei inregistrari.</value>
+  </data>
+  <data name="LogService_SelectLocationBeforeNote" xml:space="preserve">
+    <value>Nu este selectat niciun fisier Jurnal locatie. Selectati un fisier Jurnal locatie inaintea adaugarii unei note.</value>
+  </data>
+  <data name="LogService_SelectLocationBeforePhoto" xml:space="preserve">
+    <value>Nu este selectat niciun fisier Jurnal locatie. Selectati un fisier Jurnal locatie inaintea adaugarii unei fotografii.</value>
+  </data>
+  <data name="LogService_GallerySource" xml:space="preserve">
+    <value>Galerie</value>
+  </data>
+  <data name="LogService_CameraSource" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="Localization_SelectPhotoSource" xml:space="preserve">
+    <value>Selecteaza sursa:</value>
+  </data>
+  <data name="LogService_NoCameraAvailableMessage" xml:space="preserve">
+    <value>Camera indisponibila.</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Se incarca...</value>
+  </data>
+  <data name="LogService_CameraPermissionsDenied" xml:space="preserve">
+    <value>Utilizarea camerei nu este permisa. Accesati Setari si activati utilizarea camerei pentru a permite WolfSense sa ataseze poze la fisierele Jurnal locatie.</value>
+  </data>
+  <data name="LogService_GalleryIsNotAvailable" xml:space="preserve">
+    <value>Galerie indisponibila</value>
+  </data>
+  <data name="LogService_MediaFileLogged" xml:space="preserve">
+    <value>Fisier media inregistrat cu succes.</value>
+  </data>
+  <data name="LogService_VideoFileLogged" xml:space="preserve">
+    <value>Fisierul video inregistrat cu succes.</value>
+  </data>
+  <data name="DataGrid_LoggerIsRunning" xml:space="preserve">
+    <value>Vizualizarea datelor nu este disponibila in timpul rularii inregistrarii</value>
+  </data>
+  <data name="Log_SnapshotNotCreated" xml:space="preserve">
+    <value>Datele nu au fost inregistrate</value>
+  </data>
+  <data name="Button_Select" xml:space="preserve">
+    <value>Selecteaza</value>
+  </data>
+  <data name="Menu_Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Menu_StartDemoTOX" xml:space="preserve">
+    <value>Pornire mod TOX demo</value>
+  </data>
+  <data name="Button_AddNote" xml:space="preserve">
+    <value>Adaugare nota</value>
+  </data>
+  <data name="Probe_Offline" xml:space="preserve">
+    <value>Offline/Deconectat</value>
+  </data>
+  <data name="Probe_DisconnectMsg" xml:space="preserve">
+    <value>Dispozitivul s-a deconectat. Selecteaza MENIU/ INREGISTRARI/ SELECTIE DISPOZITIVE pentru reconectare.</value>
+  </data>
+  <data name="Data_NoData" xml:space="preserve">
+    <value>Nu exista date de afisat.</value>
+  </data>
+  <data name="Confirm_Export" xml:space="preserve">
+    <value>Sunteti sigur ca doriti sa exportati acest fisier Jurnal locatie?</value>
+  </data>
+  <data name="Confirm_Export_Zip" xml:space="preserve">
+    <value>Sunteti sigur ca doriti sa exportati si sa trimiteti prin email acest fisier Jurnal locatie?</value>
+  </data>
+  <data name="OperationCancelled" xml:space="preserve">
+    <value>Operatiunea a fost anulata.</value>
+  </data>
+  <data name="Platform_NotSupported" xml:space="preserve">
+    <value>Functionarea nu este suportata pe aceasta platforma.</value>
+  </data>
+  <data name="Logger_NotWhileLogging" xml:space="preserve">
+    <value>Nu puteti exporta, partaja sau sterge fisierele Jurnal locatie in timpul rularii inregistrarii.</value>
+  </data>
+  <data name="Export_Success" xml:space="preserve">
+    <value>Export in fisier cu succes.</value>
+  </data>
+  <data name="SelectOption" xml:space="preserve">
+    <value>Selecteaza optiune</value>
+  </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>Sterge</value>
+  </data>
+  <data name="Button_Clear" xml:space="preserve">
+    <value>Goleste</value>
+  </data>
+  <data name="TrendLog_Status" xml:space="preserve">
+    <value>Inregistrare in {0} la interval {1} secunde</value>
+  </data>
+  <data name="Title_TrendLog" xml:space="preserve">
+    <value>Inregistrare evolutiva</value>
+  </data>
+  <data name="Button_StopLog" xml:space="preserve">
+    <value>Opreste inregistrare</value>
+  </data>
+  <data name="ShowVideo_Title" xml:space="preserve">
+    <value>Camera video</value>
+  </data>
+  <data name="SensorPopup_Tips" xml:space="preserve">
+    <value>Sfaturi &gt;&gt;&gt;</value>
+  </data>
+  <data name="SensorTip_DefaultText" xml:space="preserve">
+    <value>Bazele senzorului pentru</value>
+  </data>
+  <data name="SelectSensorTip_Title" xml:space="preserve">
+    <value>Selecteaza sfat pentru senzor</value>
+  </data>
+  <data name="SensorTips_SensorTip" xml:space="preserve">
+    <value>Sfat senzor</value>
+  </data>
+  <data name="SensorTips_Title" xml:space="preserve">
+    <value>Sfaturi senzor</value>
+  </data>
+  <data name="Menu_ProbeOptions" xml:space="preserve">
+    <value>Optiuni sonda</value>
+  </data>
+  <data name="ProbeOptions_Title" xml:space="preserve">
+    <value>Optiuni sonda</value>
+  </data>
+  <data name="ProbeOptions_EnableSnapshotButtonFromDSIIDevice" xml:space="preserve">
+    <value>Activeaza inregistrare instantanee din butonul Log al sondei DSII</value>
+  </data>
+  <data name="SelectVOCItem_Title" xml:space="preserve">
+    <value>Selecteaza componenta COV</value>
+  </data>
+  <data name="SensorPopup_VOC" xml:space="preserve">
+    <value>COV &gt;&gt;&gt;</value>
+  </data>
+  <data name="VOCList_VOCItem" xml:space="preserve">
+    <value>Componenta COV</value>
+  </data>
+  <data name="VOCList_Formula" xml:space="preserve">
+    <value>Formula chimica</value>
+  </data>
+  <data name="VOCList_AltName" xml:space="preserve">
+    <value>Nume alternativ</value>
+  </data>
+  <data name="VOCList_CorrectionFactor" xml:space="preserve">
+    <value>Factor corectie calibrare</value>
+  </data>
+  <data name="VOCList_OSHAPel" xml:space="preserve">
+    <value>OSHA PEL</value>
+  </data>
+  <data name="VOCList_Title" xml:space="preserve">
+    <value>COV</value>
+  </data>
+  <data name="Menu_VOC" xml:space="preserve">
+    <value>COV</value>
+  </data>
+  <data name="DeviceName_PC" xml:space="preserve">
+    <value>Contor de particule</value>
+  </data>
+  <data name="DeviceName_WR" xml:space="preserve">
+    <value>WolfRadio</value>
+  </data>
+  <data name="DeviceName_PM" xml:space="preserve">
+    <value>Numarator de particule</value>
+  </data>
+  <data name="VOCList_SearchPlaceholder" xml:space="preserve">
+    <value>Tasteaza nume componenta</value>
+  </data>
+  <data name="Error_NetworkRequired" xml:space="preserve">
+    <value>Este necesara conexiune la internet</value>
+  </data>
+  <data name="SensorTips_ChangeTip" xml:space="preserve">
+    <value>Schimba sfat &gt;&gt;&gt;</value>
+  </data>
+  <data name="ReviewPhotos_Title" xml:space="preserve">
+    <value>Vizualizare poze</value>
+  </data>
+  <data name="AddCaption_Title" xml:space="preserve">
+    <value>Adauga/Editeaza subtitrare</value>
+  </data>
+  <data name="Button_AddCaption" xml:space="preserve">
+    <value>Actualizare subtitrare</value>
+  </data>
+  <data name="ReviewVideos_Title" xml:space="preserve">
+    <value>Vizualizare video</value>
+  </data>
+  <data name="SensorStatusError_Title" xml:space="preserve">
+    <value>Eroare stare senzor</value>
+  </data>
+  <data name="Menu_ReviewNotes" xml:space="preserve">
+    <value>Revizuire note</value>
+  </data>
+  <data name="Error_CheckCal" xml:space="preserve">
+    <value>Verificati calibrarea sondei</value>
+  </data>
+  <data name="Error_FanFault" xml:space="preserve">
+    <value>Ventilator defect</value>
+  </data>
+  <data name="Error_GeneralError" xml:space="preserve">
+    <value>Eroare generala</value>
+  </data>
+  <data name="Error_GeneralSensorError" xml:space="preserve">
+    <value>Eroare generala senzor</value>
+  </data>
+  <data name="Error_HCHO_HiCO" xml:space="preserve">
+    <value>Nivelul ridicat de CO poate influenta valorile HCHO.</value>
+  </data>
+  <data name="Error_HCHO_LoRH" xml:space="preserve">
+    <value>Nivelul scazut de %RH poate influenta vallorile HCHO.</value>
+  </data>
+  <data name="Error_HCHO_NoCO" xml:space="preserve">
+    <value>Fara senzor CO – nu pot fi afisate mesaje cu privire la sensibilitate incrucisata HCHO.</value>
+  </data>
+  <data name="Error_MissingTRH" xml:space="preserve">
+    <value>Lipseste senzor temperatura/RH</value>
+  </data>
+  <data name="Error_NoSensorsInstalled" xml:space="preserve">
+    <value>Nu sunt senzori instalati</value>
+  </data>
+  <data name="Error_ProbeBatteryCritical" xml:space="preserve">
+    <value>Baterie sonda in stare critica</value>
+  </data>
+  <data name="Error_WiFi_Disco" xml:space="preserve">
+    <value>Wi-Fi deconectat</value>
+  </data>
+  <data name="Select_Language" xml:space="preserve">
+    <value>Selecteaza limba (Language)</value>
+  </data>
+    <data name="SensorStabilization_Generic" xml:space="preserve">
+    <value>Atunci cand sunt porniti pentru prima data, senzorii inteligenti necesita o perioada de stabilizare de 5 minute inainte de utilizare. In timpul stabilizarii, inregistrarea instantanee este dezactivata, iar inregistrarea evolutiva este suspendata. Dupa stabilizarea completa a senzorilor, pictograma senzorului va disparea, valorile citite vor avea culoarea neagra si toate functiile de jurnal vor fi restabilite.</value>
+  </data>
+  <data name="SensorStabilization_PID" xml:space="preserve">
+    <value>Senzorul PID necesita o perioada de stabilizare de MINIM 15 minute daca senzorul a fost folosit recent si 30 de minute daca senzorul este utilizat frecvent. Se recomanda o perioadă de stabilizare de 24 de ore daca senzorul a fost depozitat pentru o perioada semnificativa de timp, a fost expus la umiditate ridicata sau la surse de contaminare sau inainte de calibrarea acestuia. Pentru mai multe informatii, va rugam sa consultati sfaturile pentru senzori si recomandarile pentru senzorii PID.</value>
+  </data>
+  <data name="Menu_CloseApp" xml:space="preserve">
+    <value>Închideți aplicația</value>
+  </data>
+    <data name="Log_EnterFileName" xml:space="preserve">
+    <value>Vă rugăm să introduceți numele fișierului:</value>
+  </data>
+  <data name="Log_EnterValidFileName" xml:space="preserve">
+    <value>Vă rugăm să introduceți un nume de fișier valid</value>
+  </data>
+</root>

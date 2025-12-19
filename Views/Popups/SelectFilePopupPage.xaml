@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popups:BaseLogsPopup
+    xmlns:popups="clr-namespace:GrayWolf.Views.Popups"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:res="clr-namespace:GrayWolf.Localization" 
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls" 
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    x:Class="GrayWolf.Views.Popups.SelectFilePopupPage"
+    x:DataType="vm:SelectFilePopupViewModel"
+    x:Name="this">
+    <Grid>
+        <StackLayout
+            Margin="15"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand"
+            WidthRequest="300"
+            HeightRequest="500"
+            BackgroundColor="{StaticResource AppGrayColor}">
+            <controls:PopupHeader
+                Title="{x:Static res:Localization.SelectFileForDataGrid_Title}"
+                CloseCommand="{Binding BacksCommand}"
+                VerticalOptions="Start"/>
+            
+            <!--#region List-->
+            <Frame
+                Margin="5,0,5,0"
+                Padding="5,5,5,10"
+                BackgroundColor="White"
+                BorderColor="Gray"
+                CornerRadius="5"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                IsClippedToBounds="True"
+                VerticalOptions="FillAndExpand">
+                <StackLayout
+                    VerticalOptions="FillAndExpand">
+                    <CollectionView
+                        ItemsSource="{Binding LogFiles}"
+                        IsVisible="{Binding IsListVisible}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label
+                                    x:DataType="domain:LogFile"
+                                    Text="{Binding Name}"
+                                    Padding="12, 6">
+                                    <Label.BackgroundColor>
+                                        <MultiBinding Converter="{StaticResource IsEqualToResultMultiConverter}">
+                                            <Binding Path="."/>
+                                            <Binding Path="BindingContext.LogFile" Source="{x:Reference this}"/>
+                                            <Binding Path="SelectedLabelColor" Source="{x:Reference this}"/>
+                                            <Binding Path="DefaultLabelColor" Source="{x:Reference this}"/>
+                                        </MultiBinding>
+                                    </Label.BackgroundColor>
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectLogCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <Label
+                        Padding="12, 0"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        VerticalOptions="FillAndExpand"
+                        IsVisible="{Binding IsPlaceholderVisible}"
+                        Text="{x:Static res:Localization.SelectFileForDataGrid_NoItemsMessage}"/>
+
+                </StackLayout>
+            </Frame>
+
+            <Button
+                Text="{x:Static res:Localization.Button_Confirm}"
+                Command="{Binding ConfirmCommand}"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                Margin="0, 8, 0, 12"
+                Style="{StaticResource ButtonStyle}"/>
+        </StackLayout>
+    </Grid>
+</popups:BaseLogsPopup>

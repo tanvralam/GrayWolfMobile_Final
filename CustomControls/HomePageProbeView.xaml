@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="GrayWolf.CustomControls.HomePageProbeView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:GrayWolf.Converters;assembly=GrayWolf"
+    xmlns:customControls="clr-namespace:GrayWolf.CustomControls;assembly=GrayWolf"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    x:DataType="customControls:HomePageProbeView"
+    mc:Ignorable="d"
+    x:Name="ProbeView">
+    <ContentView.Resources>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid
+            Padding="0,-8,0,0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="10"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid
+                Margin="0,10,0,0"
+                Padding="10,0,0,0"
+                BackgroundColor="#30FFFFFF">
+                <Grid.ColumnDefinitions>
+                    <!--<ColumnDefinition Width="0" />
+                    <ColumnDefinition />-->
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="35" />
+                    <ColumnDefinition Width="35" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="35" />
+                </Grid.ColumnDefinitions>
+                <StackLayout
+                    Grid.Column="0"
+                    Orientation="Horizontal">
+                    <Label
+                        x:Name="NameLabel"
+                        FontSize="20"
+                        VerticalOptions="Center"
+                        Text="{Binding Probe.DeviceDisplayName}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                    Command="{Binding Source={x:Reference ProbeView}, Path=ProbeTappedCommand}"
+                    CommandParameter="{Binding Source={x:Reference ProbeView}, Path=Probe}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+
+                <Label
+                    Grid.Column="1"
+                    FontSize="Medium"
+                    VerticalOptions="Center">
+                    <Label.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Probe.Status}"
+                            TargetType="Label"
+                            Value="CalError">
+                            <Setter Property="Text" Value="Calibration Error" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Probe.Status}"
+                            TargetType="Label"
+                            Value="FanError">
+                            <Setter Property="Text" Value="Fan Error" />
+                            <Setter Property="TextColor" Value="Yellow" />
+                            <Setter Property="TextColor" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Probe.Status}"
+                            TargetType="Label"
+                            Value="NoRHTemp">
+                            <Setter Property="Text" Value="No RH Temp" />
+                            <Setter Property="TextColor" Value="Orange" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Probe.Status}"
+                            TargetType="Label"
+                            Value="STABILIZING">
+                            <Setter Property="Text" Value="!" />
+                            <Setter Property="TextColor" Value="Gray" />
+                        </DataTrigger>
+
+                    </Label.Triggers>
+                </Label>
+                <Image
+                    Grid.Column="2"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="30"
+                    Source="{Binding Probe.BatteryStatusEnum, Converter={StaticResource BatteryStatusToImageSourceConverter}}"/>
+                <Image
+                    Grid.Column="3"
+                    HeightRequest="50"
+                    Aspect="AspectFit"
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="Center"
+                    WidthRequest="50">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SensorStatusError_Tapped" CommandParameter="{Binding Probe}" />
+                    </Image.GestureRecognizers>
+                    <Image.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsStatusOK}"
+                            TargetType="Image"
+                            Value="false">
+                            <Setter Property="Source" Value="SensorWarning48.png" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding Probe.Status}"
+                            TargetType="Image"
+                            Value="STABILIZING">
+                            <Setter Property="Source" Value="SensorWarning48.png" />
+                        </DataTrigger>
+
+                    </Image.Triggers>
+                </Image>
+                <Image
+                    Grid.Column="4"
+                    HeightRequest="50"
+                    Source="rightChevron.png"
+                    VerticalOptions="Center"
+                    WidthRequest="50">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Expand_Tapped" />
+                    </Image.GestureRecognizers>
+                    <Image.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Probe.IsExpanded}"
+                            TargetType="Image"
+                            Value="True">
+                            <Setter Property="Source" Value="downChevron.png" />
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+            </Grid>
+
+            <StackLayout
+                x:Name="SublvProbeList"
+                Grid.Row="1"
+                Padding="10,5,5,5"
+                BackgroundColor="#30FFFFFF"
+                Spacing="0"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding Probe.IsExpanded}"
+                BindableLayout.ItemsSource="{Binding Probe.UIReadings}"
+                VerticalOptions="StartAndExpand">
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="domain:Reading">
+                        <Grid
+                            Padding="0, 8"
+                            HorizontalOptions="FillAndExpand"
+                            RowSpacing="10"
+                            VerticalOptions="FillAndExpand"
+                            ColumnDefinitions="*, auto, 90">
+                            <!--  Sensor  -->
+                            <Grid
+                                Grid.Column="0"
+                                ColumnSpacing="5"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="1"
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="{Binding Name}"
+                                    TextColor="Black"
+                                    VerticalTextAlignment="Center"
+                                    VerticalOptions="FillAndExpand">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference ProbeView}, Path=SensorClickCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+
+                            <Label
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalOptions="EndAndExpand"
+                                IsVisible="{Binding Source={x:Reference ProbeView}, Path=Probe.IsOnline, Converter={StaticResource InvertBooleanConverter}}"
+                                Text="    --      "
+                                TextColor="White"
+                                VerticalOptions="CenterAndExpand" 
+                                VerticalTextAlignment="Center"/>
+
+                            <Label
+                                Grid.Column="1"
+                                FontAttributes="Bold"
+                                HorizontalOptions="EndAndExpand"
+                                HorizontalTextAlignment="End"
+                                IsVisible="{Binding Source={x:Reference ProbeView}, Path=Probe.IsOnline}"
+                                Text="{Binding ConvertedUnit.FormattedValue}"
+                                TextColor="{Binding Source={x:Reference ProbeView}, Path=Probe.StatusEnum, Converter={StaticResource ProbeStatusToTextColorConverter}}"
+                                VerticalOptions="CenterAndExpand"
+                                VerticalTextAlignment="Center" />
+                            <Label
+                                Grid.Column="2"
+                                HorizontalOptions="StartAndExpand"
+                                HorizontalTextAlignment="Start"
+                                IsVisible="{Binding Source={x:Reference ProbeView}, Path=Probe.IsOnline}"
+                                Text="{Binding ConvertedUnit.Name}"
+                                TextColor="{Binding Source={x:Reference ProbeView}, Path=Probe.StatusEnum, Converter={StaticResource ProbeStatusToTextColorConverter}}"
+                                VerticalOptions="CenterAndExpand"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+        </Grid>
+
+    </ContentView.Content>
+</ContentView>

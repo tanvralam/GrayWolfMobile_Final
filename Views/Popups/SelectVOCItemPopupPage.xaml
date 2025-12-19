@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:loc="clr-namespace:GrayWolf.Localization"
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    x:Class="GrayWolf.Views.Popups.SelectVOCItemPopupPage"
+    x:DataType="vm:SelectVOCItemPopupViewModel"
+    x:Name="this">
+    <!--<ContentPage.Content>-->
+
+    <Grid RowDefinitions="Auto, Auto, *,Auto"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="Center"
+            WidthRequest="370"
+            HeightRequest="500"
+            Padding="0, 0, 0, 10"
+           
+            BackgroundColor="{StaticResource AppGrayColor}">
+            <controls:PopupHeader Grid.Row="0"
+                Title="{x:Static loc:Localization.SelectVOCItem_Title}"
+                CloseCommand="{Binding BacksCommand}"/>
+
+            <Frame Grid.Row="1"
+                Margin="12, 8, 12, 0"
+                Padding="0">
+               
+                    <Entry
+                    Placeholder="{x:Static loc:Localization.VOCList_SearchPlaceholder}"
+                    Text="{Binding Filter}"/>
+             
+            </Frame>
+
+            <Frame Grid.Row="2"
+                Margin="12, 8"
+                Padding="5,5,5,10"
+                BackgroundColor="White"
+                BorderColor="Gray"
+                CornerRadius="5"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                IsClippedToBounds="True"
+                VerticalOptions="FillAndExpand">
+              
+                <CollectionView
+                    ItemsSource="{Binding FilteredItems}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label
+                                x:DataType="domain:VOCItem"
+                                Text="{Binding Name}"
+                                Padding="12, 6">
+                                <Label.BackgroundColor>
+                                    <MultiBinding Converter="{StaticResource IsEqualToResultMultiConverter}">
+                                        <Binding Path="."/>
+                                        <Binding Path="BindingContext.SelectedItem" Source="{x:Reference this}"/>
+                                        <Binding Path="SelectedLabelColor" Source="{x:Reference this}"/>
+                                        <Binding Path="DefaultLabelColor" Source="{x:Reference this}"/>
+                                    </MultiBinding>
+                                </Label.BackgroundColor>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectItemCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+             
+            </Frame>
+            <Button Grid.Row="3"
+                Text="{x:Static loc:Localization.Button_Confirm}"
+                Margin="12, 0"
+                Command="{Binding ConfirmCommand}"
+                Style="{StaticResource ButtonStyle}"/>
+        </Grid>
+    
+    <!--</ContentPage.Content>-->
+</controls:BasePopupPage>

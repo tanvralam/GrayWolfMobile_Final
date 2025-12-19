@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"    
+    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:res="clr-namespace:GrayWolf.Localization"
+    xmlns:converters="clr-namespace:GrayWolf.Converters"
+    x:Class="GrayWolf.Views.DataGridPage"
+    Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="GraphSettingsStackStyle" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="0"/>
+                <Setter Property="Padding" Value="12, 0"/>
+            </Style>
+
+            <Style x:Key="GraphSettingsItemHintStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Small"/>
+            </Style>
+
+            <Style x:Key="GraphSettingsValueStackStyle" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="0"/>
+                <Setter Property="Orientation" Value="Horizontal"/>
+            </Style>
+
+            <Style x:Key="GraphSettingsValueLabelStyle" TargetType="Label">
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="Medium"/>
+            </Style>
+
+            <Style x:Key="GraphSettingsArrowIconStyle" TargetType="Image">
+                <Setter Property="Source"  Value="{converters:ImageSource ic_arrow_right_black}"/>
+                <Setter Property="HeightRequest" Value="24"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*, Auto, Auto">
+            <!--<xforms:SfDataGrid
+                x:Name="dataGrid"
+                ItemsSource="{Binding DataTable}"               
+                EnableDataVirtualization="True"
+                AllowPullToRefresh="False"
+                VerticalScrollBarVisibility="Never"               
+                
+                HorizontalScrollBarVisibility="Never"                
+                
+                />-->
+            
+            <telerik:RadDataGrid 
+                    x:Name="dataGrid"
+                    ItemsSource="{Binding DataTable}"               
+                    UserEditMode="None"                
+                    IsBusy="False"  
+                   BackgroundColor="White"
+                    Grid.Row="0"
+                    />
+           
+            <StackLayout Grid.Row="1"
+                IsVisible="{Binding SetSelectionVisible}"
+                Style="{StaticResource GraphSettingsStackStyle}">
+                <Label
+                    Text="{x:Static res:Localization.DataGrid_CurrentSet}"
+                    Style="{StaticResource GraphSettingsItemHintStyle}"/>
+                <StackLayout
+                    Style="{StaticResource GraphSettingsValueStackStyle}">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding SelectSetCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                    <Label
+                        Text="{Binding Set.SetId}"
+                        Style="{StaticResource GraphSettingsValueLabelStyle}"/>
+                    <Image
+                        Style="{StaticResource GraphSettingsArrowIconStyle}"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Grid.Row="2" Margin="0" Padding="10,0" BackgroundColor="#efefef" HeightRequest="50">
+                <CollectionView x:Name="lstCollectionView" ItemsSource="{Binding LogAttachment}" 
+                                SelectedItem="{Binding Attachment}" SelectionMode="Single" 
+                                SelectionChanged="CollectionView_SelectionChanged">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand"
+                                             Margin="2" Padding="0">
+                                <Image Source="{Binding Icon}" HorizontalOptions="CenterAndExpand" 
+                                           WidthRequest="30" HeightRequest="30"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:res="clr-namespace:GrayWolf.Localization"
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    x:Class="GrayWolf.Views.Popups.SelectSetPopupPage"
+    x:DataType="vm:SelectSetPopupViewModel"
+    x:Name="this">
+    <Grid>
+        <StackLayout
+            WidthRequest="250"
+            HeightRequest="300"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            BackgroundColor="{StaticResource AppGrayColor}">
+            <controls:PopupHeader
+                Title="{x:Static res:Localization.SelectSet_Title}"
+                CloseCommand="{Binding BacksCommand}"/>
+
+            <Frame
+                BackgroundColor="White"
+                Margin="12"
+                Padding="4"
+                BorderColor="Gray"
+                CornerRadius="5"
+                HasShadow="False"
+                VerticalOptions="FillAndExpand"
+                IsClippedToBounds="True">
+                <CollectionView
+                    ItemsSource="{Binding Sets}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label
+                                x:DataType="domain:DataGridSet"
+                                Text="{Binding SetId}"
+                                Padding="12, 6">
+                                <Label.BackgroundColor>
+                                    <MultiBinding Converter="{StaticResource IsEqualToResultMultiConverter}">
+                                        <Binding Path="."/>
+                                        <Binding Path="BindingContext.SelectedSet" Source="{x:Reference this}"/>
+                                        <Binding Path="SelectedLabelColor" Source="{x:Reference this}"/>
+                                        <Binding Path="DefaultLabelColor" Source="{x:Reference this}"/>
+                                    </MultiBinding>
+                                </Label.BackgroundColor>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectSetCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+            
+            <Button
+                Text="{x:Static res:Localization.Button_Confirm}"
+                Command="{Binding ConfirmCommand}"
+                Margin="12, 0, 12, 12"
+                Style="{StaticResource ButtonStyle}"/>
+        </StackLayout>
+    </Grid>
+</controls:BasePopupPage>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:res="clr-namespace:GrayWolf.Localization"
+    x:Class="GrayWolf.Views.Popups.FirstDemoFormPopupPage"
+    x:DataType="vm:FirstDemoFormPopupViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FormHintStyle" TargetType="Label">
+            </Style>
+
+            <Style x:Key="FormEntryStyle" TargetType="Entry">
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <StackLayout
+            WidthRequest="400"
+            Margin="40"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            BackgroundColor="{StaticResource AppGrayColor}">
+            <controls:PopupHeader
+                CloseCommand="{Binding BacksCommand}"
+                Title="{x:Static res:Localization.DemoForm_Title}"/>
+
+            <StackLayout
+                Padding="12, 8, 12, 12">
+                <Label
+                    Text="{x:Static res:Localization.DemoForm_Description}"
+                    Margin="0, 0, 0, 8"/>
+
+                <Label
+                    Text="{x:Static res:Localization.DemoForm_Name}"
+                    Style="{StaticResource FormHintStyle}"/>
+                <Entry
+                    Text="{Binding Form.Name}"
+                    ReturnType="Next"
+                    Style="{StaticResource FormEntryStyle}"/>
+
+
+                <Label
+                    Text="{x:Static res:Localization.DemoForm_Email}"
+                    Style="{StaticResource FormHintStyle}"/>
+                <Entry
+                    Text="{Binding Form.Email}"
+                    Keyboard="Email"
+                    ReturnType="Done"
+                    Style="{StaticResource FormEntryStyle}"/>
+
+                <Button
+                    Text="{x:Static res:Localization.Button_Confirm}"
+                    Command="{Binding SubmitCommand}"
+                    Style="{StaticResource ButtonStyle}"/>
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</controls:BasePopupPage>

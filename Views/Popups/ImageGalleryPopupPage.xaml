@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rg:PopupPage
+    xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+    x:Class="GrayWolf.Views.Popups.ImageGalleryPopupPage"
+    x:Name="PhotoGalleryPopupPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels" 
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns:res="clr-namespace:GrayWolf.Localization"
+    mc:Ignorable="d"
+    CloseWhenBackgroundIsClicked="True">
+    <Grid>
+        <!--  Camera Image details  -->
+        <Grid
+            Grid.Row="0"
+            Margin="15"
+            HeightRequest="{DynamicResource NotePopupHeight}"
+            BackgroundColor="{StaticResource AppGrayColor}"
+            Padding="0,0,0,10"
+            RowSpacing="5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand"
+            RowDefinitions="50, *">
+            <!--  Header  -->
+            <controls:PopupHeader
+                Grid.Row="0"
+                Title="{x:Static res:Localization.ReviewPhotos_Title}"
+                CloseCommand="{Binding BacksCommand}"/>
+            <StackLayout Grid.Row="1" Margin="0" Padding="10,10,10,0" BackgroundColor="#efefef" 
+                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <CollectionView x:Name="lstCollectionView" ItemsSource="{Binding LogAttachment}" SelectionMode="Single" 
+                               VerticalOptions="FillAndExpand" SelectionChanged="lstCollectionView_SelectionChanged">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout VerticalItemSpacing="10" HorizontalItemSpacing="15" 
+                                         Orientation="Vertical" Span="3"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand"
+                                            Orientation="Vertical" Margin="2" Padding="0">
+                                <Image Source="{Binding Path}" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" 
+                                           WidthRequest="95" HeightRequest="95" BackgroundColor="Black">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference PhotoGalleryPopupPage},
+                                                Path=BindingContext.MagnifierCommand}" CommandParameter="{Binding .}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand"
+                                            Orientation="Horizontal" Margin="2" Padding="0">
+                                    <Image Source="delete_red.jpg" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" 
+                                           WidthRequest="25" HeightRequest="25" ClassId="Delete">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PhotoGalleryPopupPage},
+                                                Path=BindingContext.DeleteCommand}" CommandParameter="{Binding .}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Image Source="message.jpg" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" 
+                                           WidthRequest="25" HeightRequest="25" ClassId="Message">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PhotoGalleryPopupPage},
+                                                Path=BindingContext.AddCaptionCommand}" CommandParameter="{Binding .}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Image Source="search" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" 
+                                           WidthRequest="25" HeightRequest="25" ClassId="Magnifier">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PhotoGalleryPopupPage},
+                                                Path=BindingContext.MagnifierCommand}" CommandParameter="{Binding .}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Grid>
+    </Grid>
+</rg:PopupPage>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    x:Class="GrayWolf.CustomControls.PopupOptionsView"
+    x:Name="OptionsView"
+    BindableLayout.ItemsSource="{Binding Source={x:Reference OptionsView}, Path=ItemsSource}">
+    <StackLayout.Resources>
+        <ResourceDictionary>
+            <Style x:Key="OptionGridStyle" TargetType="Grid">
+                <Setter Property="ColumnSpacing" Value="0"/>
+                <Setter Property="Padding" Value="12, 0"/>
+                <Setter Property="ColumnDefinitions" Value="auto, *"/>
+            </Style>
+
+            <Style x:Key="OptionCheckBoxStyle" TargetType="CheckBox">
+                <Setter Property="InputTransparent" Value="True"/>
+            </Style>
+
+            <Style x:Key="OptionLabelStyle" TargetType="Label">
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </StackLayout.Resources>
+    <BindableLayout.ItemTemplate>
+        <DataTemplate
+            x:DataType="domain:PopupOption">
+            <Grid
+                Style="{StaticResource OptionGridStyle}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding Command}"/>
+                </Grid.GestureRecognizers>
+                <CheckBox
+                    Grid.Column="0"
+                    IsChecked="{Binding IsChecked, Mode=OneWay}"
+                    Style="{StaticResource OptionCheckBoxStyle}"/>
+                <BoxView
+                    Grid.Column="0"
+                    BackgroundColor="Transparent"/>
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding OptionName}"
+                    Style="{StaticResource OptionLabelStyle}"/>
+            </Grid>
+        </DataTemplate>
+    </BindableLayout.ItemTemplate>
+</StackLayout>

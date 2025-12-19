@@ -1,0 +1,881 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="HomePage_EmptyListMessage" xml:space="preserve">
+    <value>여기를 누르고 GrayWolf 장치를 선택하십시오.</value>
+  </data>
+  <data name="SelectDevices_Bluetooth" xml:space="preserve">
+    <value>블루투스 장치:</value>
+  </data>
+  <data name="SelectDevices_CloudTitle" xml:space="preserve">
+    <value>GrayWolfLive 클라우드:</value>
+  </data>
+  <data name="SelectDevices_Select" xml:space="preserve">
+    <value>장치 선택:</value>
+  </data>
+  <data name="SelectDevices_Title" xml:space="preserve">
+    <value>장치 선택</value>
+  </data>
+  <data name="SelectDevices_LogOut" xml:space="preserve">
+    <value>로그아웃</value>
+  </data>
+  <data name="SelectDevices_LoggedInAs" xml:space="preserve">
+    <value>으로 로그인됨</value>
+  </data>
+  <data name="SelectDevices_NotLoggedIn" xml:space="preserve">
+    <value>로그인하지 않음</value>
+  </data>
+  <data name="SelectDevices_LogIn" xml:space="preserve">
+    <value>GrayWolfLive에 로그인</value>
+  </data>
+  <data name="SelectDevices_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SelectDevices_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="SelectDevices_Cloud" xml:space="preserve">
+    <value>클라우드 장치:</value>
+  </data>
+  <data name="RecordSound_Title" xml:space="preserve">
+    <value>오디오 노트</value>
+  </data>
+  <data name="RecordSound_Play" xml:space="preserve">
+    <value>재생</value>
+  </data>
+  <data name="RecordSound_Stop" xml:space="preserve">
+    <value>멈춤</value>
+  </data>
+  <data name="RecordSound_Record" xml:space="preserve">
+    <value>녹화</value>
+  </data>
+  <data name="RecordSound_AttachmentsDeleted" xml:space="preserve">
+    <value>오디오 노트를 성공적으로 삭제했습니다.</value>
+  </data>
+  <data name="RecordSound_AttachmentAdded" xml:space="preserve">
+    <value>오디오 노트가 저장되었습니다.</value>
+  </data>
+  <data name="StartLog_SelectDevicesMessage" xml:space="preserve">
+    <value>측정값과 장치선택을 사용하여 장치를 선택하십시오.</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>주의</value>
+  </data>
+  <data name="SelectDevices_LogIsRunningMessage" xml:space="preserve">
+    <value>로거 실행 중에는 변경할 수 없습니다.</value>
+  </data>
+  <data name="DrawingNote_SelectLoggerMessage" xml:space="preserve">
+    <value>위치 로그 파일을 선택하지 않았습니다. 드로잉노트를 캡처하기 전에 위치 로그 파일을 선택하십시오.</value>
+  </data>
+  <data name="AddVideo_SelectLoggerMessage" xml:space="preserve">
+    <value>위치 로그 파일을 선택하지 않았습니다. 동영상을 첨부하기 전에 위치를 선택하십시오.</value>
+  </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>도움말</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>도움말</value>
+  </data>
+  <data name="About_Web" xml:space="preserve">
+    <value>웹사이트</value>
+  </data>
+  <data name="About_Support" xml:space="preserve">
+    <value>이메일 지원</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>버전</value>
+  </data>
+  <data name="SensorPopup_Title" xml:space="preserve">
+    <value>센서</value>
+  </data>
+  <data name="SensorPopup_SerialNum" xml:space="preserve">
+    <value>시리얼 번호</value>
+  </data>
+  <data name="SensorPopup_Unit" xml:space="preserve">
+    <value>항목</value>
+  </data>
+  <data name="SensorPopup_Units" xml:space="preserve">
+    <value>단위</value>
+  </data>
+  <data name="SensorPopup_Confirm" xml:space="preserve">
+    <value>단위 변경</value>
+  </data>
+  <data name="Log_StoragePermissionsMessage" xml:space="preserve">
+    <value>문서를 첨부하는 데 필요한 저장소 권한</value>
+  </data>
+  <data name="Log_RecordDeviceNotAvailable" xml:space="preserve">
+    <value>마이크를 사용할 수 없습니다.</value>
+  </data>
+  <data name="Menu_VideoHelp" xml:space="preserve">
+    <value>비디오 도움말</value>
+  </data>
+  <data name="Menu_Live" xml:space="preserve">
+    <value>라이브</value>
+  </data>
+  <data name="Menu_Log" xml:space="preserve">
+    <value>로그</value>
+  </data>
+  <data name="Menu_StartLog" xml:space="preserve">
+    <value>로그 시작</value>
+  </data>
+  <data name="Menu_StopLog" xml:space="preserve">
+    <value>로그 중지</value>
+  </data>
+  <data name="Menu_Locations" xml:space="preserve">
+    <value>위치</value>
+  </data>
+  <data name="Menu_Notes" xml:space="preserve">
+    <value>노트</value>
+  </data>
+  <data name="Menu_Photo" xml:space="preserve">
+    <value>사진</value>
+  </data>
+  <data name="Menu_Video" xml:space="preserve">
+    <value>비디오</value>
+  </data>
+  <data name="Menu_Audio" xml:space="preserve">
+    <value>오디오</value>
+  </data>
+  <data name="Menu_Text" xml:space="preserve">
+    <value>텍스트 노트</value>
+  </data>
+  <data name="Menu_Event" xml:space="preserve">
+    <value>이벤트</value>
+  </data>
+  <data name="Menu_Drawing" xml:space="preserve">
+    <value>그리기</value>
+  </data>
+  <data name="Menu_Readings" xml:space="preserve">
+    <value>측정값</value>
+  </data>
+  <data name="Menu_SelectDevices" xml:space="preserve">
+    <value>장치 선택</value>
+  </data>
+  <data name="StartLog_Snapshot" xml:space="preserve">
+    <value>스냅샷</value>
+  </data>
+  <data name="StartLog_TrendingLog" xml:space="preserve">
+    <value>로그 시작</value>
+  </data>
+  <data name="StartLog_SelectLocation" xml:space="preserve">
+    <value>위치 로그 파일 선택:</value>
+  </data>
+  <data name="StartLog_EmptyLocationsMessage" xml:space="preserve">
+    <value>추가 버튼을 눌러 새 위치 로그 파일을 추가합니다.</value>
+  </data>
+  <data name="StartLog_AddLocation" xml:space="preserve">
+    <value>로그 위치 파일 추가</value>
+  </data>
+  <data name="StartLog_Interval" xml:space="preserve">
+    <value>간격:</value>
+  </data>
+  <data name="Log_SnapshotCreated_Format" xml:space="preserve">
+    <value>스냅샷 로그가 "{0}"(으)로 기록됨</value>
+  </data>
+  <data name="StartLog_SelectLocationMessage" xml:space="preserve">
+    <value>위치 로그 파일을 선택하십시오.</value>
+  </data>
+  <data name="AddEvent_LabelPlaceholder" xml:space="preserve">
+    <value>여기에 이벤트 노트 입력합니다. 이벤트 노트는 기록된 데이터와 함께 저장된 타임스탬프 항목입니다.</value>
+  </data>
+  <data name="AddEvent_Title" xml:space="preserve">
+    <value>이벤트</value>
+  </data>
+  <data name="AddEvent_SuccessMessage_Format" xml:space="preserve">
+    <value>이벤트를 "{0}"에 추가했습니다.</value>
+    <comment>Leave any "{0}" as is...
+</comment>
+  </data>
+  <data name="Log_Events_NotRunningMessage" xml:space="preserve">
+    <value>이벤트는 로거가 실행되는 동안에만 기록할 수 있습니다.</value>
+  </data>
+  <data name="Log_LocationAlreadyExist" xml:space="preserve">
+    <value>같은 이름의 위치 로그 파일이 이미 있습니다!</value>
+  </data>
+  <data name="StartLog_Snahshot_LogIsAlreadyRunning" xml:space="preserve">
+    <value>추세 로그가 실행되는 동안 스냅샷이 생성되지 않을 수 있습니다.</value>
+  </data>
+  <data name="HomePage_SelectLocation" xml:space="preserve">
+    <value>&lt;위치 로그 파일 선택&gt;</value>
+    <comment>Leave &lt; &gt; marks in place</comment>
+  </data>
+  <data name="HomePage_LocationFormat" xml:space="preserve">
+    <value>위치 로그 파일: {0}</value>
+  </data>
+  <data name="Log_FileNameTooLongFormat" xml:space="preserve">
+    <value>위치 로그 파일 이름은 {0}자 미만이어야 합니다.</value>
+  </data>
+  <data name="Log_SelectionWhileLoggingMessage" xml:space="preserve">
+    <value>로거 실행 중에는 위치를 변경할 수 없습니다.</value>
+  </data>
+  <data name="SelectAttachmentFiles_Title" xml:space="preserve">
+    <value>포함할 사진/동영상 선택</value>
+  </data>
+  <data name="SelectAttachmentFiles_Files" xml:space="preserve">
+    <value>파일:</value>
+  </data>
+  <data name="SelectAttachmentFiles_Description" xml:space="preserve">
+    <value>위치 로그 파일에는 사진과 비디오가 포함되어 있으며 전자 메일을 사용하는 경우 너무 클 수 있습니다. 크기를 줄이려면 이미지 및 비디오 선택을 취소합니다.</value>
+  </data>
+  <data name="Probe_SerialNumber" xml:space="preserve">
+    <value>시리얼 번호</value>
+  </data>
+  <data name="Probe_ProbeStatus" xml:space="preserve">
+    <value>프로브 상태:</value>
+  </data>
+  <data name="Probe_BatteryLevel" xml:space="preserve">
+    <value>배터리 수준:</value>
+  </data>
+  <data name="Probe_UpTime" xml:space="preserve">
+    <value>프로브 전원 켠 시간:</value>
+  </data>
+  <data name="Probe_Sensors" xml:space="preserve">
+    <value>센서</value>
+  </data>
+  <data name="Probe_Title" xml:space="preserve">
+    <value>프로브 상태</value>
+  </data>
+  <data name="Chart_FifteenMinutes" xml:space="preserve">
+    <value>15분</value>
+  </data>
+  <data name="Chart_OneHour" xml:space="preserve">
+    <value>1시간</value>
+  </data>
+  <data name="Chart_EightHours" xml:space="preserve">
+    <value>8시간</value>
+  </data>
+  <data name="Chart_Day" xml:space="preserve">
+    <value>하루</value>
+  </data>
+  <data name="Chart_Everything" xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="Chart_SelectTimeOption" xml:space="preserve">
+    <value>시간 선택 옵션</value>
+  </data>
+  <data name="Chart_TimeOption" xml:space="preserve">
+    <value>시간 범위:</value>
+  </data>
+  <data name="Chart_Parameter" xml:space="preserve">
+    <value>항목:</value>
+  </data>
+  <data name="Chart_SelectParameter" xml:space="preserve">
+    <value>항목 선택</value>
+  </data>
+  <data name="Chart_NoDataToDisplay" xml:space="preserve">
+    <value>{0}에서 표시할 데이터가 없습니다.</value>
+  </data>
+  <data name="Chart_LiveGraph" xml:space="preserve">
+    <value>{0}의 라이브 그래프</value>
+  </data>
+  <data name="Chart_ReviewGraph" xml:space="preserve">
+    <value>{0}의 검토 그래프</value>
+  </data>
+  <data name="Locations_Add" xml:space="preserve">
+    <value>위치 추가</value>
+  </data>
+  <data name="Locations_Title" xml:space="preserve">
+    <value>위치 로그 파일</value>
+  </data>
+  <data name="Locations_Locations" xml:space="preserve">
+    <value>위치 로그 파일:</value>
+  </data>
+  <data name="Locations_Hint" xml:space="preserve">
+    <value>아래에 데이터 파일을 선택하거나 생성 합니다.</value>
+  </data>
+  <data name="Menu_Graph" xml:space="preserve">
+    <value>그래프</value>
+  </data>
+  <data name="SensorPopup_DisplayedInUI" xml:space="preserve">
+    <value>홈 페이지에 표시</value>
+  </data>
+  <data name="SensorPopup_IsLogged" xml:space="preserve">
+    <value>사용</value>
+  </data>
+  <data name="Button_Confirm" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="Password_NoEncryption" xml:space="preserve">
+    <value>비밀번호 없음</value>
+  </data>
+  <data name="Password_DefaultPassword" xml:space="preserve">
+    <value>초기 비밀번호</value>
+  </data>
+  <data name="Password_CustomPassword" xml:space="preserve">
+    <value>사용자 지정 비밀번호</value>
+  </data>
+  <data name="Password_Title" xml:space="preserve">
+    <value>데이터 보안</value>
+  </data>
+  <data name="Menu_Encryption" xml:space="preserve">
+    <value>데이터 파일 보안</value>
+  </data>
+  <data name="Password_ValidationRulesMessage" xml:space="preserve">
+    <value>암호는 소문자 1개, 대문자 1개, 숫자 1개 및 특수 문자 1개를 포함하여 8-30자를 포함해야 하며 공백을 포함할 수 없습니다.</value>
+  </data>
+  <data name="Menu_Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="DataSecurity_IncludeCSV" xml:space="preserve">
+    <value>CSV 내보내기</value>
+  </data>
+  <data name="DataSecurity_InfoText" xml:space="preserve">
+    <value>WolfSense에서 수집한 데이터 파일은 내보내기/이메일을 보내기 전에 암호화할 수 있습니다. 암호화를 사용하지 않으려면 암호없음(NO PASSWORD)을 선택합니다. 암호화를 사용하려면 기본 암호 또는 사용자 정의 암호를 선택하십시오. 사용자 지정 암호의 경우 파일을 열려면 WolfSense PC에도 암호를 입력해야 합니다.</value>
+  </data>
+  <data name="DataSecurity_InfoTitle" xml:space="preserve">
+    <value>정보</value>
+  </data>
+  <data name="DataSecurity_ConfirmPassword" xml:space="preserve">
+    <value>사용자 지정 암호 확인</value>
+  </data>
+  <data name="DataSecurity_PasswordMissmatch" xml:space="preserve">
+    <value>암호가 일치하지 않습니다!</value>
+  </data>
+  <data name="HomePage_UseInDemoMode" xml:space="preserve">
+    <value>데모 모드에서 사용</value>
+  </data>
+  <data name="Menu_EndDemo" xml:space="preserve">
+    <value>데모 모드 종료</value>
+  </data>
+  <data name="Menu_StartDemoIAQ" xml:space="preserve">
+    <value>IAQ 데모 모드 시작</value>
+  </data>
+  <data name="SelectDevices_CannotOpenInDemo" xml:space="preserve">
+    <value>데모 모드에서는 변경할 수 없습니다.</value>
+  </data>
+  <data name="Menu_AlreadyInDemo" xml:space="preserve">
+    <value>데모 모드가 이미 시작되었습니다.</value>
+  </data>
+  <data name="Menu_AlreadyStoppedDemo" xml:space="preserve">
+    <value>데모 모드가 이미 중지되었습니다.</value>
+  </data>
+  <data name="About_Instructions" xml:space="preserve">
+    <value>설명서</value>
+  </data>
+  <data name="DemoForm_Description" xml:space="preserve">
+    <value>WolfSense Mobile에 관심을 가져주셔서 감사합니다. 아래에 정보를 입력하십시오.</value>
+  </data>
+  <data name="DemoForm_Title" xml:space="preserve">
+    <value>양식</value>
+  </data>
+  <data name="DemoForm_Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="DemoForm_Email" xml:space="preserve">
+    <value>이메일</value>
+  </data>
+  <data name="DemoForm_EmptyDataMessage" xml:space="preserve">
+    <value>이름과 이메일을 입력하십시오.</value>
+  </data>
+  <data name="ShowImage_Title" xml:space="preserve">
+    <value>카메라 이미지</value>
+  </data>
+  <data name="BatteryStatus_Title" xml:space="preserve">
+    <value>배터리 세부 정보</value>
+  </data>
+  <data name="Locations_DeleteConfirmationText" xml:space="preserve">
+    <value>이 위치 로그 파일을 삭제하시겠습니까?</value>
+  </data>
+  <data name="Locations_ClearConfirmationText" xml:space="preserve">
+    <value>이 위치 로그 파일을 지우시겠습니까?</value>
+  </data>
+  <data name="Button_No" xml:space="preserve">
+    <value>아니오</value>
+  </data>
+  <data name="Button_Yes" xml:space="preserve">
+    <value>네</value>
+  </data>
+  <data name="Locations_AreYouSure" xml:space="preserve">
+    <value>확실합니까?</value>
+  </data>
+  <data name="Chart_SelectLocationMessage" xml:space="preserve">
+    <value>위치 로그 파일이 선택되지 않았습니다.</value>
+  </data>
+  <data name="Menu_ParameterNames" xml:space="preserve">
+    <value>항목명</value>
+  </data>
+  <data name="ParameterNames_UseShort" xml:space="preserve">
+    <value>짧은 항목명 사용</value>
+  </data>
+  <data name="ParameterNames_UseLong" xml:space="preserve">
+    <value>긴 항목명 사용</value>
+  </data>
+  <data name="DataGrid_CurrentSet" xml:space="preserve">
+    <value>현재 설정:</value>
+  </data>
+  <data name="DataGrid_Title" xml:space="preserve">
+    <value>데이터 보기</value>
+  </data>
+  <data name="SelectSet_Title" xml:space="preserve">
+    <value>설정 선택</value>
+  </data>
+  <data name="Menu_Data" xml:space="preserve">
+    <value>데이터</value>
+  </data>
+  <data name="SelectFileForDataGrid_Title" xml:space="preserve">
+    <value>위치 로그 파일 선택</value>
+  </data>
+  <data name="SelectFileForDataGrid_NoItemsMessage" xml:space="preserve">
+    <value>표시할 위치 로그 파일이 없습니다.</value>
+  </data>
+  <data name="GalleryAttachmentsSettings_Enabled" xml:space="preserve">
+    <value>사용</value>
+  </data>
+  <data name="GalleryAttachmentsSettings_Disabled" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="GalleryAttachmentsSettings_Title" xml:space="preserve">
+    <value>갤러리에서 사진/비디오 허용</value>
+  </data>
+  <data name="Menu_GalleryAttachmentsSettings" xml:space="preserve">
+    <value>카메라/비디오</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>다시 표시 안 함</value>
+  </data>
+  <data name="Button_Ok" xml:space="preserve">
+    <value>예</value>
+  </data>
+  <data name="Welcome_Message" xml:space="preserve">
+    <value>WolfSense Mobile에 오신 것을 환영합니다. 이 앱이 작동하려면 Bluetooth를 통해 연결된 DirectSense II 스마트 프로브(또는 2개, 최대 3개)가 필요합니다. 시뮬레이션된 판독치에 액세스하여 메인 메뉴 &gt; 측정값 &gt; 데모 모드 시작을 선택하여 앱을 평가할 수 있습니다.</value>
+  </data>
+  <data name="Menu_View" xml:space="preserve">
+    <value>보기</value>
+  </data>
+  <data name="Email_MessageHeader" xml:space="preserve">
+    <value>GrayWolf 기록 데이터</value>
+  </data>
+  <data name="Email_MessageBody" xml:space="preserve">
+    <value>첨부한 LCZ(위치 로그 파일)은 WolfSense 모바일 앱에서 만들어졌습니다. 이 파일의 내용을 확인 하려면 GrayWolf Sensing Solutions의 https://wolfsensepc.com/에서 제공하는 WolfSense PC를 사용하십시오.</value>
+  </data>
+  <data name="Email_LogFileMessageSubject" xml:space="preserve">
+    <value>위치 로그 파일</value>
+  </data>
+  <data name="Share_InstructionsFileText" xml:space="preserve">
+    <value>첨부된 LCZ(위치 로그 파일)는 울프센스 모바일 앱에서 만들어졌습니다.. 이 파일을 열고 내용을 보려면 GrayWolf Sensing Solutions사의  https://wolfsensepc.com/ 사이트에서 제공하는 WolfSense PC를 사용하십시오.</value>
+  </data>
+  <data name="Locations_Share" xml:space="preserve">
+    <value>내보내기</value>
+  </data>
+  <data name="AttachmentsSizeWarning_Message" xml:space="preserve">
+    <value>위치 로그 파일에 사진 및/또는 비디오가 포함되어 있으며 크기가 너무 커서 이메일로 보낼 수 없습니다. 이 파일을 이메일로 보내는 경우 이미지 및 비디오 선택을 취소하여 크기를 줄일 수 있습니다. 파일을 DropBox, Google Drive, OneDrive 등과 같은 클라우드 스토리지 서비스에 저장하는 경우 모든 이미지와 비디오를 선택한 상태로 두고 이후 화면에서 대상을 선택할 수 있습니다.</value>
+  </data>
+  <data name="AttachmentsSizeWarning_Title" xml:space="preserve">
+    <value>경고</value>
+  </data>
+  <data name="Login_AccountRequired" xml:space="preserve">
+    <value>로그인 (GrayWolfLive 계정 필요)</value>
+  </data>
+  <data name="Login_Username" xml:space="preserve">
+    <value>사용자 이름</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>비밀번호</value>
+  </data>
+  <data name="Login_ButtonText" xml:space="preserve">
+    <value>로그인</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="LogNote_Title" xml:space="preserve">
+    <value>텍스트 노트</value>
+  </data>
+  <data name="LogNote_EditorPlaceholder" xml:space="preserve">
+    <value>여기에 텍스트 노트를 입력합니다. 텍스트 노트는 기록된 데이터와 함께 저장됩니다.</value>
+  </data>
+  <data name="AddCaption_EditorPlaceholder" xml:space="preserve">
+    <value>여기에 사진/비디오 설명을 입력하십시오.</value>
+  </data>
+  <data name="RecordSound_Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="WolfSenseAlert_Title" xml:space="preserve">
+    <value>WolfSense - 경고</value>
+  </data>
+  <data name="WolfSenseMessage_Title" xml:space="preserve">
+    <value>WolfSense</value>
+  </data>
+  <data name="LogService_LoggingStopped" xml:space="preserve">
+    <value>로깅이 중지되었습니다.</value>
+  </data>
+  <data name="LogFileWritingMode_Overwrite" xml:space="preserve">
+    <value>덮어쓰기</value>
+  </data>
+  <data name="LogFileWritingMode_Append" xml:space="preserve">
+    <value>첨부하기</value>
+  </data>
+  <data name="LogService_LogAlreadyExistMessage" xml:space="preserve">
+    <value>파일이 이미 있습니다. 옵션 선택:</value>
+  </data>
+  <data name="LogService_OverwriteButton" xml:space="preserve">
+    <value>덮어쓰기</value>
+  </data>
+  <data name="LogService_OverwriteDialogTitle" xml:space="preserve">
+    <value>현재 로그 위치 파일을 덮어쓰시겠습니까?</value>
+  </data>
+  <data name="LogService_SelectLocationBeforeRecord" xml:space="preserve">
+    <value>로그 위치 파일을 선택하지 않았습니다. 기록하기 전에 위치 로그 파일을 선택하십시오.</value>
+  </data>
+  <data name="LogService_SelectLocationBeforeNote" xml:space="preserve">
+    <value>로그 위치 파일을 선택하지 않았습니다. 노트를 추가하기 전에 위치 로그 파일을 선택하십시오.</value>
+  </data>
+  <data name="LogService_SelectLocationBeforePhoto" xml:space="preserve">
+    <value>로그 위치 파일을 선택하지 않았습니다. 사진을 첨부하기 전에 위치 로그 파일을 선택하십시오.</value>
+  </data>
+  <data name="LogService_GallerySource" xml:space="preserve">
+    <value>갤러리</value>
+  </data>
+  <data name="LogService_CameraSource" xml:space="preserve">
+    <value>카메라</value>
+  </data>
+  <data name="Localization_SelectPhotoSource" xml:space="preserve">
+    <value>소스 선택:</value>
+  </data>
+  <data name="LogService_NoCameraAvailableMessage" xml:space="preserve">
+    <value>사용할 수 있는 카메라가 없습니다.</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>로딩 중...</value>
+  </data>
+  <data name="LogService_CameraPermissionsDenied" xml:space="preserve">
+    <value>카메라 권한이 거부되었습니다. 설정으로 이동하여 카메라 권한 사용으로 설정하면 WolfSense가 위치 로그 파일에 사진을 첨부할 수 있도록 합니다.</value>
+  </data>
+  <data name="LogService_GalleryIsNotAvailable" xml:space="preserve">
+    <value>갤러리가 없습니다.</value>
+  </data>
+  <data name="LogService_MediaFileLogged" xml:space="preserve">
+    <value>미디어 파일이 성공적으로 저장되었습니다.</value>
+  </data>
+  <data name="LogService_VideoFileLogged" xml:space="preserve">
+    <value>비디오 파일이 성공적으로 저장되었습니다.</value>
+  </data>
+  <data name="DataGrid_LoggerIsRunning" xml:space="preserve">
+    <value>저장 중일 때는 데이터 보기를 사용할 수 없습니다.</value>
+  </data>
+  <data name="Log_SnapshotNotCreated" xml:space="preserve">
+    <value>기록된 데이터가 없습니다.</value>
+  </data>
+  <data name="Button_Select" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="Menu_Export" xml:space="preserve">
+    <value>내보내기</value>
+  </data>
+  <data name="Menu_StartDemoTOX" xml:space="preserve">
+    <value>TOX 데모 모드 시작</value>
+  </data>
+  <data name="Button_AddNote" xml:space="preserve">
+    <value>노트 추가</value>
+  </data>
+  <data name="Probe_Offline" xml:space="preserve">
+    <value>오프라인/연결 끊김</value>
+  </data>
+  <data name="Probe_DisconnectMsg" xml:space="preserve">
+    <value>연결이 끊어졌습니다. 다시 연결할 메뉴/측정값/장비를 선택하십시오.</value>
+  </data>
+  <data name="Data_NoData" xml:space="preserve">
+    <value>표시할 데이터가 없습니다.</value>
+  </data>
+  <data name="Confirm_Export" xml:space="preserve">
+    <value>이 위치 로그 파일을 내보내시겠습니까?</value>
+  </data>
+  <data name="Confirm_Export_Zip" xml:space="preserve">
+    <value>이 위치 로그 파일을 내보내고 전자 메일로 보내시겠습니까?</value>
+  </data>
+  <data name="OperationCancelled" xml:space="preserve">
+    <value>작동이 취소되었습니다.</value>
+  </data>
+  <data name="Platform_NotSupported" xml:space="preserve">
+    <value>이 플랫폼에서는 지원되지 않는 작업입니다.</value>
+  </data>
+  <data name="Logger_NotWhileLogging" xml:space="preserve">
+    <value>로거가 실행되는 동안에는 위치 로그 파일을 내보내거나 공유 또는 삭제할 수 없습니다.</value>
+  </data>
+  <data name="Export_Success" xml:space="preserve">
+    <value>파일을 내보냈습니다..</value>
+  </data>
+  <data name="SelectOption" xml:space="preserve">
+    <value>옵션 선택</value>
+  </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Button_Clear" xml:space="preserve">
+    <value>지우기</value>
+  </data>
+  <data name="TrendLog_Status" xml:space="preserve">
+    <value>{1}초 간격으로 {0}에 로깅</value>
+  </data>
+  <data name="Title_TrendLog" xml:space="preserve">
+    <value>추세 로그</value>
+  </data>
+  <data name="Button_StopLog" xml:space="preserve">
+    <value>로그 중지</value>
+  </data>
+  <data name="ShowVideo_Title" xml:space="preserve">
+    <value>카메라 비디오</value>
+  </data>
+  <data name="SensorPopup_Tips" xml:space="preserve">
+    <value>유용한 설명 &gt;&gt;&gt;</value>
+  </data>
+  <data name="SensorTip_DefaultText" xml:space="preserve">
+    <value>센서 기본 사항</value>
+  </data>
+  <data name="SelectSensorTip_Title" xml:space="preserve">
+    <value>센서 팁 선택</value>
+  </data>
+  <data name="SensorTips_SensorTip" xml:space="preserve">
+    <value>센서 팁</value>
+  </data>
+  <data name="SensorTips_Title" xml:space="preserve">
+    <value>유용한 센서 팁들</value>
+  </data>
+  <data name="Menu_ProbeOptions" xml:space="preserve">
+    <value>프로브 옵션</value>
+  </data>
+  <data name="ProbeOptions_Title" xml:space="preserve">
+    <value>프로브 옵션</value>
+  </data>
+  <data name="ProbeOptions_EnableSnapshotButtonFromDSIIDevice" xml:space="preserve">
+    <value>DSII 로그 버튼에서 스냅샷 로그 사용</value>
+  </data>
+  <data name="SelectVOCItem_Title" xml:space="preserve">
+    <value>VOC 항목</value>
+  </data>
+  <data name="SensorPopup_VOC" xml:space="preserve">
+    <value>VOC &gt;&gt;&gt;</value>
+    <comment>leave &gt;&gt;&gt; as its a button label</comment>
+  </data>
+  <data name="VOCList_VOCItem" xml:space="preserve">
+    <value>VOC 항목</value>
+  </data>
+  <data name="VOCList_Formula" xml:space="preserve">
+    <value>화학식</value>
+  </data>
+  <data name="VOCList_AltName" xml:space="preserve">
+    <value>대체 이름</value>
+  </data>
+  <data name="VOCList_CorrectionFactor" xml:space="preserve">
+    <value>교정 보정 계수</value>
+  </data>
+  <data name="VOCList_OSHAPel" xml:space="preserve">
+    <value>OSHA PEL</value>
+  </data>
+  <data name="VOCList_Title" xml:space="preserve">
+    <value>VOC</value>
+  </data>
+  <data name="Menu_VOC" xml:space="preserve">
+    <value>VOC 보기</value>
+  </data>
+  <data name="DeviceName_PC" xml:space="preserve">
+    <value>파티클카운터</value>
+  </data>
+  <data name="DeviceName_WR" xml:space="preserve">
+    <value>WolfRadio</value>
+  </data>
+  <data name="DeviceName_PM" xml:space="preserve">
+    <value>분진측정기</value>
+  </data>
+  <data name="VOCList_SearchPlaceholder" xml:space="preserve">
+    <value>화합물의 종류명</value>
+  </data>
+  <data name="Error_NetworkRequired" xml:space="preserve">
+    <value>인터넷 연결이 필요합니다.</value>
+  </data>
+  <data name="SensorTips_ChangeTip" xml:space="preserve">
+    <value>팁 변경 &gt;&gt;&gt;</value>
+    <comment>leave &gt;&gt;&gt; as its a button label</comment>
+  </data>
+  <data name="ReviewPhotos_Title" xml:space="preserve">
+    <value>사진 보기</value>
+  </data>
+  <data name="AddCaption_Title" xml:space="preserve">
+    <value>설명 추가/편집</value>
+  </data>
+  <data name="Button_AddCaption" xml:space="preserve">
+    <value>설명 추가</value>
+  </data>
+  <data name="ReviewVideos_Title" xml:space="preserve">
+    <value>비디오 보기</value>
+  </data>
+  <data name="SensorStatusError_Title" xml:space="preserve">
+    <value>센서 상태 오류</value>
+  </data>
+  <data name="Menu_ReviewNotes" xml:space="preserve">
+    <value>노트 검토</value>
+  </data>
+  <data name="Error_CheckCal" xml:space="preserve">
+    <value>프로브 교정 확인</value>
+  </data>
+  <data name="Error_FanFault" xml:space="preserve">
+    <value>팬 고장</value>
+  </data>
+  <data name="Error_GeneralError" xml:space="preserve">
+    <value>일반 오류</value>
+  </data>
+  <data name="Error_GeneralSensorError" xml:space="preserve">
+    <value>일반 센서 오류</value>
+  </data>
+  <data name="Error_HCHO_HiCO" xml:space="preserve">
+    <value>경고: 높은 CO 수준(&gt;10ppm)은 포름알데히드 수치에 영향을 미칩니다.</value>
+  </data>
+  <data name="Error_HCHO_LoRH" xml:space="preserve">
+    <value>%RH(&lt;20%RH) 수준이 낮으면 HCHO 판독값에 부정적인 영향을 미칩니다. 이 센서는 RH가 20% 미만인 환경에서는 사용하지 않는 것이 좋습니다.</value>
+  </data>
+  <data name="Error_HCHO_NoCO" xml:space="preserve">
+    <value>CO 센서 없음 – HCHO 교차 감도 메시지를 표시할 수 없습니다.</value>
+  </data>
+  <data name="Error_MissingTRH" xml:space="preserve">
+    <value>온도/RH 센서 없음</value>
+  </data>
+  <data name="Error_NoSensorsInstalled" xml:space="preserve">
+    <value>장착된 센서 없음</value>
+  </data>
+  <data name="Error_ProbeBatteryCritical" xml:space="preserve">
+    <value>프로브 배터리 위험</value>
+  </data>
+  <data name="Error_WiFi_Disco" xml:space="preserve">
+    <value>Wi-Fi 연결이 끊어졌습니다.</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>테스트</value>
+  </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>언어 선택</value>
+  </data>
+  <data name="Select_Language" xml:space="preserve">
+    <value>언어 선택 (Language)</value>
+  </data>
+  <data name="SensorStabilization_Generic" xml:space="preserve">
+    <value>스마트 센서는 사용하기 전 처음 전원을 켰을 때 5분의 안정화 시간이 필요합니다. 안정화 중에는 스냅샷 로그가 비활성화되고 추세 로그 저장이 지연됩니다. 센서가 완전히 안정화되면 센서 아이콘이 사라지고 측정값 색이 검은색이 되며 모든 로그 기능이 복원됩니다.</value>
+  </data>
+  <data name="SensorStabilization_PID" xml:space="preserve">
+    <value>PID 센서를 최근에 사용한 경우 최소 15분, 자주 사용하는 경우 최소 30분의 안정화 시간이 필요합니다.  센서가 오랜 시간 동안 보관되어 있거나 높은 습도 또는 오염원에 노출되어 있거나 사용자 교정 전인 경우 24시간 안정화 기간을 권장합니다. 자세한 내용은 센서 팁 및 PID 가이드를 참조하십시오.</value>
+  </data>
+  <data name="Menu_CloseApp" xml:space="preserve">
+    <value>앱 닫기</value>
+  </data>.
+    <data name="Log_EnterFileName" xml:space="preserve">
+    <value>파일 이름을 입력하세요:</value>
+  </data>
+  <data name="Log_EnterValidFileName" xml:space="preserve">
+    <value>유효한 파일 이름을 입력하십시오</value>
+  </data>
+</root>

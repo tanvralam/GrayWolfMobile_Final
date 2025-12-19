@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:loc="clr-namespace:GrayWolf.Localization"
+    x:Class="GrayWolf.Views.AboutPage"
+    x:DataType="vm:AboutPageViewModel"
+    Title="{x:Static loc:Localization.About_Title}"
+    BackgroundColor="{StaticResource AppGrayColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ItemStackStyle" TargetType="StackLayout">
+                <Setter Property="Padding" Value="12, 4"/>
+                <Setter Property="Spacing" Value="0"/>
+            </Style>
+
+            <Style x:Key="ItemHintLabelStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+
+            <Style x:Key="ItemValueLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium"/>
+            </Style>
+
+            <Style x:Key="ItemClickableValueLabelStyle" TargetType="Label" BasedOn="{StaticResource ItemValueLabelStyle}">
+                <Setter Property="TextColor" Value="{StaticResource AppBlueColor}"/>
+                <Setter Property="TextDecorations" Value="Underline"/>
+            </Style>
+
+            <Style x:Key="FooterLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.BindingContext>
+        <vm:AboutPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout
+                Spacing="8"
+                Margin="0, 12">
+                <!--#region version -->
+                <Label
+                    Text="{x:Static loc:NoTranslation.About_AppName}"
+                    HorizontalTextAlignment="Center"
+                    FontSize="Large"/>
+
+                <StackLayout
+                    Style="{StaticResource ItemStackStyle}">
+                    <Label
+                        Text="{x:Static loc:Localization.About_Version}"
+                        Style="{StaticResource ItemHintLabelStyle}"/>
+                    <Label 
+                        Text="{Binding Version}"
+                        Style="{StaticResource ItemValueLabelStyle}"/>
+                </StackLayout>
+                <!--#endregion-->
+
+                <!--#region web-->
+                <StackLayout
+                    Style="{StaticResource ItemStackStyle}">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding WebCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                    <Label
+                        Text="{x:Static loc:Localization.About_Web}"
+                        Style="{StaticResource ItemHintLabelStyle}"/>
+                    <Label 
+                        Text="{Binding Url}"
+                        Style="{StaticResource ItemClickableValueLabelStyle}"/>
+                </StackLayout>
+                <!--#endregion-->
+
+                <!--#region email-->
+                <StackLayout
+                    Style="{StaticResource ItemStackStyle}">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding SupportCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                    <Label
+                        Text="{x:Static loc:Localization.About_Support}"
+                        Style="{StaticResource ItemHintLabelStyle}"/>
+                    <Label 
+                        Text="{Binding SupportEmail}"
+                        Style="{StaticResource ItemClickableValueLabelStyle}"/>
+                </StackLayout>
+                <!--#endregion-->
+
+                <!--#region instructions -->
+                <StackLayout
+                    VerticalOptions="StartAndExpand"
+                    Style="{StaticResource ItemStackStyle}">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding InstructionsCommand}"/>
+                    </StackLayout.GestureRecognizers>
+                    <Label
+                        Text="{x:Static loc:Localization.About_Instructions}"
+                        Style="{StaticResource ItemHintLabelStyle}"/>
+                    <Label 
+                        Text="{Binding InstructionsLinkText}"
+                        Style="{StaticResource ItemClickableValueLabelStyle}"/>
+                </StackLayout>
+                <!--#endregion-->
+
+                <Label
+                    Text="{x:Static loc:NoTranslation.About_Copyright}"
+                    Style="{StaticResource FooterLabelStyle}"/>
+
+                <Label
+                    Text="{x:Static loc:NoTranslation.About_TrademarkText}"
+                    Style="{StaticResource FooterLabelStyle}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

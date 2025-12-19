@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:loc="clr-namespace:GrayWolf.Localization"
+    xmlns:converters="clr-namespace:GrayWolf.Converters"
+    x:Class="GrayWolf.Views.VOCListPage"
+    x:DataType="vm:VOCListPageViewModel"
+    Title="{x:Static loc:Localization.VOCList_Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="StackItemStyle" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="0"/>
+                <Setter Property="Padding" Value="12, 8"/>
+            </Style>
+            
+            <Style x:Key="LabelHintStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Small"/>
+            </Style>
+
+            <Style x:Key="LabelValueStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <ActivityIndicator
+                    IsRunning="{Binding IsLoading}"
+                    IsVisible="{Binding IsLoading}"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Center"/>
+                <StackLayout
+                    IsVisible="{Binding IsLoading, Converter={StaticResource InvertBooleanConverter}}">
+                    <StackLayout
+                        Style="{StaticResource StackItemStyle}">
+                        <Label
+                            Text="{x:Static loc:Localization.VOCList_VOCItem}"
+                            Style="{StaticResource LabelHintStyle}"/>
+                        <StackLayout
+                            Orientation="Horizontal"
+                            Spacing="0">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectVOCItemCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                            <Label
+                                Text="{Binding Item.Name}"
+                                Style="{StaticResource LabelValueStyle}"/>
+                            <Image
+                                Source="{converters:ImageSource ic_arrow_right_black}"
+                                HeightRequest="24"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout
+                        Style="{StaticResource StackItemStyle}">
+                        <Label
+                            Text="{x:Static loc:Localization.VOCList_Formula}"
+                            Style="{StaticResource LabelHintStyle}"/>
+                        <Label
+                            Text="{Binding Item.ChemicalSymbol}"
+                            Style="{StaticResource LabelValueStyle}"/>
+                    </StackLayout>
+
+                    <StackLayout
+                        Style="{StaticResource StackItemStyle}">
+                        <Label
+                            Text="{x:Static loc:Localization.VOCList_AltName}"
+                            Style="{StaticResource LabelHintStyle}"/>
+                        <Label
+                            Text="{Binding Item.AltNames}"
+                            Style="{StaticResource LabelValueStyle}"/>
+                    </StackLayout>
+
+                    <StackLayout
+                        Style="{StaticResource StackItemStyle}">
+                        <Label
+                            Text="{x:Static loc:Localization.VOCList_CorrectionFactor}"
+                            Style="{StaticResource LabelHintStyle}"/>
+                        <Label
+                            Text="{Binding Item.CorrectionFactor}"
+                            Style="{StaticResource LabelValueStyle}"/>
+                    </StackLayout>
+
+                    <StackLayout
+                        Style="{StaticResource StackItemStyle}">
+                        <Label
+                            Text="{x:Static loc:Localization.VOCList_OSHAPel}"
+                            Style="{StaticResource LabelHintStyle}"/>
+                        <Label
+                            Text="{Binding Item.OSHApelFormatted}"
+                            Style="{StaticResource LabelValueStyle}"/>
+                    </StackLayout>
+
+                    <Label
+                        Padding="12, 0"
+                        Text="{Binding Item.Sources}"
+                        Style="{StaticResource LabelValueStyle}"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

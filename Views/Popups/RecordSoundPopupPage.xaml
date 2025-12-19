@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:rg="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:res="clr-namespace:GrayWolf.Localization" 
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls" 
+    x:DataType="vm:RecordSoundPopupViewModel"
+    x:Class="GrayWolf.Views.Popups.RecordSoundPopupPage"
+    x:Name="this"
+    CloseWhenBackgroundIsClicked="True">
+    <rg:PopupPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="controls:RecordSoundPopupButton">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+        </ResourceDictionary>
+    </rg:PopupPage.Resources>
+   
+        <Grid 
+            HorizontalOptions="Center" 
+            VerticalOptions="CenterAndExpand"
+            Margin="15"
+            RowSpacing="5" 
+            BackgroundColor="{StaticResource AppGrayColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!--Header-->
+            <controls:PopupHeader
+                Grid.Row="0"
+                Title="{x:Static res:Localization.RecordSound_Title}"
+                CloseCommand="{Binding BacksCommand}"/>
+            
+            <!--Sound Recorder Options-->
+            <StackLayout 
+                Grid.Row="1" 
+                HorizontalOptions="CenterAndExpand" 
+                Orientation="Horizontal"
+                Spacing="12"
+                Padding="12, 12, 12, 16">
+                <!--#region delete button -->
+                <controls:RecordSoundPopupButton
+                    ImageSource="{Binding DeleteButtonSource, Converter={StaticResource ImageSourceConverter}}"
+                    Text="{x:Static res:Localization.RecordSound_Delete}"
+                    Command="{Binding DeleteCommand}"/>
+                <!--#endregion-->
+
+                <!--#region play button -->
+                <controls:RecordSoundPopupButton
+                    Text="{x:Static res:Localization.RecordSound_Play}"
+                    ImageSource="{Binding PlayButtonSource, Converter={StaticResource ImageSourceConverter}}"
+                    Command="{Binding PlayCommand}"/>
+                <!--#endregion-->
+
+                <!--#region stop button -->
+                <controls:RecordSoundPopupButton
+                    Text="{x:Static res:Localization.RecordSound_Stop}"
+                    ImageSource="{Binding StopButtonSource, Converter={StaticResource ImageSourceConverter}}"
+                    Command="{Binding StopCommand}"/>
+                <!--#endregion-->
+
+                <!--#region record button -->
+                <controls:RecordSoundPopupButton
+                    Text="{x:Static res:Localization.RecordSound_Record}"
+                    ImageSource="{Binding RecordButtonSource, Converter={StaticResource ImageSourceConverter}}"
+                    Command="{Binding RecordCommand}"/>
+                <!--#endregion-->
+            </StackLayout>
+        </Grid>
+    
+</controls:BasePopupPage>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:loc="clr-namespace:GrayWolf.Localization"
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    x:Class="GrayWolf.Views.Popups.SelectAttachmentFilesPopup"
+    x:DataType="vm:SelectAttachmentFilesPopupViewModel"
+    x:Name="this">
+    <Grid>
+        <StackLayout
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="CenterAndExpand"
+            BackgroundColor="{StaticResource AppLightGrayColor}">
+
+            <controls:PopupHeader
+                Title="{x:Static loc:Localization.SelectAttachmentFiles_Title}"
+                CloseCommand="{Binding BacksCommand}"
+                VerticalOptions="FillAndExpand"/>
+
+            <Label
+                Text="{x:Static loc:Localization.SelectAttachmentFiles_Description}"
+                Margin="5, 0"/>
+
+            <Label
+                Text="{x:Static loc:Localization.SelectAttachmentFiles_Title}"
+                Margin="5, 0"
+                FontAttributes="Bold"
+                FontSize="18"
+                HorizontalOptions="FillAndExpand"
+                TextColor="Black" />
+
+            <Frame
+                Padding="5"
+                IsClippedToBounds="True"
+                BackgroundColor="White"
+                BorderColor="Gray"
+                CornerRadius="5"
+                HasShadow="False"
+                Margin="5">
+                <CollectionView
+                    ItemsSource="{Binding MediaEntries}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate
+                            x:DataType="domain:ArchiveEntry">
+                            <StackLayout
+                                Orientation="Horizontal"
+                                Padding="8, 0">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:Reference this}, Path=BindingContext.EntryTappedCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </StackLayout.GestureRecognizers>
+
+                                <CheckBox
+                                    IsChecked="{Binding IsSelected}"/>
+                                <Label
+                                    Text="{Binding FileName}"
+                                    VerticalTextAlignment="Center"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+
+            <Button
+                Margin="0,5,0,5"
+                Command="{Binding ConfirmCommand}"
+                HorizontalOptions="Center"
+                Text="{x:Static loc:Localization.Button_Confirm}"
+                VerticalOptions="CenterAndExpand" 
+                Style="{StaticResource ButtonStyle}"/>
+        </StackLayout>
+    </Grid>
+</controls:BasePopupPage>

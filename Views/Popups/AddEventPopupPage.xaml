@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BasePopupPage
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:loc="clr-namespace:GrayWolf.Localization"
+    x:Class="GrayWolf.Views.Popups.AddEventPopupPage"
+    x:DataType="vm:AddEventPopupViewModel">
+    <!--<ContentPage.Content>-->
+        <Grid
+            Grid.Row="0"
+            Margin="15"
+            HeightRequest="{DynamicResource NotePopupHeight}"
+            BackgroundColor="{StaticResource AppGrayColor}"
+            Padding="0,0,0,10"
+            RowSpacing="5"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand"
+            RowDefinitions="50, *, 50">
+            <!--  Header  -->
+            <controls:PopupHeader
+                Grid.Row="0"
+                Title="{x:Static loc:Localization.AddEvent_Title}"
+                CloseCommand="{Binding BacksCommand}"/>
+
+            <Frame
+                Grid.Row="1"
+                Margin="10"
+                Padding="10"
+                BackgroundColor="White"
+                BorderColor="{StaticResource AppDarkGrayColor}"
+                CornerRadius="10"
+                HasShadow="False"
+                IsClippedToBounds="True">
+                <Editor
+                    x:Name="EDTLogNote"
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Text"
+                    Placeholder="{x:Static loc:Localization.AddEvent_LabelPlaceholder}"
+                    PlaceholderColor="LightGray"
+                    Text="{Binding Event.Label}"
+                    TextColor="Black"
+                    VerticalOptions="FillAndExpand" />
+            </Frame>
+
+            <!--  Note Log Button  -->
+            <Button
+                x:Name="BtnAddNoteLog"
+                Grid.Row="2"
+                BackgroundColor="Green"
+                Command="{Binding ConfirmCommand}"
+                CornerRadius="5"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                Text="{x:Static loc:Localization.Button_AddNote}"
+                TextColor="White"
+                VerticalOptions="FillAndExpand"
+                WidthRequest="150" />
+        </Grid>
+    <!--</ContentPage.Content>-->
+</controls:BasePopupPage>

@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:BaseContentPage 
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:local="clr-namespace:GrayWolf.Localization"
+    xmlns:converters="clr-namespace:GrayWolf.Converters"
+    x:Class="GrayWolf.Views.ChartPage"
+    x:DataType="vm:ChartPageViewModel"
+    BackgroundColor="White">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="GraphSettingsStackStyle" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="0"/>
+                <Setter Property="Padding" Value="12, 0"/>
+            </Style>
+
+            <Style x:Key="GraphSettingsItemHintStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Small"/>
+            </Style>
+
+            <Style x:Key="GraphSettingsValueStackStyle" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="0"/>
+                <Setter Property="Orientation" Value="Horizontal"/>
+            </Style>
+
+            <Style x:Key="GraphSettingsValueLabelStyle" TargetType="Label">
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="Medium"/>
+            </Style>
+
+            <Style x:Key="GraphSettingsArrowIconStyle" TargetType="Image">
+                <Setter Property="Source" Value="{converters:ImageSource ic_arrow_right_black}"/>
+                <Setter Property="HeightRequest" Value="24"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            Margin="0, 0, 0, 12">
+           
+                <Label x:Name="label" Text="{Binding Title}"   TextColor="Black"   FontSize="Medium" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"/>
+
+            <telerik:RadCartesianChart   
+                    x:Name="chart"
+                    Margin="0" 
+                    VerticalOptions="FillAndExpand" >
+
+                <!-- Chart Title -->
+            
+                <telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:DateTimeContinuousAxis  
+                LabelFormat="{Binding DateTimeLabelFormat}"
+                Minimum="{Binding MinimumDate}"
+                Maximum="{Binding MaximumDate}"
+                MajorStepUnit="{Binding IntervalType}"
+                MajorStep="{Binding Interval}"/>
+                  
+                </telerik:RadCartesianChart.HorizontalAxis>
+
+                <!-- Y-Axis (NumericalAxis Alternative) -->
+                <telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:NumericalAxis  
+                        Minimum="{Binding MinValue}"
+                        Maximum="{Binding MaxValue}"              
+                                 />
+                </telerik:RadCartesianChart.VerticalAxis>
+                
+
+                <telerik:RadCartesianChart.Grid>
+                    <telerik:CartesianChartGrid 
+                                         MajorLinesVisibility="XY"                                        
+                                         MajorLineThickness="3" />
+                </telerik:RadCartesianChart.Grid>
+               
+            </telerik:RadCartesianChart>
+
+            <telerik:RadLegend HeightRequest="200"                  
+                LegendItemFontSize="16"
+                LegendProvider="{x:Reference Name=chart}"/>
+            <!--<xforms:SfCartesianChart
+              Margin="0"                                        
+                VerticalOptions="FillAndExpand"
+                Series="{Binding SeriesSource}">
+                <xforms:SfCartesianChart.Title>                     
+
+                    <Border Stroke="black" Margin="0, 4, 0, 0" HorizontalOptions="Center">
+                        <Label x:Name="label"  HorizontalTextAlignment="Center"  Text="{Binding Title}" FontSize="Medium"        VerticalTextAlignment="Center">
+                        </Label>
+                    </Border>
+                </xforms:SfCartesianChart.Title>
+                <xforms:SfCartesianChart.Legend>
+                    <xforms:ChartLegend Placement="Right"   >
+
+                    </xforms:ChartLegend>
+                </xforms:SfCartesianChart.Legend>
+              
+              
+            <xforms:SfCartesianChart.XAxes>
+                    <xforms:DateTimeAxis
+                        IntervalType="{Binding IntervalType}"
+                        Interval="{Binding Interval}"
+                        Minimum="{Binding MinimumDate}"
+                        Maximum="{Binding MaximumDate}"
+                        RangePadding="None">
+                        <xforms:DateTimeAxis.LabelStyle>
+                            <xforms:ChartAxisLabelStyle
+                                LabelFormat="{Binding DateTimeLabelFormat}"/>
+                        </xforms:DateTimeAxis.LabelStyle>
+                    </xforms:DateTimeAxis>
+                </xforms:SfCartesianChart.XAxes>
+            <xforms:SfCartesianChart.YAxes>
+                    <xforms:NumericalAxis
+                         PlotOffsetStart="4"
+                         PlotOffsetEnd="4"
+                        Minimum="{Binding MinValue}"
+                        Maximum="{Binding MaxValue}"/>
+                </xforms:SfCartesianChart.YAxes>
+            </xforms:SfCartesianChart>-->
+
+
+
+
+            <StackLayout
+                Style="{StaticResource GraphSettingsStackStyle}">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding SelectTimeOptionCommand}"/>
+                </StackLayout.GestureRecognizers>
+                <Label
+                    Text="{x:Static local:Localization.Chart_TimeOption}"
+                    Style="{StaticResource GraphSettingsItemHintStyle}"/>
+                <StackLayout
+                    Style="{StaticResource GraphSettingsValueStackStyle}">
+                    <Label
+                        Text="{Binding TimeAxisOption, Converter={StaticResource GraphTimeOptionToTextConverter}}"
+                        Style="{StaticResource GraphSettingsValueLabelStyle}"/>
+
+                    <Image
+                        Style="{StaticResource GraphSettingsArrowIconStyle}"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout
+                Margin="0, 4, 0, 0"
+                Style="{StaticResource GraphSettingsStackStyle}">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding SelectParameterCommand}"/>
+                </StackLayout.GestureRecognizers>
+
+                <Label
+                    Text="{x:Static local:Localization.Chart_Parameter}"
+                    Style="{StaticResource GraphSettingsItemHintStyle}"/>
+                <StackLayout
+                    Style="{StaticResource GraphSettingsValueStackStyle}">
+                    <Label
+                        Text="{Binding Parameter.DisplayName}"
+                        Style="{StaticResource GraphSettingsValueLabelStyle}"/>
+
+                    <Image
+                        Style="{StaticResource GraphSettingsArrowIconStyle}"/>
+                </StackLayout>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</controls:BaseContentPage>

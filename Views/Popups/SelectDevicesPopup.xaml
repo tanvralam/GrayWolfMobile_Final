@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="GrayWolf.Views.SelectDevicesPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters1="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:pages="clr-namespace:RGPopup.Maui.Pages;assembly=RGPopup.Maui"
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    xmlns:loc="clr-namespace:GrayWolf.Localization" 
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels" 
+    xmlns:controls="clr-namespace:GrayWolf.CustomControls"
+    Padding="{StaticResource PopupPadding}"
+    x:DataType="vm:SelectDevicesPageViewModel">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CollectionHeaderLargeStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Large"/>
+            </Style>
+
+            <Style x:Key="CollectionHeaderSmallStyle" TargetType="Label">
+
+            </Style>
+
+            <Style x:Key="CollectionStackStyle" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="0"/>
+                <Setter Property="Padding" Value="0, 8"/>
+            </Style>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    
+    <Grid>
+        <Grid BackgroundColor="{StaticResource AppGrayColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+          
+            <controls:PopupHeader
+                Grid.Row="0"
+                Title="{x:Static loc:Localization.SelectDevices_Title}"
+                CloseCommand="{Binding CancelCommand}"/>
+            
+            <Grid
+                x:Name="root"
+                Grid.Row="1"
+                Padding="20"
+                RowSpacing="0"
+                RowDefinitions="*, auto, *, auto">
+                <StackLayout
+                    Grid.Row="0"
+                    Style="{StaticResource CollectionStackStyle}">
+                    <Label 
+                        Text="{x:Static loc:Localization.SelectDevices_Bluetooth}"
+                        Style="{StaticResource CollectionHeaderLargeStyle}"/>
+                    <Label
+                        Text="{x:Static loc:Localization.SelectDevices_Select}" 
+                        Style="{StaticResource CollectionHeaderSmallStyle}"/>
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                            IsVisible="{Binding IsLoading}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center" />
+                    <CollectionView 
+                        ItemsSource="{Binding BluetoothDeviceList}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate
+                                x:DataType="domain:BleDevice">
+                                <Grid 
+                                    Padding="10,0,0,0"
+                                    ColumnDefinitions="auto, *">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding BindingContext.BleDeviceSelectedCommand, Source={x:Reference root}}"
+                                            CommandParameter="{Binding}" />
+                                    </Grid.GestureRecognizers>
+                                    <CheckBox 
+                                        Grid.Column="0"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding DeviceName}"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+                
+                <StackLayout
+                    Grid.Row="1"
+                    Spacing="0">
+                    <Label
+                        Text="{x:Static loc:Localization.SelectDevices_CloudTitle}" 
+                        Style="{StaticResource CollectionHeaderLargeStyle}"/>
+                    <StackLayout
+                        Orientation="Horizontal"
+                        IsVisible="{Binding IsLoggedIn}">
+                        <Label 
+                            VerticalTextAlignment="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="{x:Static loc:Localization.SelectDevices_LoggedInAs}"/>
+                                        <Span Text=" "/>
+                                        <Span Text="{Binding LoggedUser}"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Button
+                            Command="{Binding LogOutCommand}"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{x:Static loc:Localization.SelectDevices_LogOut}" />
+                    </StackLayout>
+
+                    <Grid
+                        IsVisible="{Binding IsLoggedIn, Converter={StaticResource InvertBooleanConverter}}"
+                        ColumnDefinitions="*, auto">
+
+                        <Label Text="{Binding LoggedUser, StringFormat={x:Static loc:Localization.SelectDevices_NotLoggedIn}}" />
+                        <Button
+                            Grid.Column="1"
+                            Command="{Binding OpenLogInCommand}"
+                            Text="{x:Static loc:Localization.SelectDevices_LogIn}" />
+                    </Grid>
+                </StackLayout>
+                
+                <StackLayout
+                    Grid.Row="2"
+                    IsVisible="{Binding IsLoggedIn}"
+                    Style="{StaticResource CollectionStackStyle}">
+                    <Label
+                        Text="{x:Static loc:Localization.SelectDevices_Cloud}"
+                        Style="{StaticResource CollectionHeaderLargeStyle}"/>
+                    <Label
+                        Text="{x:Static loc:Localization.SelectDevices_Select}" />
+
+                    <CollectionView
+                        ItemsSource="{Binding CloudDeviceList}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate 
+                                x:DataType="domain:GrayWolfDevice">
+                                <Grid 
+                                    Padding="10,0,0,0"
+                                    ColumnDefinitions="auto, *">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding BindingContext.ItemSelectedCommand, Source={x:Reference root}}"
+                                            CommandParameter="{Binding}" />
+                                    </Grid.GestureRecognizers>
+                                    <CheckBox 
+                                        Grid.Column="0"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding DeviceName}"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+                <Grid 
+                    Grid.Row="3"
+                    ColumnDefinitions="*, *">
+                    <Button
+                        Grid.Column="0"
+                        BackgroundColor="{StaticResource DarkBlue}"
+                        Command="{Binding OkCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={converters1:InvertedBoolConverter}}"
+                        Text="{x:Static loc:Localization.SelectDevices_Ok}"
+                        TextColor="White" Margin="0,0,10,0" />
+                    <Button
+                        Grid.Column="1"
+                        BackgroundColor="{StaticResource AppDarkGrayColor}"
+                        Command="{Binding CancelCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={converters1:InvertedBoolConverter}}"
+                        Text="{x:Static loc:Localization.SelectDevices_Cancel}"
+                        TextColor="White"  />
+                </Grid>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</pages:PopupPage>

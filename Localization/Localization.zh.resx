@@ -1,0 +1,924 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="HomePage_EmptyListMessage" xml:space="preserve">
+    <value>点击此处选择GrayWolf设备。</value>
+  </data>
+  <data name="SelectDevices_Bluetooth" xml:space="preserve">
+    <value>蓝牙设备：</value>
+  </data>
+  <data name="SelectDevices_CloudTitle" xml:space="preserve">
+    <value>GrayWolfLive云：</value>
+  </data>
+  <data name="SelectDevices_Select" xml:space="preserve">
+    <value>选择设备：</value>
+  </data>
+  <data name="SelectDevices_Title" xml:space="preserve">
+    <value>选择设备</value>
+  </data>
+  <data name="SelectDevices_LogOut" xml:space="preserve">
+    <value>退出登录</value>
+  </data>
+  <data name="SelectDevices_LoggedInAs" xml:space="preserve">
+    <value>已登录为</value>
+  </data>
+  <data name="SelectDevices_NotLoggedIn" xml:space="preserve">
+    <value>未登录</value>
+  </data>
+  <data name="SelectDevices_LogIn" xml:space="preserve">
+    <value>登录到GrayWolfLive</value>
+  </data>
+  <data name="SelectDevices_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SelectDevices_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="SelectDevices_Cloud" xml:space="preserve">
+    <value>云设备：</value>
+  </data>
+  <data name="RecordSound_Title" xml:space="preserve">
+    <value>音频注释</value>
+  </data>
+  <data name="RecordSound_Play" xml:space="preserve">
+    <value>播放</value>
+  </data>
+  <data name="RecordSound_Stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="RecordSound_Record" xml:space="preserve">
+    <value>录制</value>
+  </data>
+  <data name="RecordSound_AttachmentsDeleted" xml:space="preserve">
+    <value>音频注释已成功删除。</value>
+  </data>
+  <data name="RecordSound_AttachmentAdded" xml:space="preserve">
+    <value>音频注释已存储。</value>
+  </data>
+  <data name="StartLog_SelectDevicesMessage" xml:space="preserve">
+    <value>请使用“读数”/“选择设备”按钮来进行选择。</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>警报</value>
+  </data>
+  <data name="SelectDevices_LogIsRunningMessage" xml:space="preserve">
+    <value>数据采集时，无法进行更改。</value>
+  </data>
+  <data name="DrawingNote_SelectLoggerMessage" xml:space="preserve">
+    <value>未选择“位置日志文件”。请在获得绘制注释之前，进行选择。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="AddVideo_SelectLoggerMessage" xml:space="preserve">
+    <value>未选择“位置日志文件”。请在添加视频前，进行选择。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>帮助/说明</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>帮助/说明</value>
+  </data>
+  <data name="About_Web" xml:space="preserve">
+    <value>网站</value>
+  </data>
+  <data name="About_Support" xml:space="preserve">
+    <value>电邮帮助</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="SensorPopup_Title" xml:space="preserve">
+    <value>传感器</value>
+  </data>
+  <data name="SensorPopup_SerialNum" xml:space="preserve">
+    <value>序列号</value>
+  </data>
+  <data name="SensorPopup_Unit" xml:space="preserve">
+    <value>参数</value>
+  </data>
+  <data name="SensorPopup_Units" xml:space="preserve">
+    <value>可用单位</value>
+  </data>
+  <data name="SensorPopup_Confirm" xml:space="preserve">
+    <value>变更单位</value>
+  </data>
+  <data name="Log_StoragePermissionsMessage" xml:space="preserve">
+    <value>添加文件需要存储权限</value>
+  </data>
+  <data name="Log_RecordDeviceNotAvailable" xml:space="preserve">
+    <value>麦克风不可用</value>
+  </data>
+  <data name="Menu_VideoHelp" xml:space="preserve">
+    <value>视频帮助</value>
+  </data>
+  <data name="Menu_Live" xml:space="preserve">
+    <value>实时</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Menu_Log" xml:space="preserve">
+    <value>数据采集</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Menu_StartLog" xml:space="preserve">
+    <value>启动采集</value>
+    <comment>modified  'log' as a noun translates to ‘日志’, and as a verb translates to '采集'</comment>
+  </data>
+  <data name="Menu_StopLog" xml:space="preserve">
+    <value>停止采集</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Menu_Locations" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="Menu_Notes" xml:space="preserve">
+    <value>注释</value>
+  </data>
+  <data name="Menu_Photo" xml:space="preserve">
+    <value>照片</value>
+  </data>
+  <data name="Menu_Video" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="Menu_Audio" xml:space="preserve">
+    <value>音频</value>
+  </data>
+  <data name="Menu_Text" xml:space="preserve">
+    <value>文字注释</value>
+  </data>
+  <data name="Menu_Event" xml:space="preserve">
+    <value>事件</value>
+  </data>
+  <data name="Menu_Drawing" xml:space="preserve">
+    <value>绘制</value>
+  </data>
+  <data name="Menu_Readings" xml:space="preserve">
+    <value>读数</value>
+  </data>
+  <data name="Menu_SelectDevices" xml:space="preserve">
+    <value>选择设备</value>
+  </data>
+  <data name="StartLog_Snapshot" xml:space="preserve">
+    <value>即时采集</value>
+    <comment>modified</comment>
+  </data>
+  <data name="StartLog_TrendingLog" xml:space="preserve">
+    <value>趋势采集</value>
+    <comment>modified</comment>
+  </data>
+  <data name="StartLog_SelectLocation" xml:space="preserve">
+    <value>选择“位置日志文件”：</value>
+  </data>
+  <data name="StartLog_EmptyLocationsMessage" xml:space="preserve">
+    <value>点击"添加"按钮来添加新的“位置日志文件”。</value>
+  </data>
+  <data name="StartLog_AddLocation" xml:space="preserve">
+    <value>添加“位置日志文件”</value>
+  </data>
+  <data name="StartLog_Interval" xml:space="preserve">
+    <value>时间间隔：</value>
+  </data>
+  <data name="Log_SnapshotCreated_Format" xml:space="preserve">
+    <value>即时采集记录到"{0}"</value>
+    <comment>modified</comment>
+  </data>
+  <data name="StartLog_SelectLocationMessage" xml:space="preserve">
+    <value>请选择“位置日志文件”。</value>
+  </data>
+  <data name="AddEvent_LabelPlaceholder" xml:space="preserve">
+    <value>在此输入“事件注释”……“事件注释”是带有时间戳的条目，与所记录的数据一起存储。</value>
+    <comment> modified</comment>
+  </data>
+  <data name="AddEvent_Title" xml:space="preserve">
+    <value>事件</value>
+  </data>
+  <data name="AddEvent_SuccessMessage_Format" xml:space="preserve">
+    <value>已成功将事件添加到"{0}"。</value>
+  </data>
+  <data name="Log_Events_NotRunningMessage" xml:space="preserve">
+    <value>仅在数据采集时记录事件。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Log_LocationAlreadyExist" xml:space="preserve">
+    <value>具有该名称的位置日志文件已存在！</value>
+  </data>
+  <data name="StartLog_Snahshot_LogIsAlreadyRunning" xml:space="preserve">
+    <value>在趋势采集时，可能无法拍摄快照。</value>
+  </data>
+  <data name="HomePage_SelectLocation" xml:space="preserve">
+    <value>&lt;点击选择位置日志文件&gt;</value>
+  </data>
+  <data name="HomePage_LocationFormat" xml:space="preserve">
+    <value>位置日志文件：{0}</value>
+  </data>
+  <data name="Log_FileNameTooLongFormat" xml:space="preserve">
+    <value>位置日志文件名称应少于{0}个字符。</value>
+  </data>
+  <data name="Log_SelectionWhileLoggingMessage" xml:space="preserve">
+    <value>在数据采集时，您不能更改位置。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="SelectAttachmentFiles_Title" xml:space="preserve">
+    <value>选择要包括的照片/视频</value>
+  </data>
+  <data name="SelectAttachmentFiles_Files" xml:space="preserve">
+    <value>文件：</value>
+  </data>
+  <data name="SelectAttachmentFiles_Description" xml:space="preserve">
+    <value>“位置日志文件”包含照片和视频，如果使用电邮发送，则可能过大。请移除图片和视频以减少邮件大小。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Probe_SerialNumber" xml:space="preserve">
+    <value>序列号：</value>
+  </data>
+  <data name="Probe_ProbeStatus" xml:space="preserve">
+    <value>探头状态：</value>
+  </data>
+  <data name="Probe_BatteryLevel" xml:space="preserve">
+    <value>电池电量：</value>
+  </data>
+  <data name="Probe_UpTime" xml:space="preserve">
+    <value>探头通电时间：</value>
+  </data>
+  <data name="Probe_Sensors" xml:space="preserve">
+    <value>传感器</value>
+  </data>
+  <data name="Probe_Title" xml:space="preserve">
+    <value>探头状态</value>
+  </data>
+  <data name="Chart_FifteenMinutes" xml:space="preserve">
+    <value>15分钟</value>
+  </data>
+  <data name="Chart_OneHour" xml:space="preserve">
+    <value>1小时</value>
+  </data>
+  <data name="Chart_EightHours" xml:space="preserve">
+    <value>8小时</value>
+  </data>
+  <data name="Chart_Day" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="Chart_Everything" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="Chart_SelectTimeOption" xml:space="preserve">
+    <value>选择时间选项</value>
+  </data>
+  <data name="Chart_TimeOption" xml:space="preserve">
+    <value>时间范围：</value>
+  </data>
+  <data name="Chart_Parameter" xml:space="preserve">
+    <value>参数：</value>
+  </data>
+  <data name="Chart_SelectParameter" xml:space="preserve">
+    <value>选择参数</value>
+  </data>
+  <data name="Chart_NoDataToDisplay" xml:space="preserve">
+    <value>{0}没有可显示的数据</value>
+  </data>
+  <data name="Chart_LiveGraph" xml:space="preserve">
+    <value>{0}的实时图表</value>
+  </data>
+  <data name="Chart_ReviewGraph" xml:space="preserve">
+    <value>查看{0}的图表</value>
+  </data>
+  <data name="Locations_Add" xml:space="preserve">
+    <value>添加位置</value>
+  </data>
+  <data name="Locations_Title" xml:space="preserve">
+    <value>位置日志文件</value>
+  </data>
+  <data name="Locations_Locations" xml:space="preserve">
+    <value>位置日志文件：</value>
+  </data>
+  <data name="Locations_Hint" xml:space="preserve">
+    <value>在下方选择或创建数据文件。</value>
+  </data>
+  <data name="Menu_Graph" xml:space="preserve">
+    <value>图表</value>
+  </data>
+  <data name="SensorPopup_DisplayedInUI" xml:space="preserve">
+    <value>在主页上显示</value>
+  </data>
+  <data name="SensorPopup_IsLogged" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="Button_Confirm" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="Password_NoEncryption" xml:space="preserve">
+    <value>无密码</value>
+  </data>
+  <data name="Password_DefaultPassword" xml:space="preserve">
+    <value>默认密码</value>
+  </data>
+  <data name="Password_CustomPassword" xml:space="preserve">
+    <value>自定义密码</value>
+  </data>
+  <data name="Password_Title" xml:space="preserve">
+    <value>数据安全</value>
+  </data>
+  <data name="Menu_Encryption" xml:space="preserve">
+    <value>数据文件安全</value>
+  </data>
+  <data name="Password_ValidationRulesMessage" xml:space="preserve">
+    <value>密码必须包含8-30个字符，包括1个小写字母、1个大写字母、1个数字和1个特殊字符，并且不得包含空格。</value>
+  </data>
+  <data name="Menu_Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="DataSecurity_IncludeCSV" xml:space="preserve">
+    <value>导出CSV文件</value>
+    <comment>modified</comment>
+  </data>
+  <data name="DataSecurity_InfoText" xml:space="preserve">
+    <value>WolfSense收集的数据文件可以在导出/发送前，进行加密。要禁用加密，请选择 "无密码"。如果需要启用加密，请选择默认密码或自定义密码。如需自定义密码，还需在WolfSense PC中输入该密码打开文件。</value>
+    <comment>modified，WolfSense PC should be a special term, keep in English</comment>
+  </data>
+  <data name="DataSecurity_InfoTitle" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="DataSecurity_ConfirmPassword" xml:space="preserve">
+    <value>确认自定义密码</value>
+  </data>
+  <data name="DataSecurity_PasswordMissmatch" xml:space="preserve">
+    <value>密码错误！</value>
+    <comment>modified</comment>
+  </data>
+  <data name="HomePage_UseInDemoMode" xml:space="preserve">
+    <value>在演示模式下使用</value>
+  </data>
+  <data name="Menu_EndDemo" xml:space="preserve">
+    <value>结束演示模式</value>
+  </data>
+  <data name="Menu_StartDemoIAQ" xml:space="preserve">
+    <value>启动 IAQ 演示模式</value>
+  </data>
+  <data name="SelectDevices_CannotOpenInDemo" xml:space="preserve">
+    <value>演示模式下无法更改。</value>
+  </data>
+  <data name="Menu_AlreadyInDemo" xml:space="preserve">
+    <value>演示模式已启动</value>
+  </data>
+  <data name="Menu_AlreadyStoppedDemo" xml:space="preserve">
+    <value>演示模式已停止</value>
+  </data>
+  <data name="About_Instructions" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="DemoForm_Description" xml:space="preserve">
+    <value>感谢您对WolfSense Mobile的支持，请在下方输入您的信息。</value>
+  </data>
+  <data name="DemoForm_Title" xml:space="preserve">
+    <value>表格</value>
+  </data>
+  <data name="DemoForm_Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="DemoForm_Email" xml:space="preserve">
+    <value>电邮</value>
+  </data>
+  <data name="DemoForm_EmptyDataMessage" xml:space="preserve">
+    <value>请输入您的姓名和邮箱</value>
+    <comment>modified</comment>
+  </data>
+  <data name="ShowImage_Title" xml:space="preserve">
+    <value>摄像头图片</value>
+  </data>
+  <data name="BatteryStatus_Title" xml:space="preserve">
+    <value>电池详细信息</value>
+  </data>
+  <data name="Locations_DeleteConfirmationText" xml:space="preserve">
+    <value>是否要删除此位置日志文件？</value>
+  </data>
+  <data name="Locations_ClearConfirmationText" xml:space="preserve">
+    <value>是否要清除此位置日志文件？</value>
+  </data>
+  <data name="Button_No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Button_Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Locations_AreYouSure" xml:space="preserve">
+    <value>是否确定？</value>
+  </data>
+  <data name="Chart_SelectLocationMessage" xml:space="preserve">
+    <value>未选择“位置日志文件”</value>
+  </data>
+  <data name="Menu_ParameterNames" xml:space="preserve">
+    <value>参数名称</value>
+  </data>
+  <data name="ParameterNames_UseShort" xml:space="preserve">
+    <value>使用短参数名</value>
+  </data>
+  <data name="ParameterNames_UseLong" xml:space="preserve">
+    <value>使用长参数名</value>
+  </data>
+  <data name="DataGrid_CurrentSet" xml:space="preserve">
+    <value>当前集合：</value>
+  </data>
+  <data name="DataGrid_Title" xml:space="preserve">
+    <value>数据查看</value>
+    <comment>modified</comment>
+  </data>
+  <data name="SelectSet_Title" xml:space="preserve">
+    <value>选择集合</value>
+  </data>
+  <data name="Menu_Data" xml:space="preserve">
+    <value>数据</value>
+  </data>
+  <data name="SelectFileForDataGrid_Title" xml:space="preserve">
+    <value>选择“位置日志文件”</value>
+  </data>
+  <data name="SelectFileForDataGrid_NoItemsMessage" xml:space="preserve">
+    <value>没有要显示的“位置日志文件”。</value>
+  </data>
+  <data name="GalleryAttachmentsSettings_Enabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="GalleryAttachmentsSettings_Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="GalleryAttachmentsSettings_Title" xml:space="preserve">
+    <value>允许来自图库的照片/视频</value>
+  </data>
+  <data name="Menu_GalleryAttachmentsSettings" xml:space="preserve">
+    <value>摄像头/视频</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>无需再次显示</value>
+  </data>
+  <data name="Button_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Welcome_Message" xml:space="preserve">
+    <value>欢迎使用WolfSense Mobile。本应用程序需要一个通过蓝牙连接的DirectSense II智能探头（或2个，最多3个）才能发挥作用。选择 "主菜单"&gt;"读数"&gt;"开始演示模式"，即可获得模拟读数，以评估该应用程序。</value>
+  </data>
+  <data name="Menu_View" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="Email_MessageHeader" xml:space="preserve">
+    <value>GrayWolf日志数据</value>
+  </data>
+  <data name="Email_MessageBody" xml:space="preserve">
+    <value>所附的.LCZ（位置日志文件）是在WolfSense移动应用程序中创建的。要打开并查看此文件，请使用WolfSense电脑，该设备可从GrayWolf Sensing Solutions获得，网址是：https://wolfsensepc.com/。</value>
+  </data>
+  <data name="Email_LogFileMessageSubject" xml:space="preserve">
+    <value>位置日志文件</value>
+  </data>
+  <data name="Share_InstructionsFileText" xml:space="preserve">
+    <value>所附的.LCZ（位置日志文件）是在WolfSense移动应用程序中创建的。要打开并查看此文件，请使用WolfSense PC，该设备可从GrayWolf Sensing Solutions获得，网址是：https://wolfsensepc.com/。</value>
+  </data>
+  <data name="Locations_Share" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="AttachmentsSizeWarning_Message" xml:space="preserve">
+    <value>您的“位置日志文件”包含的照片和/或视频可能过大，无法通过电邮发送。若要通过电邮发送，请勿添加图片和视频以减少邮件大小。如果您将文件保存到云存储服务，如DropBox，谷歌Drive, OneDrive等，您可以保留所有的图片和视频，并在后续屏幕上选择收件人。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="AttachmentsSizeWarning_Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="Login_AccountRequired" xml:space="preserve">
+    <value>登录（需要GrayWolfLive帐户）</value>
+  </data>
+  <data name="Login_Username" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="Login_ButtonText" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="LogNote_Title" xml:space="preserve">
+    <value>文字注释</value>
+    <comment>modified</comment>
+  </data>
+  <data name="LogNote_EditorPlaceholder" xml:space="preserve">
+    <value>在此输入文字注释……文字注释将与记录的数据一起存储。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="AddCaption_EditorPlaceholder" xml:space="preserve">
+    <value>在此处输入照片/视频名称……</value>
+  </data>
+  <data name="RecordSound_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="WolfSenseAlert_Title" xml:space="preserve">
+    <value>WolfSense - 警报</value>
+  </data>
+  <data name="WolfSenseMessage_Title" xml:space="preserve">
+    <value>WolfSense</value>
+  </data>
+  <data name="LogService_LoggingStopped" xml:space="preserve">
+    <value>数据采集已停止。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="LogFileWritingMode_Overwrite" xml:space="preserve">
+    <value>覆盖</value>
+  </data>
+  <data name="LogFileWritingMode_Append" xml:space="preserve">
+    <value>附加</value>
+  </data>
+  <data name="LogService_LogAlreadyExistMessage" xml:space="preserve">
+    <value>文件已经存在。请选择选项：</value>
+  </data>
+  <data name="LogService_OverwriteButton" xml:space="preserve">
+    <value>覆盖</value>
+  </data>
+  <data name="LogService_OverwriteDialogTitle" xml:space="preserve">
+    <value>是否覆盖当前位置日志文件？</value>
+  </data>
+  <data name="LogService_SelectLocationBeforeRecord" xml:space="preserve">
+    <value>未选择位置日志文件。请在录制之前，选择位置日志文件。</value>
+  </data>
+  <data name="LogService_SelectLocationBeforeNote" xml:space="preserve">
+    <value>未选择位置日志文件。请在添加注释之前，选择位置日志文件。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="LogService_SelectLocationBeforePhoto" xml:space="preserve">
+    <value>未选择位置日志文件。请在添加照片之前，选择位置日志文件。</value>
+  </data>
+  <data name="LogService_GallerySource" xml:space="preserve">
+    <value>图库</value>
+  </data>
+  <data name="LogService_CameraSource" xml:space="preserve">
+    <value>摄像头</value>
+  </data>
+  <data name="Localization_SelectPhotoSource" xml:space="preserve">
+    <value>选择来源：</value>
+  </data>
+  <data name="LogService_NoCameraAvailableMessage" xml:space="preserve">
+    <value>没有可用的摄像头。</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>正在加载……</value>
+  </data>
+  <data name="LogService_CameraPermissionsDenied" xml:space="preserve">
+    <value>摄像头权限被拒。进入“设置”并“启用摄像头权限”，以允许WolfSense将照片添加到位置日志文件。</value>
+  </data>
+  <data name="LogService_GalleryIsNotAvailable" xml:space="preserve">
+    <value>没有可用的图库</value>
+  </data>
+  <data name="LogService_MediaFileLogged" xml:space="preserve">
+    <value>已成功记录媒体文件。</value>
+  </data>
+  <data name="LogService_VideoFileLogged" xml:space="preserve">
+    <value>视频文件已成功记录。</value>
+  </data>
+  <data name="DataGrid_LoggerIsRunning" xml:space="preserve">
+    <value>在数据采集时，数据视图不可用。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Log_SnapshotNotCreated" xml:space="preserve">
+    <value>未记录任何数据</value>
+  </data>
+  <data name="Button_Select" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="Menu_Export" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="Menu_StartDemoTOX" xml:space="preserve">
+    <value>启动 TOX 演示模式</value>
+  </data>
+  <data name="Button_AddNote" xml:space="preserve">
+    <value>添加注释</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Probe_Offline" xml:space="preserve">
+    <value>离线/断开连接</value>
+  </data>
+  <data name="Probe_DisconnectMsg" xml:space="preserve">
+    <value>设备已断开连接。请选择“菜单”/“读数”/“选择设备”来重新连接。</value>
+  </data>
+  <data name="Data_NoData" xml:space="preserve">
+    <value>没有可显示的数据。</value>
+  </data>
+  <data name="Confirm_Export" xml:space="preserve">
+    <value>是否确定要导出此位置日志文件？</value>
+  </data>
+  <data name="Confirm_Export_Zip" xml:space="preserve">
+    <value>是否确定要导出并通过电邮发送此位置日志文件？</value>
+  </data>
+  <data name="OperationCancelled" xml:space="preserve">
+    <value>操作已取消。</value>
+  </data>
+  <data name="Platform_NotSupported" xml:space="preserve">
+    <value>此平台不支持操作。</value>
+  </data>
+  <data name="Logger_NotWhileLogging" xml:space="preserve">
+    <value>在数据采集时，您不得导出、共享或删除位置日志文件。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Export_Success" xml:space="preserve">
+    <value>导出文件成功。</value>
+  </data>
+  <data name="SelectOption" xml:space="preserve">
+    <value>选择选项</value>
+  </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Button_Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="TrendLog_Status" xml:space="preserve">
+    <value>以{1}秒的时间间隔记录到{0}。</value>
+  </data>
+  <data name="Title_TrendLog" xml:space="preserve">
+    <value>趋势采集</value>
+  </data>
+  <data name="Button_StopLog" xml:space="preserve">
+    <value>停止采集</value>
+    <comment>modified</comment>
+  </data>
+  <data name="ShowVideo_Title" xml:space="preserve">
+    <value>摄像头视频</value>
+  </data>
+  <data name="SensorPopup_Tips" xml:space="preserve">
+    <value>提示&gt;&gt;&gt;</value>
+    <comment>modified</comment>
+  </data>
+  <data name="SensorTip_DefaultText" xml:space="preserve">
+    <value>传感器基本原理</value>
+  </data>
+  <data name="SelectSensorTip_Title" xml:space="preserve">
+    <value>选择传感器提示</value>
+    <comment>modified</comment>
+  </data>
+  <data name="SensorTips_SensorTip" xml:space="preserve">
+    <value>传感器提示</value>
+    <comment>modified</comment>
+  </data>
+  <data name="SensorTips_Title" xml:space="preserve">
+    <value>传感器提示</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Menu_ProbeOptions" xml:space="preserve">
+    <value>探头选项</value>
+  </data>
+  <data name="ProbeOptions_Title" xml:space="preserve">
+    <value>探头选项</value>
+  </data>
+  <data name="ProbeOptions_EnableSnapshotButtonFromDSIIDevice" xml:space="preserve">
+    <value>通过“DSII采集按钮”来启用“即时采集”</value>
+    <comment>modified</comment>
+  </data>
+  <data name="SelectVOCItem_Title" xml:space="preserve">
+    <value>选择VOC项目</value>
+  </data>
+  <data name="SensorPopup_VOC" xml:space="preserve">
+    <value>VOC &gt;&gt;&gt;</value>
+  </data>
+  <data name="VOCList_VOCItem" xml:space="preserve">
+    <value>VOC项目</value>
+  </data>
+  <data name="VOCList_Formula" xml:space="preserve">
+    <value>化学公式</value>
+  </data>
+  <data name="VOCList_AltName" xml:space="preserve">
+    <value>备选名称</value>
+  </data>
+  <data name="VOCList_CorrectionFactor" xml:space="preserve">
+    <value>校准修正系数</value>
+  </data>
+  <data name="VOCList_OSHAPel" xml:space="preserve">
+    <value>OSHA PEL</value>
+  </data>
+  <data name="VOCList_Title" xml:space="preserve">
+    <value>VOC</value>
+  </data>
+  <data name="Menu_VOC" xml:space="preserve">
+    <value>VOC</value>
+  </data>
+  <data name="DeviceName_PC" xml:space="preserve">
+    <value>粒子计数器</value>
+  </data>
+  <data name="DeviceName_WR" xml:space="preserve">
+    <value>WolfRadio</value>
+    <comment>Special term, keep in English</comment>
+  </data>
+  <data name="DeviceName_PM" xml:space="preserve">
+    <value>颗粒物检测仪</value>
+    <comment>modified</comment>
+  </data>
+  <data name="VOCList_SearchPlaceholder" xml:space="preserve">
+    <value>化合物的类型名称</value>
+  </data>
+  <data name="Error_NetworkRequired" xml:space="preserve">
+    <value>需要互联网连接</value>
+  </data>
+  <data name="SensorTips_ChangeTip" xml:space="preserve">
+    <value>更改提示 &gt;&gt;&gt;</value>
+    <comment>modified</comment>
+  </data>
+  <data name="ReviewPhotos_Title" xml:space="preserve">
+    <value>查看照片</value>
+  </data>
+  <data name="AddCaption_Title" xml:space="preserve">
+    <value>添加/编辑名称</value>
+  </data>
+  <data name="Button_AddCaption" xml:space="preserve">
+    <value>更新名称</value>
+  </data>
+  <data name="ReviewVideos_Title" xml:space="preserve">
+    <value>查看视频</value>
+  </data>
+  <data name="SensorStatusError_Title" xml:space="preserve">
+    <value>传感器状态出错</value>
+  </data>
+  <data name="Menu_ReviewNotes" xml:space="preserve">
+    <value>查看注释</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Error_CheckCal" xml:space="preserve">
+    <value>查看探头校准信息</value>
+  </data>
+  <data name="Error_FanFault" xml:space="preserve">
+    <value>风扇故障</value>
+  </data>
+  <data name="Error_GeneralError" xml:space="preserve">
+    <value>出现错误</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Error_GeneralSensorError" xml:space="preserve">
+    <value>传感器出现错误</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Error_HCHO_HiCO" xml:space="preserve">
+    <value>警告:高浓度CO (＞10ppm)会影响甲醛读数。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Error_HCHO_LoRH" xml:space="preserve">
+    <value>低水平的%RH (＜20% RH)将对HCHO读数产生负面影响。建议在湿度高于20% RH的环境中使用此传感器。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Error_HCHO_NoCO" xml:space="preserve">
+    <value>无CO传感器-不能显示HCHO交叉灵敏度信息。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Error_MissingTRH" xml:space="preserve">
+    <value>丢失温度/RH传感器</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Error_NoSensorsInstalled" xml:space="preserve">
+    <value>没有安装任何传感器</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Error_ProbeBatteryCritical" xml:space="preserve">
+    <value>探头电量不足</value>
+    <comment>modified </comment>
+  </data>
+  <data name="Error_WiFi_Disco" xml:space="preserve">
+    <value>Wi-Fi 无连接</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>测试</value>
+  </data>
+  <data name="ChangeLanguage" xml:space="preserve">
+    <value>选择语言</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Select_Language" xml:space="preserve">
+    <value>选择语言 (Language)</value>
+  </data>
+  <data name="SensorStabilization_Generic" xml:space="preserve">
+    <value>智能传感器在使用前首次通电时需要5分钟的稳定期。在稳定期间，即时采集将被禁用，趋势采集存储将被延迟。当传感器完全稳定时，传感器图标将消失，读数颜色将为黑色，所有采集功能将恢复。</value>
+    <comment>modified</comment>
+  </data>
+  <data name="SensorStabilization_PID" xml:space="preserve">
+    <value>如果传感器最近使用过，PID传感器需要至少15分钟的稳定，如果传感器经常使用，则需要30分钟。如果传感器已经储存了很长一段时间，暴露在高湿度或污染源中，或在用户校准之前，建议24小时稳定期。请参考传感器提示和PID指南了解更多信息。</value>
+  </data>
+  <data name="Menu_CloseApp" xml:space="preserve">
+    <value>关闭应用</value>
+    <comment>modified</comment>
+  </data>
+  <data name="Log_EnterFileName" xml:space="preserve">
+    <value>请输入文件名。</value>
+  </data>
+  <data name="Log_EnterValidFileName" xml:space="preserve">
+    <value>请输入有效的文件名。</value>
+  </data>
+</root>

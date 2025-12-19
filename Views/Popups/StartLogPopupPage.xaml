@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popups:BaseLogsPopup
+    xmlns:popups="clr-namespace:GrayWolf.Views.Popups"
+    x:Class="GrayWolf.Views.Popups.StartLogPopupPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Control="clr-namespace:GrayWolf.CustomControls"
+    xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:domain="clr-namespace:GrayWolf.Models.Domain"
+    xmlns:loc="clr-namespace:GrayWolf.Localization"
+    x:DataType="vm:StartLogPopupPageViewModel"
+    mc:Ignorable="d"
+    x:Name="root">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LogButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Green"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="WidthRequest" Value="150"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
+            <Style x:Key="SnapLogButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="SlateGray"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="WidthRequest" Value="150"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            </Style>
+            
+            <Style x:Key="CollectionItemStyle" TargetType="Label">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{OnPlatform Default={StaticResource FileSelectedColor}, WinUI=Transparent}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <ControlTemplate x:Key="DefaultCollectionTemplate">
+                <CollectionView
+                    BindingContext="{TemplateBinding BindingContext}"
+                    ItemsSource="{Binding LocationList}"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding LogFilesAvailable}"
+                    SelectionMode="Single"
+                    SelectedItem="{Binding SelectedLog}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="domain:LogFile">
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                FontSize="16"
+                                Padding="8"
+                                Text="{Binding Name}"
+                                TextColor="Black"
+                                VerticalOptions="CenterAndExpand"
+                                VerticalTextAlignment="Center" 
+                                Style="{StaticResource CollectionItemStyle}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="iOSCollectionTemplate">
+                <CollectionView
+                    BindingContext="{TemplateBinding BindingContext}"
+                    ItemsSource="{Binding LocationList}"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding LogFilesAvailable}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="domain:LogFile">
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                FontSize="16"
+                                Padding="8"
+                                Text="{Binding Name}"
+                                TextColor="Black"
+                                VerticalOptions="CenterAndExpand"
+                                VerticalTextAlignment="Center" 
+                                Style="{StaticResource CollectionItemStyle}">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding IsSelected}"
+                                        Value="True">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource FileSelectedColor}"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:Reference root}, Path=BindingContext.SelectFileCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!--  Start Log details  -->
+    <Grid 
+        x:Name="PopUpDialogLayout"
+        Margin="15"
+        BackgroundColor="{StaticResource AppGrayColor}"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="CenterAndExpand"
+        RowSpacing="5"
+        Padding="0, 0, 0, 10"
+        HeightRequest="500"
+        RowDefinitions="auto, auto, *, auto, auto, auto">
+        <Control:PopupHeader
+            Grid.Row="0"
+            Title="{x:Static loc:Localization.Menu_StartLog}"
+            CloseCommand="{Binding BacksCommand}"/>
+        <Label 
+            Grid.Row="1"
+            Margin="5,0,5,0"
+            FontAttributes="Bold"
+            FontSize="18"
+            HorizontalOptions="FillAndExpand"
+            Text="{x:Static loc:Localization.StartLog_SelectLocation}"
+            TextColor="Black"
+            VerticalOptions="FillAndExpand" />
+        <!--  List part  -->
+        <Frame 
+            Grid.Row="2"
+            Margin="5,0,5,0"
+            Padding="5,5,5,10"
+            BackgroundColor="White"
+            BorderColor="Gray"
+            CornerRadius="5"
+            HasShadow="False"
+            HorizontalOptions="FillAndExpand"
+            IsClippedToBounds="True"
+            VerticalOptions="FillAndExpand">
+            <Grid 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand">
+                <ContentView
+                    ChildAdded="ContentView_ChildAdded"
+                    ControlTemplate="{OnPlatform iOS={StaticResource iOSCollectionTemplate}, Default={StaticResource DefaultCollectionTemplate}}"/>
+
+                <Label 
+                    Margin="50"
+                    FontSize="16"
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding LogFilesNotAvailable}"
+                    Text="{x:Static loc:Localization.StartLog_EmptyLocationsMessage}"
+                    TextColor="{StaticResource AppDarkGrayColor}"
+                    VerticalOptions="CenterAndExpand"
+                    VerticalTextAlignment="Center" />
+            </Grid>
+        </Frame>
+
+        <Button Grid.Row="3"
+                Margin="0,5,0,5"
+                BackgroundColor="{StaticResource AppBlueColor}"
+                Command="{Binding AddFileCommand}"
+                CornerRadius="5"
+                FontAttributes="Bold"
+                FontSize="18"
+                HeightRequest="45"
+                HorizontalOptions="Center"
+                Text="{x:Static loc:Localization.StartLog_AddLocation}"
+                TextColor="White"
+                VerticalOptions="CenterAndExpand" />
+
+        <!--  Inverval  -->
+        <Grid Grid.Row="4"
+                Padding="10,0"
+                ColumnSpacing="8"
+                HeightRequest="80"
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    FontAttributes="Bold"
+                    FontSize="14"
+                    HorizontalOptions="StartAndExpand"
+                    Text="{x:Static loc:Localization.StartLog_Interval}"
+                    TextColor="Black"
+                    VerticalOptions="CenterAndExpand" />
+            <StackLayout Grid.Row="1"
+                            Grid.Column="0"
+                            HorizontalOptions="Start"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand">
+                <Button x:Name="BtnMinAdd"
+                        BackgroundColor="{StaticResource AppWhiteColor}"
+                        BorderColor="Black"
+                        Command="{Binding MinMinusCommand}"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        IsEnabled="{Binding IsLogging, Converter={converters:InvertedBoolConverter}}"
+                        Text="-"
+                        TextColor="Black"
+                        VerticalOptions="Center"
+                        WidthRequest="37" />
+                <Label HorizontalOptions="StartAndExpand"
+                        Text="{Binding MinCount}"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
+                <Button x:Name="BtnMinMinus"
+                        BackgroundColor="{StaticResource AppWhiteColor}"
+                        BorderColor="Black"
+                        Command="{Binding MinPlusCommand}"
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        IsEnabled="{Binding IsLogging, Converter={converters:InvertedBoolConverter}}"
+                        Text="+"
+                        TextColor="Black"
+                        VerticalOptions="Center"
+                        WidthRequest="38" />
+            </StackLayout>
+            <Label Grid.Row="1"
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="StartAndExpand"
+                    Text="m :"
+                    TextColor="Black"
+                    VerticalOptions="CenterAndExpand" />
+
+            <StackLayout Grid.Row="1"
+                            Grid.Column="2"
+                            HorizontalOptions="Start"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand">
+                <Button x:Name="BtnSecAdd"
+                        BackgroundColor="{StaticResource AppWhiteColor}"
+                        BorderColor="Black"
+                        Command="{Binding SecMinusCommand}"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        IsEnabled="{Binding IsLogging, Converter={converters:InvertedBoolConverter}}"
+                        Text="-"                       
+                        TextColor="Black"
+                        VerticalOptions="Center"
+                        WidthRequest="37" />
+                <Label HorizontalOptions="CenterAndExpand"
+                        Text="{Binding SecCount}"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
+                <Button x:Name="BtnSecMinus"
+                        BackgroundColor="{StaticResource AppWhiteColor}"
+                        BorderColor="Black"
+                        Command="{Binding SecPlusCommand}"
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        IsEnabled="{Binding IsLogging, Converter={converters:InvertedBoolConverter}}"
+                        Text="+"
+                        TextColor="Black"
+                        VerticalOptions="Center"
+                        WidthRequest="38" />
+            </StackLayout>
+            <Label Grid.Row="1"
+                    Grid.Column="3"
+                    FontAttributes="Bold"
+                    FontSize="12"
+                    HorizontalOptions="StartAndExpand"
+                    Text="secs"
+                    TextColor="Black"
+                    VerticalOptions="CenterAndExpand" />
+        </Grid>
+
+        <!--  Button  -->
+        <Grid 
+            Grid.Row="5"
+            HeightRequest="45"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="FillAndExpand"
+            ColumnDefinitions="*, *">
+            <!--  Cancel Button  -->
+            <Button 
+                Grid.Column="0"
+                Text="{x:Static loc:Localization.StartLog_TrendingLog}"
+                Command="{Binding StartLogCommand}"
+                Style="{StaticResource LogButtonStyle}" Margin="0,0,10,0"/>
+
+            <!--  Start Log Button  -->
+            <Button 
+                Grid.Column="1"
+                Command="{Binding SnapshotCommand}"
+                Text="{x:Static loc:Localization.StartLog_Snapshot}"
+                Style="{StaticResource SnapLogButtonStyle}"/>
+        </Grid>
+    </Grid>
+</popups:BaseLogsPopup>

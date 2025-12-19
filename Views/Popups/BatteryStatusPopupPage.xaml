@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<control:BasePopupPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:control="clr-namespace:GrayWolf.CustomControls"
+    xmlns:vm="clr-namespace:GrayWolf.ViewModels"
+    xmlns:res="clr-namespace:GrayWolf.Localization" 
+    xmlns:models="clr-namespace:GrayWolf.Models.Domain"
+    mc:Ignorable="d"
+    x:Class="GrayWolf.Views.Popups.BatteryStatusPopupPage"
+    x:DataType="vm:HomePageViewModel">
+    <!--Probe details-->
+    <Grid
+        Margin="15"
+        VerticalOptions="CenterAndExpand"
+        HorizontalOptions="CenterAndExpand"
+        RowSpacing="5"
+        HeightRequest="300"
+        RowDefinitions="auto, *"
+        BackgroundColor="{StaticResource AppGrayColor}">
+        <!--Header-->
+        <control:PopupHeader
+            Title="{x:Static res:Localization.BatteryStatus_Title}"
+            CloseCommand="{Binding BacksCommand}"/>
+
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding ProbeList}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate
+                    x:DataType="models:GrayWolfDevice">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ColumnSpacing="5" RowSpacing="5" Padding="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="1"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!--Model Number-->
+                        <Label Grid.Row="0" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="End" VerticalTextAlignment="Center"
+                                                                        Text="{Binding DeviceModelName}" FontSize="16" TextColor="Black"/>
+                        <!--Serial Number-->
+                        <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                                                                        Text="{Binding DeviceSerialNum}" FontSize="16" TextColor="Black"/>
+                        <Label Grid.Row="0" Grid.Column="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                                                                        Text="Battery" FontSize="16" TextColor="Black"/>
+                        <!--Batter Status-->
+                        <Label Grid.Row="0" Grid.Column="3" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                                                                        Text="{Binding BatteryStatus}" FontSize="16" TextColor="Black" FontAttributes="Bold"/>
+
+                        <Grid Grid.Row="1" Grid.ColumnSpan="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White" Opacity="0.5"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</control:BasePopupPage>
