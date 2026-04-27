@@ -35,14 +35,16 @@ namespace GrayWolf.Models.Domain
         private IBleService BleService { get; }
 
         private CancellationTokenSource DeviceStatusChangedTCS { get; set; }
-
+        private readonly InactivityService _inactivityService;
         public RealBleDevice_Droid(
             IDevice nativeDevice,
             IBleService bleService,
-            IDeviceService deviceService) : base(
+            IDeviceService deviceService, 
+            InactivityService inactivityService) : base(
                 bleService,
                 deviceService)
         {
+            _inactivityService = inactivityService;
             SensorsService = Ioc.Default.GetService<ISensorsService>();
             BleService = bleService;
             SetDevice(nativeDevice, false);
@@ -117,6 +119,8 @@ if (device == null)
 
         private void OnDatumUpdated(int channel, Reading datum)
         {
+            // ✅ THIS LINE IS THE HEART OF THE FEATURE
+            _inactivityService.ResetTimer();
             datum.TimeStamp = DateTime.UtcNow;
             Sensors[channel] = datum;
             var data = Sensors.OrderBy(x => x.Key).Select(x => x.Value);
@@ -390,8 +394,15 @@ if (device == null)
                 {
                     await OnDeviceFetchCompletedAsync(GrayWolfDevice, NativeDevice.State == DeviceState.Connected);
                     var service = await NativeDevice.GetServiceAsync(ProbeGuid);
-                    var newcharacteristic = await (await service.GetCharacteristicAsync(ProbeCharacteristicGuid)).ReadAsync();
-                    OnProbeResult(newcharacteristic);
+                    try
+                    {
+                        var newcharacteristic = await (await service.GetCharacteristicAsync(ProbeCharacteristicGuid)).ReadAsync();
+                        OnProbeResult(newcharacteristic);
+                    }
+                    catch(Exception ex)
+                    {
+                        Debug.WriteLine($"Failed to read probe after completion: {ex.Message}");
+                    }
                 }
                 else
                 {
@@ -544,6 +555,7 @@ if (device == null)
         private CancellationTokenSource reconnectTCS;
         private async void OnDeviceStatusChanged(DeviceState status)
         {
+            
             if (status == DeviceState.Connected)
             {
                 Debug.WriteLine("Device connected");
@@ -570,6 +582,8 @@ if (device == null)
                 _isFetchStarted = false;
                 IsFetchRunning = false;
                 IsConnected = false;
+                _inactivityService?.StopTimer();
+
                 if (!IsDisconnectedByUser && !IsReconnecting && WasConnected)
                 {
                     try

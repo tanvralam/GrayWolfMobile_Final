@@ -32,6 +32,9 @@ namespace GrayWolf.ViewModels
         private const string LogIcon = "ic_trend_log";
         private const string StopLogIcon = "ic_stop_log";
         private static HomePageViewModel viewModel;
+        private InactivityService _inactivityService;
+        private bool _popupVisible;
+
         #region ICommand  
         public ICommand MenuCommand { get; }
         public ICommand CheckBatteryStatusCommand { get; }
@@ -127,6 +130,7 @@ namespace GrayWolf.ViewModels
             SensorClickCommand = new Command<Reading>(OpenSensorMenu);
             ProbeTappedCommand = new Command<GrayWolfDevice>(OnProbeTapped);
             AuthService = Ioc.Default.GetService<IAuthService>();
+            _inactivityService = Ioc.Default.GetService<InactivityService>();
             Status = HomePageStatus.Loading;
             TrySubscribeToMessenger();
             DeviceService.Init();
@@ -142,14 +146,27 @@ namespace GrayWolf.ViewModels
         public override void OnAppearing()
         {
             base.OnAppearing();
-
+            _inactivityService.OnTimeout += HandleTimeout;
             TrySubscribeToMessenger();
             RaisePropertyChanged(nameof(CanSwitchToDemoMode));
+        }
+
+        private async void HandleTimeout()
+        {
+            if (_popupVisible || !IsActive)
+                return;
+
+            _popupVisible = true;
+
+            await Alert.ShowAlert("No data received from the probe for 3 minutes.");
+            _inactivityService.ResetTimer();
+            _popupVisible = false;
         }
 
         public override void OnDisappearing()
         {
             base.OnDisappearing();
+            _inactivityService.OnTimeout -= HandleTimeout;
             _isSubscribed = false;
         }
 

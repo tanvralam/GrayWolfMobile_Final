@@ -150,7 +150,7 @@ namespace GrayWolf
         }
         private static void RegisterServices(this IServiceCollection services)
         {
-           
+           services.AddSingleton<InactivityService> ();
             services.AddSingleton<IAnalyticsService, AnalyticsService>();
             services.AddTransient <GrayWolf.Interfaces. IFileSystem,FileSystem> ();           
             services.AddSingleton<ISettingsService, SettingsService>();

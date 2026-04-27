@@ -1,6 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 using GrayWolf.Messages;
 using GrayWolf.Models.Domain;
+using GrayWolf.Services;
 using GrayWolf.Views.Popups;
 using RGPopup.Maui.Extensions;
 using System;
@@ -24,6 +26,8 @@ namespace GrayWolf.ViewModels
         }
 
         public bool AnySensors => Probe?.Data?.Any() == true;
+        private InactivityService _inactivityService;
+        private bool _popupVisible;
         #endregion
 
         #region commands
@@ -39,6 +43,8 @@ namespace GrayWolf.ViewModels
         /// <param name="nav"></param>
         public ProbePageViewModel(GrayWolfDevice device)
         {
+            _inactivityService = Ioc.Default.GetService<InactivityService>();
+
             MenuCommand = new Command(OnMenuAsync);
             SensorCommand = new Command<Reading>(GoToSensorMenu);
             Probe = device;
@@ -67,12 +73,26 @@ namespace GrayWolf.ViewModels
         {   
             base.OnAppearing();
             MessengerInstance.Register<DeviceConfigurationChangedMessage>(this, OnDeviceUpdated);
+            _inactivityService.OnTimeout += HandleTimeout;
+        }
+
+        private async void HandleTimeout()
+        {
+            if (_popupVisible || !IsActive)
+                return;
+
+            _popupVisible = true;
+
+            await Alert.ShowAlert("No data received from the probe for 3 minutes.");
+            _inactivityService.ResetTimer();
+            _popupVisible = false;
         }
 
         public override void OnDisappearing()
         {
             base.OnDisappearing();
             MessengerInstance.Unregister(this);
+            _inactivityService.OnTimeout -= HandleTimeout;
         }
 
         public override void RaisePropertyChanged([CallerMemberName] string propertyName = null)

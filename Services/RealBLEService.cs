@@ -507,7 +507,8 @@ namespace GrayWolf.Services
             //}
             //else 
             //{
-                return new RealBleDevice_Droid(device, this, deviceService);
+            var inactivityService = Ioc.Default.GetService<InactivityService>();
+            return new RealBleDevice_Droid(device, this, deviceService, inactivityService);
             //}
 
             
