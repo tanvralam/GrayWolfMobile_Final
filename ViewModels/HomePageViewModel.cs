@@ -134,33 +134,45 @@ namespace GrayWolf.ViewModels
             Status = HomePageStatus.Loading;
             TrySubscribeToMessenger();
             DeviceService.Init();
-            
+
         }
 
-        
 
-        
+
+
         #endregion
 
         #region override
         public override void OnAppearing()
         {
             base.OnAppearing();
+            _inactivityService.OnTimeout -= HandleTimeout;
             _inactivityService.OnTimeout += HandleTimeout;
             TrySubscribeToMessenger();
             RaisePropertyChanged(nameof(CanSwitchToDemoMode));
         }
 
-        private async void HandleTimeout()
+        private async void HandleTimeout(object sender, InactivityTimeoutEventArgs e)
         {
-            if (_popupVisible || !IsActive)
+            var device = ProbeList?.FirstOrDefault(x => x.DeviceID == e.DeviceId);
+
+            if (device == null || _popupVisible)
                 return;
 
             _popupVisible = true;
 
-            await Alert.ShowAlert("No data received from the probe for 3 minutes.");
-            _inactivityService.ResetTimer();
-            _popupVisible = false;
+            try
+            {
+                device.IsOnline = false;
+
+                await Alert.ShowAlert($"No data received from probe {e.DeviceName} for 3 minutes.");
+
+                _inactivityService.RestartTimerAfterAcknowledgement(e.DeviceId, e.DeviceName);
+            }
+            finally
+            {
+                _popupVisible = false;
+            }
         }
 
         public override void OnDisappearing()
@@ -244,7 +256,7 @@ namespace GrayWolf.ViewModels
                 {
                     case Device.Android:
                         var statuses = await Ioc.Default.GetService<IStoragePermissionService>().RequestStoragePermissions();
-                        if(!statuses)
+                        if (!statuses)
                         {
                             IsBusy = false;
                             return;
@@ -418,7 +430,7 @@ namespace GrayWolf.ViewModels
             {
                 return;
             }
-           await Navigation.PushAsync(new ProbePage(device));
+            await Navigation.PushAsync(new ProbePage(device));
 
             IsBusy = false;
         }

@@ -39,7 +39,7 @@ namespace GrayWolf.Models.Domain
         public RealBleDevice_Droid(
             IDevice nativeDevice,
             IBleService bleService,
-            IDeviceService deviceService, 
+            IDeviceService deviceService,
             InactivityService inactivityService) : base(
                 bleService,
                 deviceService)
@@ -57,7 +57,7 @@ namespace GrayWolf.Models.Domain
                 DeviceStatusChangedTCS?.Cancel();
             }
             catch (Exception ex) { }
-if (device == null)
+            if (device == null)
                 return;
             Id = device.Id.ToString();
             DeviceName = device.Name;
@@ -75,8 +75,10 @@ if (device == null)
 
             DeviceStatusChangedTCS = new CancellationTokenSource();
 
+            CrossBluetoothLE.Current.Adapter.DeviceConnected -= Adapter_DeviceConnected;
+            CrossBluetoothLE.Current.Adapter.DeviceDisconnected -= Adapter_DeviceDisconnected;
             CrossBluetoothLE.Current.Adapter.DeviceConnected += Adapter_DeviceConnected;
-            CrossBluetoothLE.Current.Adapter.DeviceDisconnected+= Adapter_DeviceConnected;
+            CrossBluetoothLE.Current.Adapter.DeviceDisconnected += Adapter_DeviceDisconnected;
             //NativeDevice
             //    .WhenStatusChanged()
             //    .Subscribe(OnDeviceStatusChanged, DeviceStatusChangedTCS.Token);
@@ -91,12 +93,17 @@ if (device == null)
             OnDeviceStatusChanged(e.Device.State);
         }
 
+        private void Adapter_DeviceDisconnected(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
+        {
+            OnDeviceStatusChanged(e.Device.State);
+        }
+
         protected override async void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             base.OnPropertyChanged(propertyName);
-            if(propertyName == nameof(IsConnected) || propertyName == nameof(IsSelected))
+            if (propertyName == nameof(IsConnected) || propertyName == nameof(IsSelected))
             {
-                await Microsoft.Maui.Controls.Device.InvokeOnMainThreadAsync(async() => await SubscribeIfReadyAsync());
+                await Microsoft.Maui.Controls.Device.InvokeOnMainThreadAsync(async () => await SubscribeIfReadyAsync());
             }
         }
 
@@ -119,11 +126,31 @@ if (device == null)
 
         private void OnDatumUpdated(int channel, Reading datum)
         {
-            // ✅ THIS LINE IS THE HEART OF THE FEATURE
-            _inactivityService.ResetTimer();
+            GrayWolfDevice.IsOnline = true;
+
+            _inactivityService.ResetTimer(Id, DeviceName);
+
             datum.TimeStamp = DateTime.UtcNow;
-            Sensors[channel] = datum;
-            var data = Sensors.OrderBy(x => x.Key).Select(x => x.Value);
+
+            // 🔥 FIX — restore values explicitly
+            if (datum?.ConvertedUnit != null && Sensors.ContainsKey(channel))
+            {
+                var existing = Sensors[channel];
+
+                existing.ConvertedUnit.Value = datum.ConvertedUnit.Value;
+                existing.OriginalUnit.Value = datum.OriginalUnit.Value;
+
+                existing.TimeStamp = datum.TimeStamp;
+            }
+            else
+            {
+                Sensors[channel] = datum;
+            }
+
+            var data = Sensors
+                .OrderBy(x => x.Key)
+                .Select(x => x.Value);
+
             GrayWolfDevice.UpdateData(data);
         }
 
@@ -134,22 +161,30 @@ if (device == null)
             {
                 if (!IsConnected || !IsFetchRunning)
                 {
-                    //BleService.DisconnectFromDevice(BleService.);
                     return;
                 }
-                Debug.WriteLine("Reading probe");
-               // var result = await NativeDevice.ReadCharacteristic(ProbeGuid, ProbeCharacteristicGuid).SingleAsync();
 
-                var service = await NativeDevice.GetServiceAsync(ProbeGuid);
-                var characteristic = await (await service.GetCharacteristicAsync(ProbeCharacteristicGuid)).ReadAsync();
+                Debug.WriteLine($"Reading probe {GrayWolfDevice?.DeviceDisplayName}");
 
+                var characteristic = await TryReadCharacteristicAsync(
+                    ProbeGuid,
+                    ProbeCharacteristicGuid,
+                    "Failed to read probe");
 
-                OnProbeResult(characteristic);
+                if (!characteristic.HasValue)
+                {
+                    IsFetchFailed = true;
+                    MarkProbeAsNotSendingData();
+                    return;
+                }
+
+                OnProbeResult(characteristic.Value);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Failed to read to probe: {ex.Message}");
                 IsFetchFailed = true;
+                MarkProbeAsNotSendingData();
             }
         }
 
@@ -159,7 +194,7 @@ if (device == null)
             {
                 byte[] bytes = new byte[1] { 0x00 };
                 if (channel < 10) bytes = new byte[1] { (byte)(channel + 0x30) };
-                else if(channel < 100)
+                else if (channel < 100)
                 {
                     var tens = channel / 10;
                     bytes = new byte[2] { (byte)(tens + 0x30), (byte)((channel - tens * 10) + 0x30) };
@@ -168,22 +203,30 @@ if (device == null)
                 Debug.WriteLine($"<<<<<<<<<<<<<< Switching to channel {channel}");
 
                 Channel = channel;
-                
-                //OnChannelSwitched(await NativeDevice.WriteCharacteristic(SensorGuid, SensorChannelGuid, bytes).SingleAsync());
-               
-                var service = await NativeDevice.GetServiceAsync(SensorGuid);
-                var characteristicObj=await service.GetCharacteristicAsync(SensorChannelGuid);
-                 await characteristicObj.WriteAsync(bytes);
-               // var characteristic = await characteristicObj.ReadAsync();
-                OnChannelSwitched();
 
+                var written = await TryWriteCharacteristicAsync(
+                    SensorGuid,
+                    SensorChannelGuid,
+                    bytes,
+                    $"Failed to switch channel {channel}");
+
+                if (!written)
+                {
+                    IsFetchFailed = true;
+                    MarkProbeAsNotSendingData();
+                    return;
+                }
+
+                OnChannelSwitched();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Failed to switch channel: {ex.Message}");
                 IsFetchFailed = true;
+                MarkProbeAsNotSendingData();
             }
         }
+
         #endregion]
 
         #region callbacks
@@ -281,9 +324,19 @@ if (device == null)
                 var channel = Convert.ToInt32(bytes[0] & 0x3F);
                 if (channel != Channel)
                 {
-                    var service = await NativeDevice.GetServiceAsync(SensorGuid);
-                    var Newcharacteristic = await (await service.GetCharacteristicAsync(SensorValuesGuid)).ReadAsync();
-                    OnDataResult(Newcharacteristic);
+                    var retryCharacteristic = await TryReadCharacteristicAsync(
+                        SensorGuid,
+                        SensorValuesGuid,
+                        "Failed to re-read sensor values after channel mismatch");
+
+                    if (!retryCharacteristic.HasValue)
+                    {
+                        IsFetchFailed = true;
+                        MarkProbeAsNotSendingData();
+                        return;
+                    }
+
+                    OnDataResult(retryCharacteristic.Value);
                     return;
                 }
 
@@ -294,23 +347,28 @@ if (device == null)
 
                 OnDatumUpdated(channel, reading);
 
-
-                // does not appear to work here // SendLogButtonMessageIfClicked(bytes[0]);
-
-
                 if (IsFetchRunning)
                 {
-                    var service = await NativeDevice.GetServiceAsync(SensorGuid);
-                    var newcharacteristic = await (await service.GetCharacteristicAsync(SensorValuesGuid)).ReadAsync();
-                    OnValuesResult(newcharacteristic);
+                    var valuesCharacteristic = await TryReadCharacteristicAsync(
+                        SensorGuid,
+                        SensorValuesGuid,
+                        "Failed to read sensor values");
+
+                    if (!valuesCharacteristic.HasValue)
+                    {
+                        IsFetchFailed = true;
+                        MarkProbeAsNotSendingData();
+                        return;
+                    }
+
+                    OnValuesResult(valuesCharacteristic.Value);
                 }
-
-
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Failed to parse sensor data: {ex.Message}");
                 IsFetchFailed = true;
+                MarkProbeAsNotSendingData();
             }
         }
 
@@ -377,8 +435,6 @@ if (device == null)
                 // Bill VW - March 2022. Moved here because it was not working 
                 SendLogButtonMessageIfClicked(bytes[0]);
 
-
-
                 Debug.WriteLine($"OnValueResult: channel {channel}");
                 var reading = GetOrCreateReading(channel);
                 UpdateReadingValue(reading, bytes);
@@ -393,29 +449,31 @@ if (device == null)
                 if (isComplete)
                 {
                     await OnDeviceFetchCompletedAsync(GrayWolfDevice, NativeDevice.State == DeviceState.Connected);
-                    var service = await NativeDevice.GetServiceAsync(ProbeGuid);
-                    try
+
+                    var probeCharacteristic = await TryReadCharacteristicAsync(
+                        ProbeGuid,
+                        ProbeCharacteristicGuid,
+                        "Failed to read probe after completion");
+
+                    if (!probeCharacteristic.HasValue)
                     {
-                        var newcharacteristic = await (await service.GetCharacteristicAsync(ProbeCharacteristicGuid)).ReadAsync();
-                        OnProbeResult(newcharacteristic);
+                        IsFetchFailed = true;
+                        MarkProbeAsNotSendingData();
+                        return;
                     }
-                    catch(Exception ex)
-                    {
-                        Debug.WriteLine($"Failed to read probe after completion: {ex.Message}");
-                    }
+
+                    OnProbeResult(probeCharacteristic.Value);
                 }
                 else
                 {
                     SwitchChannel(newChannel);
                 }
-
-
-
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Failed to parse sensor value: {ex.Message}");
                 IsFetchFailed = true;
+                MarkProbeAsNotSendingData();
             }
         }
 
@@ -442,15 +500,26 @@ if (device == null)
             {
                 if (IsFetchRunning)
                 {
-                    var service = await NativeDevice.GetServiceAsync(SensorGuid);
-                    var newcharacteristic = await (await service.GetCharacteristicAsync(SensorDataGuid)).ReadAsync();
-                    OnDataResult(newcharacteristic);
+                    var dataCharacteristic = await TryReadCharacteristicAsync(
+                        SensorGuid,
+                        SensorDataGuid,
+                        "Failed to read sensor data after channel switch");
+
+                    if (!dataCharacteristic.HasValue)
+                    {
+                        IsFetchFailed = true;
+                        MarkProbeAsNotSendingData();
+                        return;
+                    }
+
+                    OnDataResult(dataCharacteristic.Value);
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Failed to read characteristic: {ex.Message}");
                 IsFetchFailed = true;
+                MarkProbeAsNotSendingData();
             }
         }
 
@@ -465,6 +534,98 @@ if (device == null)
             //Not implemented yet
         }
         #endregion
+
+        private async Task<(byte[] data, int resultCode)?> TryReadCharacteristicAsync(Guid serviceGuid, Guid characteristicGuid, string errorContext)
+        {
+            try
+            {
+                if (NativeDevice == null || NativeDevice.State != DeviceState.Connected)
+                {
+                    Debug.WriteLine($"{errorContext}: device is not connected");
+                    return null;
+                }
+
+                var service = await NativeDevice.GetServiceAsync(serviceGuid);
+                if (service == null)
+                {
+                    Debug.WriteLine($"{errorContext}: service not found {serviceGuid}");
+                    return null;
+                }
+
+                var characteristic = await service.GetCharacteristicAsync(characteristicGuid);
+                if (characteristic == null)
+                {
+                    Debug.WriteLine($"{errorContext}: characteristic not found {characteristicGuid}");
+                    return null;
+                }
+
+                if (NativeDevice.State != DeviceState.Connected)
+                {
+                    Debug.WriteLine($"{errorContext}: device disconnected before read");
+                    return null;
+                }
+
+                return await characteristic.ReadAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{errorContext}: {ex.Message}");
+                return null;
+            }
+        }
+
+        private async Task<bool> TryWriteCharacteristicAsync(Guid serviceGuid, Guid characteristicGuid, byte[] bytes, string errorContext)
+        {
+            try
+            {
+                if (NativeDevice == null || NativeDevice.State != DeviceState.Connected)
+                {
+                    Debug.WriteLine($"{errorContext}: device is not connected");
+                    return false;
+                }
+
+                var service = await NativeDevice.GetServiceAsync(serviceGuid);
+                if (service == null)
+                {
+                    Debug.WriteLine($"{errorContext}: service not found {serviceGuid}");
+                    return false;
+                }
+
+                var characteristic = await service.GetCharacteristicAsync(characteristicGuid);
+                if (characteristic == null)
+                {
+                    Debug.WriteLine($"{errorContext}: characteristic not found {characteristicGuid}");
+                    return false;
+                }
+
+                if (NativeDevice.State != DeviceState.Connected)
+                {
+                    Debug.WriteLine($"{errorContext}: device disconnected before write");
+                    return false;
+                }
+
+                await characteristic.WriteAsync(bytes);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"{errorContext}: {ex.Message}");
+                return false;
+            }
+        }
+
+        private void MarkProbeAsNotSendingData()
+        {
+            if (GrayWolfDevice == null)
+            {
+                return;
+            }
+
+            GrayWolfDevice.IsOnline = false;
+
+            // Do not clear GrayWolfDevice.Data. The UI uses the existing readings and shows "--" when IsOnline is false.
+            _inactivityService?.EnsureTimerRunning(Id, GrayWolfDevice.DeviceDisplayName);
+        }
 
         #region get values
         private Reading GetOrCreateReading(int channel)
@@ -524,7 +685,7 @@ if (device == null)
             await CrossBluetoothLE.Current.Adapter.ConnectToDeviceAsync(NativeDevice);
         }
 
-        
+
 
         //private IObservable<IDevice> ConnectWait(IDevice device)
         //{
@@ -555,7 +716,7 @@ if (device == null)
         private CancellationTokenSource reconnectTCS;
         private async void OnDeviceStatusChanged(DeviceState status)
         {
-            
+
             if (status == DeviceState.Connected)
             {
                 Debug.WriteLine("Device connected");
@@ -565,11 +726,12 @@ if (device == null)
                 OnPropertyChanged(nameof(IsConnected));
                 IsDisconnectedByUser = false;
                 GrayWolfDevice.IsOnline = true;
+                _inactivityService?.ResetTimer(Id, GrayWolfDevice.DeviceDisplayName);
                 try
                 {
                     reconnectTCS?.Cancel();
                 }
-                catch(Exception) { }
+                catch (Exception) { }
                 if (BleService is RealBleService realBleService)
                 {
                     realBleService.SendDeviceStatusChanged(this, status);
@@ -582,7 +744,16 @@ if (device == null)
                 _isFetchStarted = false;
                 IsFetchRunning = false;
                 IsConnected = false;
-                _inactivityService?.StopTimer();
+                GrayWolfDevice.IsOnline = false;
+
+                if (IsDisconnectedByUser)
+                {
+                    _inactivityService?.StopTimer(Id);
+                }
+                else
+                {
+                    _inactivityService?.EnsureTimerRunning(Id, GrayWolfDevice.DeviceDisplayName);
+                }
 
                 if (!IsDisconnectedByUser && !IsReconnecting && WasConnected)
                 {
@@ -594,10 +765,10 @@ if (device == null)
                         // NativeDevice.CancelConnection();
                         await CrossBluetoothLE.Current.Adapter.DisconnectDeviceAsync(NativeDevice);
                         reconnectTCS = reconnectTCS ?? new CancellationTokenSource();
-                       
+
 
                         var adapter = CrossBluetoothLE.Current.Adapter;
-                        await adapter.StartScanningForDevicesAsync(new[] { NativeDevice.Id }, null,false,reconnectTCS.Token);
+                        await adapter.StartScanningForDevicesAsync(new[] { NativeDevice.Id }, null, false, reconnectTCS.Token);
 
                         adapter.DeviceDiscovered += (sender, args) =>
                         {
@@ -609,26 +780,26 @@ if (device == null)
                         };
 
                         await Task.Delay(TimeSpan.FromMilliseconds(Constants.BLE_RESTORE_CONNECTION_TIMEOUT_MS), reconnectTCS.Token);
-                        if(NativeDevice.State != DeviceState.Connected)
+                        if (NativeDevice.State != DeviceState.Connected)
                         {
                             Debug.WriteLine($"Failed to reconnect to device({GrayWolfDevice?.DeviceDisplayName}), removing from the home page");
                             GrayWolfDevice.IsSelected = false;
                             IsSelected = false;
                         }
                         await OnDeviceFetchCompletedAsync(GrayWolfDevice, NativeDevice.State == DeviceState.Connected);
-                        if(NativeDevice.State != DeviceState.Connected)
+                        if (NativeDevice.State != DeviceState.Connected)
                             TrySendDisconnected();
                         reconnectTCS?.Cancel();
                     }
-                    catch (TaskCanceledException) 
+                    catch (TaskCanceledException)
                     {
 
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                     }
                 }
-                else if(IsDisconnectedByUser)
+                else if (IsDisconnectedByUser)
                 {
                     try
                     {
@@ -692,10 +863,17 @@ if (device == null)
         {
             try
             {
+                CrossBluetoothLE.Current.Adapter.DeviceConnected -= Adapter_DeviceConnected;
+                CrossBluetoothLE.Current.Adapter.DeviceDisconnected -= Adapter_DeviceDisconnected;
+            }
+            catch (Exception) { }
+            try
+            {
                 DeviceStatusChangedTCS?.Cancel();
             }
             catch (TaskCanceledException) { }
             DeviceStatusChangedTCS = null;
+            _inactivityService?.StopTimer(Id);
             try
             {
                 reconnectTCS?.Cancel();

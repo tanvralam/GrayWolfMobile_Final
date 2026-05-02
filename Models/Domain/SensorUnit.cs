@@ -99,8 +99,8 @@ private string GetFormattedValue()
     {
         try
         {
-            // 0. No value -> nothing to show
-            if (string.IsNullOrWhiteSpace(Value))
+                // 0. No value -> nothing to show
+                if (string.IsNullOrWhiteSpace(Value))
                 return string.Empty;
 
             // IMPORTANT:

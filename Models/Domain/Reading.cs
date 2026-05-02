@@ -95,6 +95,8 @@ namespace GrayWolf.Models.Domain
             set => SetProperty(ref _isLogged, value);
         }
 
+        public bool HasLiveData { get; set; } = true;
+
         public string SensorIdentifier
         {
             get
