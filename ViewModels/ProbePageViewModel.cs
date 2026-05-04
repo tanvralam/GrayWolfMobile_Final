@@ -90,7 +90,11 @@ namespace GrayWolf.ViewModels
             {
                 device.IsOnline = false;
 
-                await Alert.ShowAlert($"No data received from probe {e.DeviceName} for 3 minutes.");
+                await Alert.ShowAlert(
+    $"No data received from probe {e.DeviceName} for 3 minutes.\n\n" +
+    "Please go to the Select Device menu to select the device again to see the readings.\n\n" +
+    "Please make sure the probe is ON and within range."
+);
 
                 _inactivityService.RestartTimerAfterAcknowledgement(e.DeviceId, e.DeviceName);
             }
