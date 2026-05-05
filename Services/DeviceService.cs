@@ -370,8 +370,15 @@ namespace GrayWolf.Services
         #region event handlers
         private void BLEService_OnVisibleDevicesChanged(object sender, Utility.ScannedDevicesUpdatedEventArgs e)
         {
+            var now = DateTime.UtcNow;
+
+            // 🔥 ONLY keep devices seen recently
+            var freshDevices = e.Devices
+                .Where(x => (now - x.LastSeen).TotalSeconds <= 5)
+                .ToList();
+
             DiscoveredBleGrayWolfDevices.Clear();
-            DiscoveredBleGrayWolfDevices.AddRange(e.Devices);
+            DiscoveredBleGrayWolfDevices.AddRange(freshDevices);
         }
         #endregion
 
@@ -474,6 +481,11 @@ namespace GrayWolf.Services
 
             (FakeBleInstance as MockBleService).StartDemoMode(mode);
             await FakeBleInstance.StartScanAsync();
+        }
+
+        public void ClearDiscoveredBleDevices()
+        {
+            DiscoveredBleGrayWolfDevices.Clear();
         }
 
         public async Task StopDemoModeAsync()

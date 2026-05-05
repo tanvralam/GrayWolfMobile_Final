@@ -11,6 +11,9 @@ namespace GrayWolf.Interfaces
     {
         bool IsDemoMode { get; }
 
+        // 🔥 FIX 1: clear global cache
+        void ClearDiscoveredBleDevices();
+
         IEnumerable<BleDevice> GetDiscoveredBleDevices();
 
         Task<IEnumerable<GrayWolfDevice>> GetCloudDevicesFromDBAsync();

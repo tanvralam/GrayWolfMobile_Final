@@ -90,11 +90,17 @@ namespace GrayWolf.Models.Domain
 
         private void Adapter_DeviceConnected(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
         {
+            if (e?.Device == null || e.Device.Id.ToString() != Id)
+                return;
+
             OnDeviceStatusChanged(e.Device.State);
         }
 
         private void Adapter_DeviceDisconnected(object? sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
         {
+            if (e?.Device == null || e.Device.Id.ToString() != Id)
+                return;
+
             OnDeviceStatusChanged(e.Device.State);
         }
 

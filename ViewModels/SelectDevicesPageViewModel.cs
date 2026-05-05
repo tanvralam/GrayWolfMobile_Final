@@ -138,17 +138,21 @@ namespace GrayWolf.ViewModels
             OnBleDevicesUpdated(devices);
         }
 
-       
+
         public override async void OnAppearing()
         {
             base.OnAppearing();
-          
-            IsLoading = true;
-           // BleService.Initialize();//i have added            
-            await BleService.StartScanAsync();
-            FetchBleDevices();
+
+            //IsLoading = true;
+
+            DeviceService.ClearDiscoveredBleDevices();
+            BluetoothDeviceList = new ObservableCollection<BleDevice>();
+
+            BleService.OnVisibleDevicesChanged -= BleService_OnVisibleDevicesChanged;
             BleService.OnVisibleDevicesChanged += BleService_OnVisibleDevicesChanged;
-            //await Load();
+
+            await BleService.StartScanAsync();
+
             IsLoading = false;
         }
 

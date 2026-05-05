@@ -159,29 +159,46 @@ namespace GrayWolf.ViewModels
         {
             var device = ProbeList?.FirstOrDefault(x => x.DeviceID == e.DeviceId);
 
-            if (device == null || _popupVisible)
+            if (device == null)
+                return;
+
+            device.IsOnline = false;
+
+            // track device
+            _offlineDevices.Add(device.DeviceName);
+
+            // 🔥 only ONE popup at a time
+            if (_popupVisible)
                 return;
 
             _popupVisible = true;
 
             try
             {
-                device.IsOnline = false;
+                // 🔥 build message immediately (no delay)
+                var offlineDevices = ProbeList.Where(x => !x.IsOnline).Select(x => $"• {x.DeviceName}");
 
-                await Alert.ShowAlert(
-    $"No data received from probe {e.DeviceName} for 3 minutes.\n\n" +
-    "Please go to the Select Device menu to select the device again to see the readings.\n\n" +
-    "Please make sure the probe is ON and within range."
-);
+                var message =
+                    "The following probes are no longer responding. Check that they are in-range and powered on:\n\n" +
+                    string.Join("\n", offlineDevices) +
+                    "\n\nPlease go to Readings Menu and Select Device to re-connect to the probe.";
 
-                _inactivityService.RestartTimerAfterAcknowledgement(e.DeviceId, e.DeviceName);
+                await Alert.ShowAlert(message);
+
+                // restart timers
+                foreach (var d in ProbeList.Where(x => !x.IsOnline))
+                {
+                    _inactivityService.RestartTimerAfterAcknowledgement(d.DeviceID, d.DeviceName);
+                }
+
+                // 🔥 clear AFTER showing popup
+                _offlineDevices.Clear();
             }
             finally
             {
                 _popupVisible = false;
             }
         }
-
         public override void OnDisappearing()
         {
             base.OnDisappearing();

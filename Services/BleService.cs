@@ -102,6 +102,10 @@ namespace GrayWolf.Services
 
         protected virtual void InvokeVisibleDevicesChanged(IEnumerable<BleDevice> devices)
         {
+            foreach (var device in devices)
+            {
+                device.LastSeen = DateTime.UtcNow; // 🔥 THIS IS THE LINE
+            }
             OnVisibleDevicesChanged?.Invoke(this, new ScannedDevicesUpdatedEventArgs(devices));
         }
 

@@ -40,6 +40,8 @@ namespace GrayWolf.Models.Domain
             protected set => SetProperty(ref _deviceName, value);
         }
 
+        public DateTime LastSeen { get; set; }
+
         private bool _isFetchRunning;
         public bool IsFetchRunning
         {
