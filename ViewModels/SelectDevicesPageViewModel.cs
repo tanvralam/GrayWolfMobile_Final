@@ -246,24 +246,13 @@ namespace GrayWolf.ViewModels
         {
             lock ("BleCollectionFetch")
             {
-                if (BluetoothDeviceList?.Any() == true)
-                {
-                    var newDevices = devices.Where(x => !IsDeviceInBluetoothList(x, BluetoothDeviceList)).ToList();
-                    if (newDevices.Any())
-                    {
-                        BluetoothDeviceList.AddRange(newDevices);
-                    }
+                var freshDevices = devices?
+                    .Where(x => !string.IsNullOrWhiteSpace(x.DeviceName))
+                    .OrderBy(x => x.DeviceName)
+                    .ToObservableCollection()
+                    ?? new ObservableCollection<BleDevice>();
 
-                    var removedDevices = BluetoothDeviceList.Where(x => !IsDeviceInBluetoothList(x, devices)).ToList();
-                    if (removedDevices.Any() && BluetoothDeviceList.Any())
-                    {
-                        BluetoothDeviceList.RemoveRange(removedDevices);
-                    }
-                }
-                else
-                {
-                    BluetoothDeviceList = devices.ToObservableCollection();
-                }
+                BluetoothDeviceList = freshDevices;
             }
         }
 

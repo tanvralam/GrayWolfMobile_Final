@@ -179,7 +179,21 @@ namespace GrayWolf.Services
 
                 CancelAllReconnections();
                 _visibleDevices.Clear();
-                _visibleDevices.AddRange(ConnectedDevices.Values.Where(x => x.IsConnected));
+
+                var connectedOnlineDevices = ConnectedDevices.Values
+                    .Where(x =>
+                        x.IsConnected &&
+                        x.GrayWolfDevice != null &&
+                        x.GrayWolfDevice.IsOnline)
+                    .ToList();
+
+                foreach (var device in connectedOnlineDevices)
+                {
+                    device.IsSelected = IsDeviceSelected(device);
+                    device.LastSeen = DateTime.UtcNow;
+                    _visibleDevices.Add(device);
+                }
+
                 InvokeVisibleDevicesChanged(_visibleDevices);
 
                 if (ScanCTS == null)
@@ -261,26 +275,41 @@ namespace GrayWolf.Services
         {
             try
             {
-                if (device.Name.IsNullOrEmpty() || _visibleDevices.Any(x => $"{x.Id}" == $"{device.Id}"))
+                if (device == null || device.Name.IsNullOrEmpty())
                 {
                     return;
                 }
+
+                var existingDevice = _visibleDevices.FirstOrDefault(x => $"{x.Id}" == $"{device.Id}");
+
+                if (existingDevice != null)
+                {
+                    existingDevice.LastSeen = DateTime.UtcNow;
+                    existingDevice.IsSelected = IsDeviceSelected(existingDevice);
+                    InvokeVisibleDevicesChanged(_visibleDevices);
+                    return;
+                }
+
                 var bleDevice = GetBleDevice(device);
+                bleDevice.LastSeen = DateTime.UtcNow;
                 bleDevice.IsSelected = IsDeviceSelected(bleDevice);
+
                 _visibleDevices.Add(bleDevice);
+
                 InvokeVisibleDevicesChanged(_visibleDevices);
             }
             catch (Exception ex)
             {
                 AnalyticsService.TrackError(ex, TAG, new Dictionary<string, object>
-                {
-                    { "DeviceName", $"{device?.Name}" },
-                    { "DeviceId", $"{device?.Id}" },
-                    { "Status", $"{device?.State}" },
-                    { "PairingStatus", $"{device?.BondState}" },
-                });
+        {
+            { "DeviceName", $"{device?.Name}" },
+            { "DeviceId", $"{device?.Id}" },
+            { "Status", $"{device?.State}" },
+            { "PairingStatus", $"{device?.BondState}" },
+        });
             }
         }
+
         #endregion
 
         #region connection

@@ -164,10 +164,6 @@ namespace GrayWolf.ViewModels
 
             device.IsOnline = false;
 
-            // track device
-            _offlineDevices.Add(device.DeviceName);
-
-            // 🔥 only ONE popup at a time
             if (_popupVisible)
                 return;
 
@@ -175,24 +171,52 @@ namespace GrayWolf.ViewModels
 
             try
             {
-                // 🔥 build message immediately (no delay)
-                var offlineDevices = ProbeList.Where(x => !x.IsOnline).Select(x => $"• {x.DeviceName}");
+                var offlineDevices = ProbeList
+                    .Where(x => !x.IsOnline)
+                    .Select(x => $"• {x.DeviceName}")
+                    .ToList();
 
                 var message =
                     "The following probes are no longer responding. Check that they are in-range and powered on:\n\n" +
                     string.Join("\n", offlineDevices) +
                     "\n\nPlease go to Readings Menu and Select Device to re-connect to the probe.";
 
-                await Alert.ShowAlert(message);
+                if (LogService.IsLogging)
+                {
+                    message +=
+                        "\n\nTrending Log is currently running." +
+                        "\nDo you want to continue logging?";
 
-                // restart timers
+                    var continueLogging = await MainThread.InvokeOnMainThreadAsync(async () =>
+                    {
+                        return await Alert.ShowMessageConfirmation(
+                            message,
+                            "Probe Not Responding",
+                            "Continue Logging",
+                            "Stop Logging");
+                    });
+
+                    if (!continueLogging)
+                    {
+                        await MainThread.InvokeOnMainThreadAsync(async () =>
+                        {
+                            await LogService.StopLog();
+                        });
+                    }
+                }
+                else
+                {
+                    await Alert.ShowAlert(message);
+                }
+
                 foreach (var d in ProbeList.Where(x => !x.IsOnline))
                 {
                     _inactivityService.RestartTimerAfterAcknowledgement(d.DeviceID, d.DeviceName);
                 }
-
-                // 🔥 clear AFTER showing popup
-                _offlineDevices.Clear();
+            }
+            catch (Exception ex)
+            {
+               Alert.ShowAlert("An error occurred while handling device inactivity: " + ex.Message);
             }
             finally
             {
