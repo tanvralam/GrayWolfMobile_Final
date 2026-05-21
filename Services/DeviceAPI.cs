@@ -70,6 +70,11 @@ namespace GrayWolf.Services
                 var response = await ApiService.PostAsync<RawGetDevicesReturn>(url, input);
                 var responseObject = JsonConvert.DeserializeObject<GetDevicesReturn>(response.D);
 
+                if (responseObject?.Data == null || !responseObject.Data.UserAuthenticated)
+                {
+                    throw new UnauthorizedAccessException("Invalid GrayWolfLive username or password.");
+                }
+
                 return responseObject.Data.Devices;
             }
             catch (Exception e)

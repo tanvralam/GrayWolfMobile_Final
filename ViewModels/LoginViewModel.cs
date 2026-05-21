@@ -79,21 +79,31 @@ namespace GrayWolf.ViewModels
             {
                 return;
             }
+
             try
             {
+                // Validate credentials against GrayWolfLive API first
+                var deviceApi = Ioc.Default.GetService<IDeviceAPI>();
+                await deviceApi.GetDevicesForUser(Username, Password);
+
+                // Save credentials only after successful validation
                 await AuthService.LoginAsync(Username, Password);
+
                 await Navigation.PopPopupAsync();
             }
             catch (Exception e)
             {
                 AnalyticsService.TrackError(e);
-                await Alert.DisplayError(e);
+
+                await Application.Current.MainPage.DisplayAlert(
+                        "Login Failed",
+                        e.Message,
+                        "OK");
             }
             finally
             {
                 IsBusy = false;
             }
-
         }
 
     }
