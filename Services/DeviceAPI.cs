@@ -72,7 +72,7 @@ namespace GrayWolf.Services
 
                 if (responseObject?.Data == null || !responseObject.Data.UserAuthenticated)
                 {
-                    throw new UnauthorizedAccessException("Invalid GrayWolfLive username or password.");
+                    throw new UnauthorizedAccessException("Please enter valid username and password.");
                 }
 
                 return responseObject.Data.Devices;

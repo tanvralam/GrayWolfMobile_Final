@@ -94,11 +94,7 @@ namespace GrayWolf.ViewModels
             catch (Exception e)
             {
                 AnalyticsService.TrackError(e);
-
-                await Application.Current.MainPage.DisplayAlert(
-                        "Login Failed",
-                        e.Message,
-                        "OK");
+                await Alert.ShowMessage(e.Message,"Invalid Credentials");
             }
             finally
             {
