@@ -500,6 +500,9 @@ private void OnLcvLinesRead(List<string> lines, bool parameterChanged)
 
         private void OnParameterChanged()
         {
+            MinValue = 0;
+            MaxValue = 0;
+
             RaisePropertyChanged(nameof(Parameter));
             OnLcvLinesRead(Lines, true);
             Settings.SelectedGraphParameterId = Parameter?.Id ?? "";

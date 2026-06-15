@@ -204,6 +204,7 @@ namespace GrayWolf.ViewModels
                     fileMode = await LogService.GetLogWriteModeAsync();
                 }
 
+                //await LogService.StartLog(logFile, fileMode);
                 await LogService.StartLog(logFile);
                 IsLogging = true;
                 await OnBacksAsync();
