@@ -15,6 +15,7 @@ using RGPopup.Maui.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -119,6 +120,13 @@ namespace GrayWolf.ViewModels
         {
             get => _seriesSource;
             private set => SetProperty(ref _seriesSource, value);
+        }
+
+        private int _chartRefreshVersion;
+        public int ChartRefreshVersion
+        {
+            get => _chartRefreshVersion;
+            private set => SetProperty(ref _chartRefreshVersion, value);
         }
 
         private ChartPageScene _scene;
@@ -287,6 +295,7 @@ namespace GrayWolf.ViewModels
             }
 
             Lines = lines.ToList();
+
             if (Parameter == null)
             {
                 return;
@@ -295,55 +304,58 @@ namespace GrayWolf.ViewModels
             try
             {
                 var source = new ObservableCollection<LineSeries>();
+
                 UpdateRange();
 
-                var hasConfiguredRange = SetValuesRange(out var minValue, out var maxValue);
-                var hasCalculatedRange = hasConfiguredRange;
+                System.Diagnostics.Debug.WriteLine(
+                    $"GRAPH PARAM: {Parameter?.DisplayName}, infos={Parameter?.InfoList?.Count}, lines={lines?.Count}");
+
+                var minValue = 0.0;
+                var maxValue = 0.0;
+                var hasCalculatedRange = false;
 
                 foreach (var info in Parameter.InfoList)
                 {
-                    bool isNew = false;
-
-                    if (!(source.FirstOrDefault(x => x.DisplayName == info.SerialNumber) is LineSeries series))
+                    var series = new LineSeries
                     {
-                        series = new LineSeries
-                        {
-                            DisplayName = info.SerialNumber,
-                            ItemsSource = new ObservableCollection<ChartEntry>(),
-                            ValueBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.Value)),
-                            CategoryBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.TimeStamp)),
-                            Stroke = info.Color,
-                            StrokeThickness = 4
-                        };
-                        isNew = true;
-                    }
+                        DisplayName = info.SerialNumber,
+                        ItemsSource = new ObservableCollection<ChartEntry>(),
+                        ValueBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.Value)),
+                        CategoryBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.TimeStamp)),
+                        Stroke = info.Color,
+                        StrokeThickness = 4
+                    };
 
-                    var setLines = lines.Where(x => x.StartsWith($"{info.SetId},")).ToList();
+                    var setLines = lines.Where(x => IsLineForSet(x, info.SetId)).ToList();
+
+                    System.Diagnostics.Debug.WriteLine(
+                        $"GRAPH INFO: param={Parameter.DisplayName}, serial={info.SerialNumber}, setId={info.SetId}, col={info.ColumnIndex}, setLines={setLines.Count}");
 
                     foreach (var line in setLines)
                     {
                         var value = OnReadLine(line, info, series);
-
-                        if (!hasConfiguredRange)
-                        {
-                            UpdateValuesRange(value, ref minValue, ref maxValue, ref hasCalculatedRange);
-                        }
+                        UpdateValuesRange(value, ref minValue, ref maxValue, ref hasCalculatedRange);
                     }
 
-                    if (isNew)
+                    var lineSource = series.ItemsSource as ObservableCollection<ChartEntry>;
+
+                    System.Diagnostics.Debug.WriteLine(
+                        $"GRAPH SERIES: param={Parameter.DisplayName}, serial={info.SerialNumber}, points={lineSource?.Count ?? 0}");
+
+                    if (lineSource?.Any() == true)
                     {
                         source.Add(series);
                     }
                 }
 
-                if (SeriesSource != null)
-                {
-                    SeriesSource.Clear();
-                }
-
                 foreach (var series in source)
                 {
                     var seriesItemsSource = series.ItemsSource as ObservableCollection<ChartEntry>;
+                    if (seriesItemsSource == null)
+                    {
+                        continue;
+                    }
+
                     var sorted = seriesItemsSource.OrderBy(x => x.TimeStamp).ToObservableCollection();
 
                     if (LogService.IsLogging && sorted.LastOrDefault() is ChartEntry entry)
@@ -357,19 +369,72 @@ namespace GrayWolf.ViewModels
                     series.ItemsSource = sorted;
                 }
 
-                if (hasCalculatedRange)
-                {
-                    MinValue = minValue;
-                    MaxValue = maxValue;
-                }
+                ApplyGraphRange(ref minValue, ref maxValue, hasCalculatedRange);
+
+                System.Diagnostics.Debug.WriteLine(
+                    $"GRAPH FINAL: param={Parameter.DisplayName}, series={source.Count}, min={minValue}, max={maxValue}");
+
+                MinValue = minValue;
+                MaxValue = maxValue;
 
                 SeriesSource = source;
+                ChartRefreshVersion++;
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"GRAPH ERROR: {ex}");
                 AnalyticsService.TrackError(ex);
             }
         }
+
+        private void ApplyGraphRange(ref double minValue, ref double maxValue, bool hasCalculatedRange)
+        {
+            var hasDefaultRange = SetValuesRange(out var defaultMinValue, out var defaultMaxValue);
+
+            if (!hasCalculatedRange)
+            {
+                if (hasDefaultRange)
+                {
+                    minValue = defaultMinValue;
+                    maxValue = defaultMaxValue;
+                    return;
+                }
+
+                minValue = 0;
+                maxValue = 1;
+                return;
+            }
+
+            if (minValue == maxValue)
+            {
+                var padding = Math.Abs(minValue) * 0.1;
+
+                if (padding <= 0)
+                {
+                    padding = 1;
+                }
+
+                minValue -= padding;
+                maxValue += padding;
+            }
+
+            if (hasDefaultRange)
+            {
+                minValue = Math.Min(minValue, defaultMinValue);
+                maxValue = Math.Max(maxValue, defaultMaxValue);
+            }
+        }
+        private bool IsLineForSet(string line, int setId)
+        {
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                return false;
+            }
+
+            var firstValue = line.Split(',').FirstOrDefault()?.Trim();
+            return firstValue == $"{setId}";
+        }
+
 
         private void UpdateValuesRange(double? value, ref double minValue, ref double maxValue, ref bool hasCalculatedRange)
         {
@@ -381,13 +446,13 @@ namespace GrayWolf.ViewModels
             if (!hasCalculatedRange)
             {
                 minValue = value.Value;
-                maxValue = value.Value + 1;
+                maxValue = value.Value;
                 hasCalculatedRange = true;
                 return;
             }
 
-            minValue = minValue < value.Value ? minValue : value.Value;
-            maxValue = maxValue > value.Value ? maxValue : value.Value;
+            minValue = Math.Min(minValue, value.Value);
+            maxValue = Math.Max(maxValue, value.Value);
         }
 
         //private void OnLcvLinesRead1(List<string> lines, bool parameterChanged)
@@ -472,20 +537,56 @@ namespace GrayWolf.ViewModels
 
         private double? OnReadLine(string line, GraphParameterInfo info, LineSeries series)
         {
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                return null;
+            }
+
             var values = line.Split(',').Select(x => x.Trim()).ToList();
-            var value = double.Parse(values[info.ColumnIndex + 2]);
-            var timeStamp = DateTime.Parse(values[1], null, System.Globalization.DateTimeStyles.RoundtripKind).ToLocalTime();
+            var valueIndex = info.ColumnIndex + 2;
+
+            if (values.Count <= valueIndex || values.Count <= 1)
+            {
+                return null;
+            }
+
+            if (!TryParseDouble(values[valueIndex], out var value))
+            {
+                return null;
+            }
+
+            if (!TryParseDateTime(values[1], out var timeStamp))
+            {
+                return null;
+            }
+
             var lineSource = series.ItemsSource as ObservableCollection<ChartEntry>;
+            if (lineSource == null)
+            {
+                return null;
+            }
 
             lineSource.Add(new ChartEntry
             {
                 Value = value,
-                TimeStamp = timeStamp
+                TimeStamp = timeStamp.ToLocalTime()
             });
 
             return value;
         }
+        
 
+        private bool TryParseDouble(string text, out double value)
+        {
+            return double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out value) ||
+                   double.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out value);
+        }
+
+        private bool TryParseDateTime(string text, out DateTime value)
+        {
+            return DateTime.TryParse(text, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out value) ||
+                   DateTime.TryParse(text, CultureInfo.CurrentCulture, DateTimeStyles.AssumeLocal, out value);
+        }
         private void OnTimeAxisOptionChanged()
         {
             RaisePropertyChanged(nameof(TimeAxisOption));

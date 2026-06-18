@@ -51,25 +51,16 @@
                     VerticalOptions="FillAndExpand" >
 
                 <!-- Chart Title -->
-            
+
                 <telerik:RadCartesianChart.HorizontalAxis>
-                    <telerik:DateTimeContinuousAxis  
-                LabelFormat="{Binding DateTimeLabelFormat}"
-                Minimum="{Binding MinimumDate}"
-                Maximum="{Binding MaximumDate}"
-                MajorStepUnit="{Binding IntervalType}"
-                MajorStep="{Binding Interval}"/>
-                  
+                    <telerik:DateTimeContinuousAxis/>
                 </telerik:RadCartesianChart.HorizontalAxis>
 
                 <!-- Y-Axis (NumericalAxis Alternative) -->
                 <telerik:RadCartesianChart.VerticalAxis>
-                    <telerik:NumericalAxis  
-                        Minimum="{Binding MinValue}"
-                        Maximum="{Binding MaxValue}"              
-                                 />
+                    <telerik:NumericalAxis/>
                 </telerik:RadCartesianChart.VerticalAxis>
-                
+
 
                 <telerik:RadCartesianChart.Grid>
                     <telerik:CartesianChartGrid 
