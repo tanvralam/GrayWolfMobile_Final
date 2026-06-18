@@ -40,40 +40,41 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout
+        <Grid>
+            <StackLayout
             Margin="0, 0, 0, 12">
-           
+
                 <Label x:Name="label" Text="{Binding Title}"   TextColor="Black"   FontSize="Medium" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"/>
 
-            <telerik:RadCartesianChart   
+                <telerik:RadCartesianChart   
                     x:Name="chart"
                     Margin="0" 
                     VerticalOptions="FillAndExpand" >
 
-                <!-- Chart Title -->
+                    <!-- Chart Title -->
 
-                <telerik:RadCartesianChart.HorizontalAxis>
-                    <telerik:DateTimeContinuousAxis/>
-                </telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:RadCartesianChart.HorizontalAxis>
+                        <telerik:DateTimeContinuousAxis/>
+                    </telerik:RadCartesianChart.HorizontalAxis>
 
-                <!-- Y-Axis (NumericalAxis Alternative) -->
-                <telerik:RadCartesianChart.VerticalAxis>
-                    <telerik:NumericalAxis/>
-                </telerik:RadCartesianChart.VerticalAxis>
+                    <!-- Y-Axis (NumericalAxis Alternative) -->
+                    <telerik:RadCartesianChart.VerticalAxis>
+                        <telerik:NumericalAxis/>
+                    </telerik:RadCartesianChart.VerticalAxis>
 
 
-                <telerik:RadCartesianChart.Grid>
-                    <telerik:CartesianChartGrid 
+                    <telerik:RadCartesianChart.Grid>
+                        <telerik:CartesianChartGrid 
                                          MajorLinesVisibility="XY"                                        
                                          MajorLineThickness="3" />
-                </telerik:RadCartesianChart.Grid>
-               
-            </telerik:RadCartesianChart>
+                    </telerik:RadCartesianChart.Grid>
 
-            <telerik:RadLegend HeightRequest="200"                  
+                </telerik:RadCartesianChart>
+
+                <telerik:RadLegend HeightRequest="200"                  
                 LegendItemFontSize="16"
                 LegendProvider="{x:Reference Name=chart}"/>
-            <!--<xforms:SfCartesianChart
+                <!--<xforms:SfCartesianChart
               Margin="0"                                        
                 VerticalOptions="FillAndExpand"
                 Series="{Binding SeriesSource}">
@@ -116,47 +117,77 @@
 
 
 
-            <StackLayout
+                <StackLayout
                 Style="{StaticResource GraphSettingsStackStyle}">
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
                         Command="{Binding SelectTimeOptionCommand}"/>
-                </StackLayout.GestureRecognizers>
-                <Label
+                    </StackLayout.GestureRecognizers>
+                    <Label
                     Text="{x:Static local:Localization.Chart_TimeOption}"
                     Style="{StaticResource GraphSettingsItemHintStyle}"/>
-                <StackLayout
+                    <StackLayout
                     Style="{StaticResource GraphSettingsValueStackStyle}">
-                    <Label
+                        <Label
                         Text="{Binding TimeAxisOption, Converter={StaticResource GraphTimeOptionToTextConverter}}"
                         Style="{StaticResource GraphSettingsValueLabelStyle}"/>
 
-                    <Image
+                        <Image
                         Style="{StaticResource GraphSettingsArrowIconStyle}"/>
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
-            <StackLayout
+                <StackLayout
                 Margin="0, 4, 0, 0"
                 Style="{StaticResource GraphSettingsStackStyle}">
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
                         Command="{Binding SelectParameterCommand}"/>
-                </StackLayout.GestureRecognizers>
+                    </StackLayout.GestureRecognizers>
 
-                <Label
+                    <Label
                     Text="{x:Static local:Localization.Chart_Parameter}"
                     Style="{StaticResource GraphSettingsItemHintStyle}"/>
-                <StackLayout
+                    <StackLayout
                     Style="{StaticResource GraphSettingsValueStackStyle}">
-                    <Label
+                        <Label
                         Text="{Binding Parameter.DisplayName}"
                         Style="{StaticResource GraphSettingsValueLabelStyle}"/>
 
-                    <Image
+                        <Image
                         Style="{StaticResource GraphSettingsArrowIconStyle}"/>
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
 
-        </StackLayout>
+            </StackLayout>
+            <Grid
+    BackgroundColor="#66000000"
+    IsVisible="{Binding IsBusy}">
+                <Frame
+        Padding="18"
+        BackgroundColor="White"
+        BorderColor="#DDDDDD"
+        CornerRadius="6"
+        HasShadow="True"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+                    <StackLayout
+            Spacing="10"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+                        <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                Color="{StaticResource DarkBlue}"
+                WidthRequest="36"
+                HeightRequest="36"/>
+                        <Label
+                Text="Loading..."
+                TextColor="Black"
+                FontSize="Small"
+                HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+
+        </Grid>
     </ContentPage.Content>
 </controls:BaseContentPage>

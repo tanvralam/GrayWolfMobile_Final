@@ -64,7 +64,7 @@ namespace GrayWolf.ViewModels
         //    get => _intervalType;
         //    private set => SetProperty(ref _intervalType, value);
         //}
-
+        private bool _isParameterPopupOpen;
 
         private TimeInterval _intervalType;
         public TimeInterval IntervalType
@@ -762,19 +762,36 @@ namespace GrayWolf.ViewModels
 
         private async void SelectParameter()
         {
-            if (!SetBusy())
+            if (_isParameterPopupOpen)
             {
                 return;
             }
 
             try
             {
+                _isParameterPopupOpen = true;
+                IsBusy = true;
+
+                await Task.Yield();
+
                 var tcs = new TaskCompletionSource<GraphParameter>();
                 var popup = new SelectGraphParameterPopupPage(Parameters, Parameter, tcs);
+
                 await Navigation.PushPopupAsync(popup);
 
+                IsBusy = false;
+
                 var selectedParameter = await tcs.Task;
+
                 await Navigation.PopPopupAsync();
+
+                if (selectedParameter == null)
+                {
+                    return;
+                }
+
+                IsBusy = true;
+                await Task.Delay(50);
 
                 Parameter = selectedParameter;
             }
@@ -786,9 +803,9 @@ namespace GrayWolf.ViewModels
             finally
             {
                 IsBusy = false;
+                _isParameterPopupOpen = false;
             }
         }
-
         private void UpdateTitle(LogFile file)
         {
             var format = "";

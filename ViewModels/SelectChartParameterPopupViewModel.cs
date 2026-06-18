@@ -59,13 +59,7 @@ namespace GrayWolf.ViewModels
 
         public void Confirm()
         {
-            if (!SetBusy())
-            {
-                return;
-            }
-
             TCS.TrySetResult(Parameter);
-            IsBusy = false;
         }
     }
 }
