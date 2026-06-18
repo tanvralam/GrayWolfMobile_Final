@@ -279,195 +279,211 @@ namespace GrayWolf.ViewModels
 
 
 
-private void OnLcvLinesRead(List<string> lines, bool parameterChanged)
-    {
-        if (lines == null)
+        private void OnLcvLinesRead(List<string> lines, bool parameterChanged)
         {
-            return;
-        }
-
-        Lines = lines.ToList();
-        if (Parameter == null)
-        {
-            return;
-        }
-
-        try
-        {
-            var source = new ObservableCollection<LineSeries>(); // Replace ChartSeriesCollection with List<ChartSeries>
-            UpdateRange();
-
-            foreach (var info in Parameter.InfoList)
+            if (lines == null)
             {
-                bool isNew = false;
-
-                // Find existing series by checking DisplayName
-                //var series = source.FirstOrDefault(x => x.DisplayName == info.SerialNumber) as LineSeries;
-
-                  if (!(source.FirstOrDefault(x => x.DisplayName == info.SerialNumber) is LineSeries series))
-                   {
-                    series = new LineSeries
-                    {
-                        DisplayName = info.SerialNumber,
-                        ItemsSource = new ObservableCollection<ChartEntry>(),
-                        ValueBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.Value)),
-                        CategoryBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.TimeStamp)),
-                        Stroke =info.Color,                        
-                        StrokeThickness = 4
-                    };
-                    isNew = true;
-                }
-
-                var setLines = lines.Where(x => x.StartsWith($"{info.SetId},")).ToList();
-
-                if (setLines.Any())
-                {
-                    var firstLine = setLines.FirstOrDefault();
-                    OnReadLine(firstLine, info, series, parameterChanged);
-                }
-
-                foreach (var line in setLines)
-                {
-                    OnReadLine(line, info, series, false);
-                }
-
-                if (isNew)
-                {
-                    source.Add(series);
-                }
+                return;
             }
 
-            if (SeriesSource != null)
+            Lines = lines.ToList();
+            if (Parameter == null)
             {
-                SeriesSource.Clear();
+                return;
             }
 
-            foreach (var series in source)
+            try
             {
-                var seriesItemsSource = series.ItemsSource as ObservableCollection<ChartEntry>;
-                var sorted = seriesItemsSource.OrderBy(x => x.TimeStamp).ToObservableCollection();
+                var source = new ObservableCollection<LineSeries>();
+                UpdateRange();
 
-                if (LogService.IsLogging && sorted.LastOrDefault() is ChartEntry entry)
+                var hasConfiguredRange = SetValuesRange(out var minValue, out var maxValue);
+                var hasCalculatedRange = hasConfiguredRange;
+
+                foreach (var info in Parameter.InfoList)
                 {
-                    if (entry.TimeStamp.CompareTo(MaximumDate) > 0)
+                    bool isNew = false;
+
+                    if (!(source.FirstOrDefault(x => x.DisplayName == info.SerialNumber) is LineSeries series))
                     {
-                        MaximumDate = entry.TimeStamp;
+                        series = new LineSeries
+                        {
+                            DisplayName = info.SerialNumber,
+                            ItemsSource = new ObservableCollection<ChartEntry>(),
+                            ValueBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.Value)),
+                            CategoryBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.TimeStamp)),
+                            Stroke = info.Color,
+                            StrokeThickness = 4
+                        };
+                        isNew = true;
+                    }
+
+                    var setLines = lines.Where(x => x.StartsWith($"{info.SetId},")).ToList();
+
+                    foreach (var line in setLines)
+                    {
+                        var value = OnReadLine(line, info, series);
+
+                        if (!hasConfiguredRange)
+                        {
+                            UpdateValuesRange(value, ref minValue, ref maxValue, ref hasCalculatedRange);
+                        }
+                    }
+
+                    if (isNew)
+                    {
+                        source.Add(series);
                     }
                 }
 
-                series.ItemsSource = sorted;
+                if (SeriesSource != null)
+                {
+                    SeriesSource.Clear();
+                }
+
+                foreach (var series in source)
+                {
+                    var seriesItemsSource = series.ItemsSource as ObservableCollection<ChartEntry>;
+                    var sorted = seriesItemsSource.OrderBy(x => x.TimeStamp).ToObservableCollection();
+
+                    if (LogService.IsLogging && sorted.LastOrDefault() is ChartEntry entry)
+                    {
+                        if (entry.TimeStamp.CompareTo(MaximumDate) > 0)
+                        {
+                            MaximumDate = entry.TimeStamp;
+                        }
+                    }
+
+                    series.ItemsSource = sorted;
+                }
+
+                if (hasCalculatedRange)
+                {
+                    MinValue = minValue;
+                    MaxValue = maxValue;
+                }
+
+                SeriesSource = source;
+            }
+            catch (Exception ex)
+            {
+                AnalyticsService.TrackError(ex);
+            }
+        }
+
+        private void UpdateValuesRange(double? value, ref double minValue, ref double maxValue, ref bool hasCalculatedRange)
+        {
+            if (!value.HasValue)
+            {
+                return;
             }
 
-            SeriesSource = source;
+            if (!hasCalculatedRange)
+            {
+                minValue = value.Value;
+                maxValue = value.Value + 1;
+                hasCalculatedRange = true;
+                return;
+            }
+
+            minValue = minValue < value.Value ? minValue : value.Value;
+            maxValue = maxValue > value.Value ? maxValue : value.Value;
         }
-        catch (Exception ex)
-        {
-            AnalyticsService.TrackError(ex);
-        }
-    }
 
-    //private void OnLcvLinesRead1(List<string> lines, bool parameterChanged)
-    //    {
-    //        if (lines == null)
-    //        {
-    //            return;
-    //        }
-    //        Lines = lines.ToList();
-    //        if(Parameter == null)
-    //        {
-    //            return;
-    //        }
+        //private void OnLcvLinesRead1(List<string> lines, bool parameterChanged)
+        //    {
+        //        if (lines == null)
+        //        {
+        //            return;
+        //        }
+        //        Lines = lines.ToList();
+        //        if(Parameter == null)
+        //        {
+        //            return;
+        //        }
 
-    //        try
-    //        {  
-    //            var source = new ChartSeriesCollection();
-    //            UpdateRange();
-    //            foreach (var info in Parameter.InfoList)
-    //            {
-    //                var isNew = false;
+        //        try
+        //        {  
+        //            var source = new ChartSeriesCollection();
+        //            UpdateRange();
+        //            foreach (var info in Parameter.InfoList)
+        //            {
+        //                var isNew = false;
 
-                   
-    //                if(!(source.FirstOrDefault(x => ((FastLineSeries)x).Label == info.SerialNumber) is FastLineSeries series))
-    //                {
-                       
-    //                    series = new FastLineSeries
-    //                    {
-    //                        Label = info.SerialNumber,
-    //                        ItemsSource = new ObservableCollection<ChartEntry>(),
-    //                        XBindingPath = nameof(ChartEntry.TimeStamp),
-    //                        YBindingPath = nameof(ChartEntry.Value),
-    //                        //Color = info.Color,
-    //                        Fill=new SolidColorBrush(info.Color),
-    //                        StrokeWidth = 4,
-    //                    };
-    //                    isNew = true;
-    //                }
-    //                var setLines = lines.Where(x => x.StartsWith($"{info.SetId},")).ToList();
 
-    //                if (setLines.Any())
-    //                {
-    //                    var firstLine = setLines.FirstOrDefault();
-    //                    OnReadLine(firstLine, info, series, parameterChanged);
-    //                }
+        //                if(!(source.FirstOrDefault(x => ((FastLineSeries)x).Label == info.SerialNumber) is FastLineSeries series))
+        //                {
 
-    //                foreach (var line in setLines)
-    //                {
-    //                    OnReadLine(line, info, series, false);
-    //                }
-    //                if (isNew)
-    //                {
-    //                    source.Add(series);
-    //                }
-    //            }
+        //                    series = new FastLineSeries
+        //                    {
+        //                        Label = info.SerialNumber,
+        //                        ItemsSource = new ObservableCollection<ChartEntry>(),
+        //                        XBindingPath = nameof(ChartEntry.TimeStamp),
+        //                        YBindingPath = nameof(ChartEntry.Value),
+        //                        //Color = info.Color,
+        //                        Fill=new SolidColorBrush(info.Color),
+        //                        StrokeWidth = 4,
+        //                    };
+        //                    isNew = true;
+        //                }
+        //                var setLines = lines.Where(x => x.StartsWith($"{info.SetId},")).ToList();
 
-    //            if(SeriesSource != null)
-    //            {
-    //                SeriesSource.Clear();
-    //            }
-    //            foreach(var series in source)
-    //            {
-    //                var seriesItemsSource = series.ItemsSource as ObservableCollection<ChartEntry>;
-    //                var sorted = seriesItemsSource.OrderBy(x => x.TimeStamp).ToObservableCollection();
-    //                if(LogService.IsLogging && sorted.LastOrDefault() is ChartEntry entry)
-    //                {
-    //                    var compare = entry.TimeStamp.CompareTo(MaximumDate);
-    //                    if(compare > 0)
-    //                    {
-    //                        MaximumDate = entry.TimeStamp;
-    //                    }
-    //                }
-    //                series.ItemsSource = sorted;
-    //            }
-    //            SeriesSource = source;
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            AnalyticsService.TrackError(ex);
-    //        }
-    //    }
+        //                if (setLines.Any())
+        //                {
+        //                    var firstLine = setLines.FirstOrDefault();
+        //                    OnReadLine(firstLine, info, series, parameterChanged);
+        //                }
 
-        private void OnReadLine(string line, GraphParameterInfo info, LineSeries series, bool isMinMaxConfiguration)
+        //                foreach (var line in setLines)
+        //                {
+        //                    OnReadLine(line, info, series, false);
+        //                }
+        //                if (isNew)
+        //                {
+        //                    source.Add(series);
+        //                }
+        //            }
+
+        //            if(SeriesSource != null)
+        //            {
+        //                SeriesSource.Clear();
+        //            }
+        //            foreach(var series in source)
+        //            {
+        //                var seriesItemsSource = series.ItemsSource as ObservableCollection<ChartEntry>;
+        //                var sorted = seriesItemsSource.OrderBy(x => x.TimeStamp).ToObservableCollection();
+        //                if(LogService.IsLogging && sorted.LastOrDefault() is ChartEntry entry)
+        //                {
+        //                    var compare = entry.TimeStamp.CompareTo(MaximumDate);
+        //                    if(compare > 0)
+        //                    {
+        //                        MaximumDate = entry.TimeStamp;
+        //                    }
+        //                }
+        //                series.ItemsSource = sorted;
+        //            }
+        //            SeriesSource = source;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            AnalyticsService.TrackError(ex);
+        //        }
+        //    }
+
+        private double? OnReadLine(string line, GraphParameterInfo info, LineSeries series)
         {
             var values = line.Split(',').Select(x => x.Trim()).ToList();
             var value = double.Parse(values[info.ColumnIndex + 2]);
             var timeStamp = DateTime.Parse(values[1], null, System.Globalization.DateTimeStyles.RoundtripKind).ToLocalTime();
             var lineSource = series.ItemsSource as ObservableCollection<ChartEntry>;
+
             lineSource.Add(new ChartEntry
             {
                 Value = value,
                 TimeStamp = timeStamp
             });
 
-            if (isMinMaxConfiguration && !SetValuesRange())
-            {
-                MinValue = value;
-                MaxValue = value + 1;
-            }
-            else
-            {
-                MinValue = MinValue < value ? MinValue : value;
-                MaxValue = MaxValue > value ? MaxValue : value;
-            }
+            return value;
         }
 
         private void OnTimeAxisOptionChanged()
@@ -500,23 +516,20 @@ private void OnLcvLinesRead(List<string> lines, bool parameterChanged)
 
         private void OnParameterChanged()
         {
-            MinValue = 0;
-            MaxValue = 0;
-
             RaisePropertyChanged(nameof(Parameter));
             OnLcvLinesRead(Lines, true);
             Settings.SelectedGraphParameterId = Parameter?.Id ?? "";
         }
 
-        private bool SetValuesRange()
+        private bool SetValuesRange(out double minimum, out double maximum)
         {
-            SensorsService.DefaultScale((int)Parameter.Sensor, (int)Parameter.Unit, out var minimum, out var maximum);
-            if(minimum == -1 && maximum == -1)
+            SensorsService.DefaultScale((int)Parameter.Sensor, (int)Parameter.Unit, out minimum, out maximum);
+
+            if (minimum == -1 && maximum == -1)
             {
                 return false;
             }
-            MinValue = minimum;
-            MaxValue = maximum;
+
             return true;
         }
 
@@ -658,7 +671,11 @@ private void OnLcvLinesRead(List<string> lines, bool parameterChanged)
                 var tcs = new TaskCompletionSource<GraphParameter>();
                 var popup = new SelectGraphParameterPopupPage(Parameters, Parameter, tcs);
                 await Navigation.PushPopupAsync(popup);
-                Parameter = await tcs.Task;
+
+                var selectedParameter = await tcs.Task;
+                await Navigation.PopPopupAsync();
+
+                Parameter = selectedParameter;
             }
             catch (TaskCanceledException) { }
             catch (Exception ex)

@@ -57,7 +57,7 @@ namespace GrayWolf.ViewModels
             Parameter = parameter;
         }
 
-        public async void Confirm()
+        public void Confirm()
         {
             if (!SetBusy())
             {
@@ -65,7 +65,6 @@ namespace GrayWolf.ViewModels
             }
 
             TCS.TrySetResult(Parameter);
-            await OnBacksAsync();
             IsBusy = false;
         }
     }

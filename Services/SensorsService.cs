@@ -453,8 +453,11 @@ namespace GrayWolf.Services
 
                     if (IsHumidity(code))
                     {
-                        colors.Add(Color.FromRgb(204, 204, 27));
-                        colors.Add(Color.FromRgb(255, 255, 0));
+                        //colors.Add(Color.FromRgb(204, 204, 27)); // yellow
+                        //colors.Add(Color.FromRgb(255, 255, 0));  // bright yellow
+
+                        colors.Add(Color.FromRgb(0, 128, 128));   // teal
+                        colors.Add(Color.FromRgb(230, 126, 34));  // orange
                     }
 
                     if (IsTemperature(code)) colors.Add(Color.FromRgb(214, 42, 42));

@@ -563,8 +563,32 @@ namespace GrayWolf.ViewModels
 
         private async void OnLive()
         {
-            App.FlyoutPage.IsPresented = false;
-            await Navigation.PopToRootAsync();
+            if (!SetBusy())
+            {
+                return;
+            }
+
+            try
+            {
+                App.FlyoutPage.IsPresented = false;
+
+                if (LogService.IsLogging && LogService.CurrentFile != null)
+                {
+                    await NavigationService.Instance.NavigateTo(new ChartPage(LogService.CurrentFile));
+                    return;
+                }
+
+                await Navigation.PopToRootAsync();
+            }
+            catch (Exception ex)
+            {
+                AnalyticsService.TrackError(ex);
+                await Alert.DisplayError(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         /// <summary>
