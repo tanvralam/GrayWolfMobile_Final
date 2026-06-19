@@ -210,6 +210,10 @@ namespace GrayWolf.ViewModels
                 await OnBacksAsync();
 
             }
+            catch(TaskCanceledException)
+            {
+                // Ignore TaskCanceledException which can occur if the operation is canceled.
+            }
             catch (Exception e)
             {
                 AnalyticsService.TrackError(e);
