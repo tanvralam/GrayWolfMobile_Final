@@ -263,7 +263,7 @@ namespace GrayWolf.Services
         {
             try
             {
-                var upd = (await DeviceRefreshService.GetSelectedDevicesAsync()).Where(x => x.StatusEnum != ProbeStatus.STABILIZING && x.IsOnline);
+                var upd = (await DeviceRefreshService.GetSelectedDevicesAsync()).Where(x => x.IsOnline);
 
                 var latestUpdateFromEachSource = new List<DeviceUpdateMsg>();
 
@@ -287,14 +287,19 @@ namespace GrayWolf.Services
                             .ToList()
                     }).ToList(),
                 };
+
                 var now = DateTime.Now;
                 Debug.WriteLine($"Log row dto created - {now:T}");
+
                 var isLogged = await AppendAsync(logRow, file.ParameterNameDisplayMode);
+
                 if (isLogged)
                 {
                     Debug.WriteLine($"Log appended - {now:T}");
                 }
+
                 var isChanged = isLogged && !file.IsGraphAvailable;
+
                 if (isChanged)
                 {
                     file.IsGraphAvailable = true;
@@ -302,6 +307,7 @@ namespace GrayWolf.Services
                     CurrentFile = file;
                     UpdateStatus();
                 }
+
                 return isLogged;
             }
             catch (Exception ex)
@@ -310,7 +316,6 @@ namespace GrayWolf.Services
                 throw ex;
             }
         }
-
         private void AddDevicesToLatestUpdate(List<DeviceUpdateMsg> update, IEnumerable<GrayWolfDevice> devices, DeviceSource source)
         {
             if (devices != null)
@@ -436,14 +441,19 @@ namespace GrayWolf.Services
                 {
                     return;
                 }
+
                 await FinalizeAsync();
+
                 IsLogging = false;
                 DeviceDisplay.KeepScreenOn = false;
+
                 if (timer != null)
                 {
                     timer.Stop();
                     timer.Dispose();
+                    timer = null;
                 }
+
                 Messenger.Default.Unregister<DeviceUpdateMsg>(this);
                 UpdateStatus();
                 latestUpdates.Clear();
@@ -458,11 +468,28 @@ namespace GrayWolf.Services
             }
             finally
             {
-                App.FlyoutPage.IsPresented = false;
-                await GeolocationService.StopListeningAsync();
+                try
+                {
+                    if (App.FlyoutPage != null)
+                    {
+                        App.FlyoutPage.IsPresented = false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    AnalyticsService.TrackError(e);
+                }
+
+                try
+                {
+                    await GeolocationService.StopListeningAsync();
+                }
+                catch (Exception e)
+                {
+                    AnalyticsService.TrackError(e);
+                }
             }
         }
-
         private Task PrepareLoggingAsync(LogFile file)
         {
             LoggerJSON = new LoggerJSON(FileSystem, Ioc.Default.GetService<ISensorsService>());
@@ -728,29 +755,179 @@ namespace GrayWolf.Services
 
         private async Task<Dictionary<string, string>> CreateCsvFilesAsync(LogFile logFile)
         {
-            var existsTasks = new List<Task<bool>>
-            {
-                FileSystem.IsFileExistAsync(Path.Combine(logFile.FolderPath, logFile.LcvFilePath)),
-                FileSystem.IsFileExistAsync(Path.Combine(logFile.FolderPath, logFile.LjhFilePath))
-            };
-            var isExists = (await Task.WhenAll(existsTasks)).Any(x => x);
-            if (!isExists)
+            var lcvExists = await FileSystem.IsFileExistAsync(logFile.LcvFilePath);
+            var ljhExists = await FileSystem.IsFileExistAsync(logFile.LjhFilePath);
+
+            if (!lcvExists || !ljhExists)
             {
                 return new Dictionary<string, string>();
             }
-            var path = logFile.LcvFilePath;
+
             var holderJson = await FileSystem.ReadAllTextAsync(logFile.LjhFilePath);
             var holder = JsonConvert.DeserializeObject<LJH_Holder>(holderJson);
-            var files = new Dictionary<string, List<string>>();
-            var filePaths = new Dictionary<string, string>();
+
+            if (holder?.Sets?.Any() != true)
+            {
+                return new Dictionary<string, string>();
+            }
 
             var folderPath = Path.Combine(logFile.FolderPath, "csv");
-            await LoadLinesForCsvAsync(logFile, files, filePaths, holder, path, folderPath);
+
+            if (await FileSystem.IsDirectoryExistAsync(folderPath))
+            {
+                await FileSystem.DeleteDirectoryAsync(folderPath, true);
+            }
 
             await FileSystem.GetOrCreateFolderByPathAsync(folderPath);
 
-            return await WriteCsvLinesAsync(filePaths, files);
+            var prefix = holder.IsSimulated ? "SIMULATION-" : "";
+            var filePath = Path.Combine(folderPath, $"{prefix}{logFile.Name}.csv");
+
+            var exportColumns = GetMergedCsvColumns(holder);
+
+            var lines = new List<string>
+    {
+        GWL_Units.FlattenUnits("TimeStamp, " + string.Join(", ", exportColumns.Select(x => x.Header)))
+    };
+
+            var lcvLines = await FileSystem.ReadAllLinesAsync(logFile.LcvFilePath);
+
+            foreach (var line in lcvLines)
+            {
+                var csvLine = GetMergedCsvValueForLine(line, holder, exportColumns);
+
+                if (!string.IsNullOrWhiteSpace(csvLine))
+                {
+                    lines.Add(csvLine);
+                }
+            }
+
+            await FileSystem.WriteAllLinesAsync(filePath, lines);
+
+            return new Dictionary<string, string>
+    {
+        { filePath, "text/csv" }
+    };
         }
+
+        private List<CsvExportColumn> GetMergedCsvColumns(LJH_Holder holder)
+        {
+            var result = new List<CsvExportColumn>();
+            var keys = new HashSet<string>();
+
+            foreach (var set in holder.Sets.OrderBy(x => x.SetID))
+            {
+                foreach (var column in set.Columns)
+                {
+                    if (column.Code.IsCoordinatesSensorCode() || column.Sensor.IsNullOrEmpty())
+                    {
+                        continue;
+                    }
+
+                    var key = GetCsvColumnKey(column);
+
+                    if (keys.Contains(key))
+                    {
+                        continue;
+                    }
+
+                    keys.Add(key);
+
+                    result.Add(new CsvExportColumn
+                    {
+                        Key = key,
+                        Header = $"{column.Sensor} {column.Unit} ({column.SerialNumber})"
+                    });
+                }
+            }
+
+            return result;
+        }
+
+        private string GetMergedCsvValueForLine(string sourceLine, LJH_Holder holder, List<CsvExportColumn> exportColumns)
+        {
+            try
+            {
+                var index = sourceLine.IndexOf(',');
+
+                if (index == -1 || index == sourceLine.Length - 1)
+                {
+                    return "";
+                }
+
+                var setIdText = sourceLine.Substring(0, index).Trim();
+
+                if (!int.TryParse(setIdText, out var setId))
+                {
+                    return "";
+                }
+
+                var set = holder.Sets.FirstOrDefault(x => x.SetID == setId);
+
+                if (set == null)
+                {
+                    return "";
+                }
+
+                var parts = sourceLine.Substring(index + 1).Split(',').Select(x => x.Trim()).ToList();
+
+                if (!parts.Any())
+                {
+                    return "";
+                }
+
+                var timestamp = DateTime.Parse(parts[0], CultureInfo.InvariantCulture)
+                    .ToLocalTime()
+                    .ToString("dd-MMM-yyyy HH:mm:ss", CultureInfo.GetCultureInfo("en-US"));
+
+                var valuesByColumn = new Dictionary<string, string>();
+
+                for (var i = 0; i < set.Columns.Count; i++)
+                {
+                    var column = set.Columns[i];
+
+                    if (column.Code.IsCoordinatesSensorCode() || column.Sensor.IsNullOrEmpty())
+                    {
+                        continue;
+                    }
+
+                    var valueIndex = i + 1;
+
+                    if (parts.Count <= valueIndex)
+                    {
+                        continue;
+                    }
+
+                    valuesByColumn[GetCsvColumnKey(column)] = parts[valueIndex];
+                }
+
+                var values = exportColumns
+                    .Select(x => valuesByColumn.TryGetValue(x.Key, out var value) ? value : "")
+                    .ToList();
+
+                return timestamp + ", " + string.Join(", ", values);
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        private string GetCsvColumnKey(LJH_Column column)
+        {
+            return $"{column.SerialNumber}|{column.Code}|{column.UnitCode}|{column.Id}|{column.Sensor}|{column.Unit}";
+        }
+
+        private class CsvExportColumn
+        {
+            public string Key { get; set; }
+
+            public string Header { get; set; }
+        }
+
+
+
+
 
         private async Task LoadLinesForCsvAsync(
             LogFile logFile,

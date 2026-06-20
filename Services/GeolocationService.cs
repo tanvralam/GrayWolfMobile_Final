@@ -66,8 +66,19 @@ namespace GrayWolf.Services
 
         public async Task<bool> StopListeningAsync()
         {
-            var result = await Geolocator.StopListeningAsync();
-            return result;
+            try
+            {
+                if (!Geolocator.IsListening)
+                {
+                    return false;
+                }
+
+                return await Geolocator.StopListeningAsync();
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task<Position> GetPositionOnceAsync()

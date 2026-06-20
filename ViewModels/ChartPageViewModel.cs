@@ -285,8 +285,6 @@ namespace GrayWolf.ViewModels
             return (parameter.Sensor == SensorType.PRBSEN_LATITUDE || parameter.Sensor == SensorType.PRBSEN_LONGITUDE) && parameter.Unit == Enums.SensorUnit.PRBUNT_DEG;
         }
 
-
-
         private void OnLcvLinesRead(List<string> lines, bool parameterChanged)
         {
             if (lines == null)
@@ -307,52 +305,46 @@ namespace GrayWolf.ViewModels
 
                 UpdateRange();
 
-                System.Diagnostics.Debug.WriteLine(
-                    $"GRAPH PARAM: {Parameter?.DisplayName}, infos={Parameter?.InfoList?.Count}, lines={lines?.Count}");
-
                 var minValue = 0.0;
                 var maxValue = 0.0;
                 var hasCalculatedRange = false;
 
                 foreach (var info in Parameter.InfoList)
                 {
-                    var series = new LineSeries
+                    var series = source.FirstOrDefault(x => x.DisplayName == info.SerialNumber);
+
+                    if (series == null)
                     {
-                        DisplayName = info.SerialNumber,
-                        ItemsSource = new ObservableCollection<ChartEntry>(),
-                        ValueBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.Value)),
-                        CategoryBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.TimeStamp)),
-                        Stroke = info.Color,
-                        StrokeThickness = 4
-                    };
+                        series = new LineSeries
+                        {
+                            DisplayName = info.SerialNumber,
+                            ItemsSource = new ObservableCollection<ChartEntry>(),
+                            ValueBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.Value)),
+                            CategoryBinding = new PropertyNameDataPointBinding(nameof(ChartEntry.TimeStamp)),
+                            Stroke = info.Color,
+                            StrokeThickness = 4
+                        };
+
+                        source.Add(series);
+                    }
 
                     var setLines = lines.Where(x => IsLineForSet(x, info.SetId)).ToList();
-
-                    System.Diagnostics.Debug.WriteLine(
-                        $"GRAPH INFO: param={Parameter.DisplayName}, serial={info.SerialNumber}, setId={info.SetId}, col={info.ColumnIndex}, setLines={setLines.Count}");
 
                     foreach (var line in setLines)
                     {
                         var value = OnReadLine(line, info, series);
                         UpdateValuesRange(value, ref minValue, ref maxValue, ref hasCalculatedRange);
                     }
-
-                    var lineSource = series.ItemsSource as ObservableCollection<ChartEntry>;
-
-                    System.Diagnostics.Debug.WriteLine(
-                        $"GRAPH SERIES: param={Parameter.DisplayName}, serial={info.SerialNumber}, points={lineSource?.Count ?? 0}");
-
-                    if (lineSource?.Any() == true)
-                    {
-                        source.Add(series);
-                    }
                 }
 
-                foreach (var series in source)
+                for (var i = source.Count - 1; i >= 0; i--)
                 {
+                    var series = source[i];
                     var seriesItemsSource = series.ItemsSource as ObservableCollection<ChartEntry>;
-                    if (seriesItemsSource == null)
+
+                    if (seriesItemsSource?.Any() != true)
                     {
+                        source.RemoveAt(i);
                         continue;
                     }
 
@@ -371,9 +363,6 @@ namespace GrayWolf.ViewModels
 
                 ApplyGraphRange(ref minValue, ref maxValue, hasCalculatedRange);
 
-                System.Diagnostics.Debug.WriteLine(
-                    $"GRAPH FINAL: param={Parameter.DisplayName}, series={source.Count}, min={minValue}, max={maxValue}");
-
                 MinValue = minValue;
                 MaxValue = maxValue;
 
@@ -382,7 +371,6 @@ namespace GrayWolf.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"GRAPH ERROR: {ex}");
                 AnalyticsService.TrackError(ex);
             }
         }
