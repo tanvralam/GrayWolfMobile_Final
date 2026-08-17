@@ -231,7 +231,7 @@ namespace GrayWolf.ViewModels
 
                     case 0:
                         {
-                            isConfirmed = await Alert.ShowMessageConfirmation(
+                            isConfirmed = await ShowForegroundConfirmationAsync(
                                 Localization.Localization.Locations_DeleteConfirmationText,
                                 Localization.Localization.Locations_AreYouSure,
                                 Localization.Localization.Button_Yes,
@@ -245,7 +245,7 @@ namespace GrayWolf.ViewModels
                         break;
 
                     case 1:
-                        isConfirmed = await Alert.ShowMessageConfirmation(
+                        isConfirmed = await ShowForegroundConfirmationAsync(
                             Localization.Localization.Locations_ClearConfirmationText,
                             Localization.Localization.Locations_AreYouSure,
                             Localization.Localization.Button_Yes,
@@ -273,6 +273,12 @@ namespace GrayWolf.ViewModels
                 AnalyticsService.TrackError(ex);
                 await Alert.DisplayError(ex);
             }
+        }
+
+        private async Task<bool> ShowForegroundConfirmationAsync(string message, string title, string accept, string cancel)
+        {
+            await Task.Delay(150);
+            return await Ioc.Default.GetService<IUserDialogs>().ConfirmAsync(message, title, accept, cancel);
         }
 
         private async Task OnCancel()

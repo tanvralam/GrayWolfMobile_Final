@@ -363,10 +363,9 @@
             HorizontalOptions="FillAndExpand"
             IsClippedToBounds="True"
             VerticalOptions="FillAndExpand">
-            <VerticalStackLayout>
             <ContentView
+                VerticalOptions="FillAndExpand"
                 ControlTemplate="{OnPlatform iOS={StaticResource iOSCollectionTemplate}, Default={StaticResource DefaultCollectionTemplate}}"/>
-            </VerticalStackLayout>
         </Frame>
         <!--#endregion-->
         <ContentView

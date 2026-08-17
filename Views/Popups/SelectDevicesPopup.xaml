@@ -25,6 +25,19 @@
                 <Setter Property="Spacing" Value="0"/>
                 <Setter Property="Padding" Value="0, 8"/>
             </Style>
+
+            <Style x:Key="DeviceRowStyle" TargetType="Grid">
+                <Setter Property="Padding" Value="10,4,0,4"/>
+                <Setter Property="MinimumHeightRequest" Value="44"/>
+                <Setter Property="ColumnDefinitions" Value="auto, *"/>
+            </Style>
+
+            <Style x:Key="DeviceCheckBoxStyle" TargetType="CheckBox">
+                <Setter Property="WidthRequest" Value="44"/>
+                <Setter Property="HeightRequest" Value="44"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="Scale" Value="{OnPlatform iOS=1.25, Default=1}"/>
+            </Style>
         </ResourceDictionary>
     </pages:PopupPage.Resources>
     
@@ -65,8 +78,7 @@
                             <DataTemplate
                                 x:DataType="domain:BleDevice">
                                 <Grid 
-                                    Padding="10,0,0,0"
-                                    ColumnDefinitions="auto, *">
+                                    Style="{StaticResource DeviceRowStyle}">
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer
                                             Command="{Binding BindingContext.BleDeviceSelectedCommand, Source={x:Reference root}}"
@@ -74,6 +86,7 @@
                                     </Grid.GestureRecognizers>
                                     <CheckBox 
                                         Grid.Column="0"
+                                        Style="{StaticResource DeviceCheckBoxStyle}"
                                         IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                                     <Label
                                         Grid.Column="1"
@@ -140,8 +153,7 @@
                             <DataTemplate 
                                 x:DataType="domain:GrayWolfDevice">
                                 <Grid 
-                                    Padding="10,0,0,0"
-                                    ColumnDefinitions="auto, *">
+                                    Style="{StaticResource DeviceRowStyle}">
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer
                                             Command="{Binding BindingContext.ItemSelectedCommand, Source={x:Reference root}}"
@@ -149,6 +161,7 @@
                                     </Grid.GestureRecognizers>
                                     <CheckBox 
                                         Grid.Column="0"
+                                        Style="{StaticResource DeviceCheckBoxStyle}"
                                         IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                                     <Label
                                         Grid.Column="1"

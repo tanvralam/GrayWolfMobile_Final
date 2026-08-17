@@ -104,7 +104,8 @@
             RowDefinitions="auto, auto, auto, *, auto, auto, auto"
             BackgroundColor="{StaticResource AppLightGrayColor}"
             VerticalOptions="CenterAndExpand"
-            HorizontalOptions="CenterAndExpand">
+            HorizontalOptions="CenterAndExpand"
+            WidthRequest="{OnIdiom Phone=320, Tablet=420, Desktop=420}">
             <controls:PopupHeader
                 Grid.Row="0"
                 Title="{x:Static loc:Localization.SensorPopup_Title}"
