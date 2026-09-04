@@ -57,7 +57,7 @@
                         TextColor="Black">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer
-                                Command="{Binding SelectDevicesCommand}"/>
+                                Command="{Binding BindingContext.SelectDevicesCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
                         </Label.GestureRecognizers>
                     </Label>
                 </Grid>

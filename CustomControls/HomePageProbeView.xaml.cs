@@ -64,7 +64,7 @@ namespace GrayWolf.CustomControls
         public HomePageProbeView()
         {
             InitializeComponent();
-            Children[0].BindingContext = this;
+            Content.BindingContext = this;
         }
 
         private void Expand_Tapped(object sender, EventArgs e)
