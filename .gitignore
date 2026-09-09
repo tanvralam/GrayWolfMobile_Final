@@ -3,3 +3,4 @@ obj/
 .vs/
 **/platforms/**/bin/
 **/platforms/**/obj/
+telerik-license.txt
