@@ -48,7 +48,16 @@ namespace GrayWolf.Services
                 { "sensorID", $"{(int)sensorType}" },
                 { "familyID", $"{(int)deviceType}" }
             };
-            return ApiService.GetAsync<string>("/api/SensorTips/", nvc, cToken, deserializeAction: x => x.Trim('\"'));
+            return ApiService.GetAsync<string>("/api/SensorTips/", nvc, cToken, deserializeAction: x =>
+            {
+                var content = x.Trim();
+                content = content.Replace("\\r", "");
+                content = content.Replace("\\n", "");
+                content = content.TrimStart('\"');
+                content = content.TrimEnd('\"');
+                content = content.Replace("\\\"", "\"");
+                return content;
+            });
         }
     }
 }

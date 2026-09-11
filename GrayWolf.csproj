@@ -19,7 +19,6 @@
 <CodesignProvision>Automatic</CodesignProvision>
   <CodesignKey>Apple Development</CodesignKey>
 <MtouchLink>None</MtouchLink>
-<UseInterpreter>true</UseInterpreter>
 		<RootNamespace>GrayWolf</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
@@ -45,8 +44,18 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Debug|net10.0-android'">
+    <UseInterpreter>true</UseInterpreter>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net10.0-android'">
-    <AndroidPackageFormat>apk</AndroidPackageFormat>  
+    <UseInterpreter>false</UseInterpreter>
+    <RunAOTCompilation>true</RunAOTCompilation>
+    <AndroidEnableMarshalMethods>false</AndroidEnableMarshalMethods>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidPackageFormat>aab</AndroidPackageFormat>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios'">
@@ -74,7 +83,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
     <AndroidUseAapt2>True</AndroidUseAapt2>
     <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
-    <AndroidPackageFormat>aab</AndroidPackageFormat>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0-android|AnyCPU'">
