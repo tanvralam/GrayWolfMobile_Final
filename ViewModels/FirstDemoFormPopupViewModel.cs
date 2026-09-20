@@ -44,7 +44,18 @@ namespace GrayWolf.ViewModels
                     return;
                 }
 
-                await WufooService.SubmitDemoFormAsync(Form);
+                // The demo has already started at this point. A failure in the
+                // optional contact-form submission must not block demo mode or
+                // repeatedly show an error to the user.
+                try
+                {
+                    await WufooService.SubmitDemoFormAsync(Form);
+                }
+                catch (Exception ex)
+                {
+                    AnalyticsService.TrackError(ex, GetType().Name);
+                }
+
                 Settings.IsFirstDemoRun = false;
                 await OnBacksAsync();
             }
