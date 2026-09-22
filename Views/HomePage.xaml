@@ -181,14 +181,14 @@
             <!--  Footer  -->
             <Grid
                 Grid.Row="3"
-                Padding="15,0,0,0"
+                Padding="8,0"
                 BackgroundColor="{StaticResource AppLightGrayColor}"
                 ColumnSpacing="0"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
-                ColumnDefinitions="*, 50, 50, 50, 50, 50, 50, 50, 50">
+                ColumnDefinitions="*, *, *, *, *, *, *">
                 <Grid
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Opacity="{Binding CanStartLog, Converter={StaticResource IsEnabledToOpacityConverter}}"
                     Style="{StaticResource IconContainerStyle}">
                     <Grid.GestureRecognizers>
@@ -201,7 +201,7 @@
                         Style="{StaticResource IconStyle}"/>
                 </Grid>
                 <Grid
-                    Grid.Column="2"
+                    Grid.Column="1"
                     Opacity="{Binding LogButtonEnabled, Converter={StaticResource IsEnabledToOpacityConverter}}"
                     Style="{StaticResource IconContainerStyle}">
                     <Grid.GestureRecognizers>
@@ -212,7 +212,7 @@
                         Style="{StaticResource IconStyle}"/>
                 </Grid>
                 <Grid
-                    Grid.Column="3"
+                    Grid.Column="2"
                     Style="{StaticResource IconContainerStyle}">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding CameraCommand}" />
@@ -223,7 +223,7 @@
                         Style="{StaticResource IconStyle}"/>
                 </Grid>
                 <Grid
-                    Grid.Column="4"
+                    Grid.Column="3"
                     Style="{StaticResource IconContainerStyle}">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding RecordSoundCommand}" />
@@ -234,7 +234,7 @@
                         Style="{StaticResource IconStyle}"/>
                 </Grid>
                 <Grid
-                    Grid.Column="5"
+                    Grid.Column="4"
                     Style="{StaticResource IconContainerStyle}">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer
@@ -246,7 +246,7 @@
                         Style="{StaticResource IconStyle}"/>
                 </Grid>
                 <Grid
-                    Grid.Column="6"
+                    Grid.Column="5"
                     Style="{StaticResource IconContainerStyle}">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer 
@@ -258,7 +258,7 @@
                         Style="{StaticResource IconStyle}"/>
                 </Grid>
                 <Grid
-                    Grid.Column="7"
+                    Grid.Column="6"
                     Style="{StaticResource IconContainerStyle}">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding AddNoteCommand}" />

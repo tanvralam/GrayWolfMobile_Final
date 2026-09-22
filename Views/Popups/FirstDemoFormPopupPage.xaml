@@ -18,9 +18,9 @@
     </ContentPage.Resources>
     <Grid>
         <StackLayout
-            WidthRequest="400"
-            Margin="40"
-            HorizontalOptions="CenterAndExpand"
+            MaximumWidthRequest="400"
+            Margin="16"
+            HorizontalOptions="Fill"
             VerticalOptions="CenterAndExpand"
             BackgroundColor="{StaticResource AppGrayColor}">
             <controls:PopupHeader
