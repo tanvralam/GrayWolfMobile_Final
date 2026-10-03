@@ -11,35 +11,20 @@ namespace GrayWolf.Droid.Dependencies
     {
         public async Task<bool> RequestStoragePermissions()
         {
-            PermissionStatus status;
-            // New SDK 31 API for storage permissions
-            if (Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.S)
+            // Working files use app-specific storage and exports use Android's
+            // document picker, so modern Android does not need legacy storage access.
+            if (Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.Q)
             {
-                status = await Permissions.CheckStatusAsync<ReadWriteStoragePermission>();
-                bool showAlert = Permissions.ShouldShowRationale<ReadWriteStoragePermission>();
-                if (showAlert || status == PermissionStatus.Unknown || status == PermissionStatus.Denied)
-                {
-                    // show an alert explaining why we need the permissions
-                }
+                return true;
+            }
+
+            var status = await Permissions.CheckStatusAsync<ReadWriteStoragePermission>();
+            if (status != PermissionStatus.Granted)
+            {
                 status = await Permissions.RequestAsync<ReadWriteStoragePermission>();
-
-                status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-       
-                status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-            }
-            else
-            {
-                // < 31 API, use location permission to search and connect to devices
-                status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-                bool showAlert = Permissions.ShouldShowRationale<ReadWriteStoragePermission>();
-                if (showAlert || status == PermissionStatus.Unknown || status == PermissionStatus.Denied)
-                {
-                    // show an alert explaining why we need the permissions
-                }
-                status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
             }
 
-            return true;// status == PermissionStatus.Granted;
+            return status == PermissionStatus.Granted;
         }
     }
 

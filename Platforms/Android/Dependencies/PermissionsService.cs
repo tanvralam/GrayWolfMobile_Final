@@ -64,6 +64,11 @@ namespace GrayWolf.Droid.Dependencies
                     scanStatus = await Permissions.RequestAsync<BluetoothScanPermission>();
                 }
 
+                if (scanStatus != PermissionStatus.Granted)
+                {
+                    return false;
+                }
+
                 // Request BLUETOOTH_CONNECT
                 var connectStatus = await Permissions.CheckStatusAsync<BluetoothConnectPermission>();
                 if (connectStatus != PermissionStatus.Granted)
@@ -77,24 +82,17 @@ namespace GrayWolf.Droid.Dependencies
                     connectStatus = await Permissions.RequestAsync<BluetoothConnectPermission>();
                 }
 
-                // Optional: request location if needed
-                var locationStatus = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-                if (locationStatus != PermissionStatus.Granted)
-                {
-                    locationStatus = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-                }
-            }
-            else
-            {
-                // Older Android versions still need location for BLE
-                var locationStatus = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-                if (locationStatus != PermissionStatus.Granted)
-                {
-                    locationStatus = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-                }
+                return connectStatus == PermissionStatus.Granted;
             }
 
-            return true;
+            // Android 11 and earlier use location permission for BLE scanning.
+            var locationStatus = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+            if (locationStatus != PermissionStatus.Granted)
+            {
+                locationStatus = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+            }
+
+            return locationStatus == PermissionStatus.Granted;
         }
 
     }
