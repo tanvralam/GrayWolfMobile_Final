@@ -32,6 +32,13 @@ namespace GrayWolf.Services
 
             if (!PathsReferToSameFile(currentPath, legacyPath) && IsGrayWolfDatabase(legacyPath))
             {
+                if (IsGrayWolfDatabase(currentPath))
+                {
+                    DatabaseRecovery.MergeMauiDatabaseIntoLegacyDatabase(
+                        legacyPath,
+                        currentPath);
+                }
+
                 return legacyPath;
             }
 #endif

@@ -164,6 +164,16 @@ namespace GrayWolf.Services
             var hasBlePermissions = await Ioc.Default.GetService<IPermissionsService>().RequestBlePermissions();
             if (!hasBlePermissions)
             {
+                await AlertService.Instance.ShowAlert(
+                    "Probe scanning requires Nearby devices permission. " +
+                    "Please allow it in Android Settings under Apps > WolfSense Mobile > Permissions.");
+                return;
+            }
+
+            if (CrossBluetoothLE.Current.State != BluetoothState.On)
+            {
+                await AlertService.Instance.ShowAlert(
+                    "Bluetooth is turned off or unavailable. Please enable Bluetooth and try again.");
                 return;
             }
 
@@ -216,13 +226,22 @@ namespace GrayWolf.Services
                 Adapter.ScanMode = ScanMode.LowLatency;
                 
 
-                await Adapter.StartScanningForDevicesAsync(DeviceServicesGuids.ToArray(), cancellationToken: ScanCTS.Token);
+                // DSII probes do not consistently include the probe service UUID in
+                // their advertising packet. Android therefore rejects them before
+                // DeviceDiscovered is raised when a service filter is supplied.
+                // Scan without the platform filter and validate the advertised name
+                // in OnDeviceDiscovered instead.
+                await Adapter.StartScanningForDevicesAsync(cancellationToken: ScanCTS.Token);
 
                 //await Adapter.StartScanningForDevicesAsync( cancellationToken: ScanCTS.Token);
             }
             catch (Exception ex)
             {
                 AnalyticsService.TrackError(ex, TAG);
+                await AlertService.Instance.DisplayError(
+                    ex,
+                    "Unable to scan for probes. Please verify that Bluetooth is enabled " +
+                    "and Nearby devices permission is allowed.");
             }
             finally
             {
@@ -267,8 +286,18 @@ namespace GrayWolf.Services
 
         private void OnDeviceDiscovered(IDevice device)
         {
+            if (!IsGrayWolfProbeAdvertisement(device))
+            {
+                return;
+            }
+
             AddVisibleDevice(device);
             Debug.WriteLine($"Device discovered. Name: {device.Name}. Id: {device.Id}");
+        }
+
+        private static bool IsGrayWolfProbeAdvertisement(IDevice device)
+        {
+            return device?.Name?.StartsWith("DSII", StringComparison.OrdinalIgnoreCase) == true;
         }
 
         private void AddVisibleDevice(IDevice device)

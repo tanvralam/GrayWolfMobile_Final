@@ -1,88 +1,25 @@
-﻿using System;
 using Android.OS;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using GrayWolf.Interfaces;
-using System.Threading.Tasks;
 using Microsoft.Maui.ApplicationModel;
 
 namespace GrayWolf.Droid.Dependencies
 {
     public class PermissionsService : IPermissionsService
     {
-        public async Task<bool> RequestBlePermissions1()
-        {
-            PermissionStatus status;
-            // New SDK 31 API for bluetooth permissions
-            if (Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.S)
-            {
-                status = await Permissions.CheckStatusAsync<BluetoothPermission>();
-                bool showAlert = Permissions.ShouldShowRationale<BluetoothPermission>();
-                if (showAlert || status == PermissionStatus.Unknown || status == PermissionStatus.Denied)
-                {
-                    // show an alert explaining why we need the permissions
-                }
-                status = await Permissions.RequestAsync<BluetoothPermission>();
-                ///////////////////////////
-                status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-                //bool showAlert = Permissions.ShouldShowRationale<BluetoothPermission>();
-                if (showAlert || status == PermissionStatus.Unknown || status == PermissionStatus.Denied)
-                {
-                    // show an alert explaining why we need the permissions
-                }
-                status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-            }
-            else
-            {
-                // < 31 API, use location permission to search and connect to devices
-                status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-                bool showAlert = Permissions.ShouldShowRationale<BluetoothPermission>();
-                if (showAlert || status == PermissionStatus.Unknown || status == PermissionStatus.Denied)
-                {
-                    // show an alert explaining why we need the permissions
-                }
-                status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-            }
-
-            return true;
-        }
-
         public async Task<bool> RequestBlePermissions()
         {
-            if (Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.S) // Android 12+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.S)
             {
-                // Request BLUETOOTH_SCAN
-                var scanStatus = await Permissions.CheckStatusAsync<BluetoothScanPermission>();
-                if (scanStatus != PermissionStatus.Granted)
+                // Android presents SCAN and CONNECT together as the Nearby devices
+                // permission group. Request them together for both upgrades and
+                // clean installations.
+                var bluetoothStatus = await Permissions.CheckStatusAsync<BluetoothPermission>();
+                if (bluetoothStatus != PermissionStatus.Granted)
                 {
-                    var showScanRationale = Permissions.ShouldShowRationale<BluetoothScanPermission>();
-                    if (showScanRationale || scanStatus == PermissionStatus.Unknown || scanStatus == PermissionStatus.Denied)
-                    {
-                        // Optionally show rationale dialog here
-                    }
-
-                    scanStatus = await Permissions.RequestAsync<BluetoothScanPermission>();
+                    bluetoothStatus = await Permissions.RequestAsync<BluetoothPermission>();
                 }
 
-                if (scanStatus != PermissionStatus.Granted)
-                {
-                    return false;
-                }
-
-                // Request BLUETOOTH_CONNECT
-                var connectStatus = await Permissions.CheckStatusAsync<BluetoothConnectPermission>();
-                if (connectStatus != PermissionStatus.Granted)
-                {
-                    var showConnectRationale = Permissions.ShouldShowRationale<BluetoothConnectPermission>();
-                    if (showConnectRationale || connectStatus == PermissionStatus.Unknown || connectStatus == PermissionStatus.Denied)
-                    {
-                        // Optionally show rationale dialog here
-                    }
-
-                    connectStatus = await Permissions.RequestAsync<BluetoothConnectPermission>();
-                }
-
-                return connectStatus == PermissionStatus.Granted;
+                return bluetoothStatus == PermissionStatus.Granted;
             }
 
             // Android 11 and earlier use location permission for BLE scanning.
@@ -94,33 +31,15 @@ namespace GrayWolf.Droid.Dependencies
 
             return locationStatus == PermissionStatus.Granted;
         }
-
     }
 
     public class BluetoothPermission : Permissions.BasePlatformPermission
     {
-        public override (string androidPermission, bool isRuntime)[] RequiredPermissions => new List<(string androidPermission, bool isRuntime)>
-        {
-            ("android.permission.BLUETOOTH_SCAN", true),
-            ("android.permission.BLUETOOTH_CONNECT", true)
-        }.ToArray();
-    }
-
-
-
-
-    public class BluetoothScanPermission : Permissions.BasePlatformPermission
-    {
         public override (string androidPermission, bool isRuntime)[] RequiredPermissions =>
-            new[] { (Android.Manifest.Permission.BluetoothScan, true) };
+            new[]
+            {
+                (Android.Manifest.Permission.BluetoothScan, true),
+                (Android.Manifest.Permission.BluetoothConnect, true)
+            };
     }
-
-    public class BluetoothConnectPermission : Permissions.BasePlatformPermission
-    {
-        public override (string androidPermission, bool isRuntime)[] RequiredPermissions =>
-            new[] { (Android.Manifest.Permission.BluetoothConnect, true) };
-    }
-
-
 }
-
