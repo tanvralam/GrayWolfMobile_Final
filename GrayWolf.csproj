@@ -44,6 +44,11 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <!-- CommunityToolkit.Maui.MediaElement 8.0.0 (fixes the video playback crash) needs MAUI 10.0.30 or newer. -->
+    <MauiVersion>10.0.30</MauiVersion>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Debug|net10.0-android'">
     <UseInterpreter>true</UseInterpreter>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
@@ -143,7 +148,9 @@
 	<ItemGroup>
 		<PackageReference Include="Acr.UserDialogs.Maui" Version="9.1.0" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.2" />
-		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="4.1.2" />
+		<!-- MediaElement 8.x is built for MAUI 10 (net10.0-android); 4.1.2 targets MAUI 8. iOS/Mac/Windows stay on net9, so they keep 4.1.2. -->
+		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="8.0.0" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
+		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="4.1.2" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'android'" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Drastic.AudioRecorder" Version="1.0.2" />
 		<PackageReference Include="Geolocator.Plugin" Version="1.0.2" />

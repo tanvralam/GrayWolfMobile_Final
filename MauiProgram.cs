@@ -46,7 +46,12 @@ namespace GrayWolf
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
                 .UseUserDialogs()              
+#if ANDROID
+                // MediaElement 8.x (Android only): in-app playback, no background/notification service.
+                .UseMauiCommunityToolkitMediaElement(isAndroidForegroundServiceEnabled: false)
+#else
                 .UseMauiCommunityToolkitMediaElement()
+#endif
                  .UseTelerik()
                 .UseLocalizationResourceManager(settings =>
                 {
