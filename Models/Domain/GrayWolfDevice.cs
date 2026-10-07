@@ -294,10 +294,17 @@ namespace GrayWolf.Models.Domain
                     }
                 }
                 Data.RemoveAll(x => !newData.Any(y => y.Id == x.Id));
-                OnPropertyChanged(nameof(Data));
-                OnPropertyChanged(nameof(UIReadings));
-                OnPropertyChanged(nameof(LogReadings));
             }
+            // Readings arrive on the Bluetooth thread; refresh the probe list on the UI thread.
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                lock ("dataUpdate")
+                {
+                    OnPropertyChanged(nameof(Data));
+                    OnPropertyChanged(nameof(UIReadings));
+                    OnPropertyChanged(nameof(LogReadings));
+                }
+            });
         }
 
         public void UpdatePosition()

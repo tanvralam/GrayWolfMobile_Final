@@ -209,11 +209,15 @@ namespace GrayWolf.ViewModels
                         var recordPopup = new RecordSoundPopupPage();
                         await NavigationService.Nav.PushPopupAsync(recordPopup);
                     }
-                    //else if (Attachment.IsEvent)
-                    //{
-                    //    var addEventPopup = new AddEventPopupPage(DateTime.Now);
-                    //    await NavigationService.Nav.PushPopupAsync(addEventPopup);
-                    //}
+                    else if (Attachment.IsEvent)
+                    {
+                        var path = System.IO.Path.Combine(_logFile.FolderPath, $"{Attachment.Name}.evt");
+                        var events = await FileSystem.IsFileExistAsync(path)
+                            ? JsonConvert.DeserializeObject<EventsDTO>(await FileSystem.ReadAllTextAsync(path))?.Events
+                            : null;
+                        var lines = events?.Select(x => $"{(System.DateTime.TryParse(x.DateTime, out var time) ? time.ToString("g") : x.DateTime)}  {x.Label}");
+                        await Alert.ShowAlert(lines?.Any() == true ? string.Join("\n", lines) : Localization.Localization.Data_NoData, Localization.Localization.Menu_Event);
+                    }
                     else if (Attachment.IsMedia)
                     {
                         var imageGalleryPopup = new ImageGalleryPopupPage(new ObservableCollection<AttachmentDBO>(lstAttachments));

@@ -490,6 +490,9 @@ namespace GrayWolf.ViewModels
                     var result = await MenuPage.menuPage.DisplayAlert("", "Would you like to exit from application?", "Yes", "No");
                     if (result)
                     {
+#if ANDROID
+                       Microsoft.Maui.ApplicationModel.Platform.CurrentActivity?.FinishAndRemoveTask();
+#endif
                        System.Diagnostics.Process.GetCurrentProcess().Kill();
                     }
                 });
